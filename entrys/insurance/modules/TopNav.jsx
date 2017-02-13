@@ -30,7 +30,11 @@ var TopNav=React.createClass({
                 <div className="nav">
                     <div className="w1008 margin">
                         <ul className="nav_menu">
-                            <li className="nav_menu-item"><a href="home.jsp">首页</a></li>
+                            <li className="nav_menu-item">
+                                <Link to={window.App.getAppRoute() + "/"}>
+                                    <a >首页</a>
+                                </Link>
+                            </li>
                             <li className="nav_menu-item"><a href="#" onClick="">产品中心</a>
                                 <ul className="nav_submenu">
                                     <li className="nav_submenu-item">
