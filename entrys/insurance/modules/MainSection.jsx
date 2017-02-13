@@ -1,13 +1,17 @@
 import React from 'react';
 import {render} from 'react-dom';
 
-//import Nav from '../components/Navigator.jsx';
+import Nav from '../modules/TopNav.jsx';
 import MENU from '../../../data/menus.json';
-import Footer from '../components/Footer.jsx';
+import Footer from '../modules/Footer.jsx';
+import LifeInsurance from '../components/LifeInsurance.jsx';
+import CarInsurance from '../components/CarInsurance.jsx';
+
 import App from '../modules/App.jsx';
 
 var config=require('../../../config.json');
 import '../../../css/insurance/components/mainSection.css';
+import '../../../css/insurance/components/main.css';
 var SyncActions = require('../../../components/flux/actions/SyncActions');
 
 
@@ -169,19 +173,11 @@ var MainSection = React.createClass({
 
         return (
             <div style={{margin: "0px auto 0 auto",width:"100%"}} className="baba">
-                <div ref="mainSection" className="mainSection"
-                     style={{display:"none",marginLeft:"auto",marginRight:"auto",marginBottom:"auto"}}>
-                    <div style={{width:'100%'}}>
-                        <Nav logo={window.App.getResourceDeployPrefix()+"/images/logo.png"} data={MENU} />
-                    </div>
+                <Nav />
+                <div ref="mainSection" className="mainSection" style={{display:"none",marginLeft:"auto",marginRight:"auto",marginBottom:"auto"}}>
                     {ctrl}
                 </div>
-
-                <div className="footer"
-                     style={{background:'url('+window.App.getResourceDeployPrefix()+'/images/footer.png) no-repeat',backgroundSize:'100%',
-                        position:'fixed',bottom:'0',width:'100%',height:'5%'}}>
-                    <Footer/>
-                </div>
+                <Footer />
             </div>
         );
 

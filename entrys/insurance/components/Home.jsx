@@ -3,8 +3,8 @@
  */
 import React from 'react';
 import { render } from 'react-dom';
-import HomePage from '/HomePage.jsx';
-import Footer from '/Footer.jsx';
+import HomePage from './HomePage.jsx';
+import Footer from './Footer.jsx';
 
 var Home=React.createClass({
     render:function(){

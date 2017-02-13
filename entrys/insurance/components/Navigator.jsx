@@ -229,9 +229,11 @@ var Nav = React.createClass({
             var title;
             if (this.props.title !== undefined && this.props.title !== null) {
                 title = (
-                    <span style={{display:'inline-block', fontSize:'24px', fontWeight:'bold'}}>
+                    <div style={{display:'inline-block', fontSize:'24px', fontWeight:'bold'}}>
+                        <span style={{display:'inline-block', fontSize:'24px', fontWeight:'bold'}}>
                              <h2 style={{fontSize:'24px', fontWeight:'bold',color:'#cac5b8',paddingTop:'22px',paddingLeft:'16px'}}>山东泓信信息股份有限公司</h2>
-                    </span>)
+                        </span>
+                    </div>)
             }
 
 
