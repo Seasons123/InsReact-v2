@@ -299,7 +299,7 @@ var Nav = React.createClass({
 
                 //TODO:assign value to nav
                 nav =
-                    <div className="nav" style={{float: 'right', paddingTop: '22px', paddingRight: '50px'}}>
+                    <div className="nav-home" style={{float: 'right', paddingTop: '22px', paddingRight: '50px'}}>
                         <ul ref="ul">
                             {lis}
                         </ul>

@@ -102,6 +102,7 @@ h1,h2,h3,h4,h5,h6 {
     /* background: url(../images/bg_05.png) no-repeat 0px 20px; */
     height: 110px;
     color: #000000;
+    color: #000000;
     text-align: center;
     line-height: 120px;
     padding-left: 10px;
@@ -432,6 +433,7 @@ h1,h2,h3,h4,h5,h6 {
     border-left: medium none;
     border-top: medium none;
     color: #3AAB31;
+    border: none;
 }
 
 .dtline {

@@ -11,7 +11,7 @@ import App from '../modules/App.jsx';
 
 var config=require('../../../config.json');
 import '../../../css/insurance/components/mainSection.css';
-import '../../../css/insurance/components/main.css';
+import '../../../css/insurance/components/css.css';
 var SyncActions = require('../../../components/flux/actions/SyncActions');
 
 

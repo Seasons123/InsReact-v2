@@ -2,7 +2,6 @@ import React from 'react';
 import {render} from 'react-dom';
 
 import '../../../css/insurance/components/commonTopSupnuevo.css';
-import '../../../css/insurance/components/css.css';
 import '../../../css/insurance/components/navcontent.css';
 import '../../../css/insurance/components/pagination.css';
 import '../../../css/insurance/components/productIntroduction.css';

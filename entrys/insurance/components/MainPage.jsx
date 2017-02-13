@@ -3,11 +3,10 @@
  */
 import React from 'react';
 import {render} from 'react-dom';
-import '../../../css/insurance/components/main.css';
 import TopNav from '../modules/TopNav.jsx';
 import Footer from '../modules/Footer.jsx';
 
-var Mpage=React.createClass({
+var MainPage=React.createClass({
     render:function(){
         return(
             <div>
@@ -152,7 +151,7 @@ var Mpage=React.createClass({
         );
     },
 });
-module.exports=Mpage;
+module.exports=MainPage;
 /**
  * Created by douxiaobin on 2016/10/27.
  */

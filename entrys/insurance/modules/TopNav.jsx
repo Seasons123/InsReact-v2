@@ -4,7 +4,6 @@
 import React from 'react';
 import {render} from 'react-dom';
 import {Link} from 'react-router';
-import '../../../css/insurance/components/main.css';
 
 var TopNav=React.createClass({
 
@@ -28,7 +27,7 @@ var TopNav=React.createClass({
 
                 <div className="clear">
                 </div>
-                <div className="nav-top">
+                <div className="nav">
                     <div className="w1008 margin">
                         <ul className="nav_menu">
                             <li className="nav_menu-item"><a href="home.jsp">首页</a></li>
