@@ -6,6 +6,7 @@ import MENU from '../../../data/menus.json';
 import Footer from '../modules/Footer.jsx';
 import LifeInsurance from '../components/LifeInsurance.jsx';
 import CarInsurance from '../components/CarInsurance.jsx';
+import Consultation from '../components/Consultation.jsx';
 
 import App from '../modules/App.jsx';
 
@@ -73,7 +74,7 @@ var MainSection = React.createClass({
                     ctrl = <PersonalCenter></PersonalCenter>;
                     label = "个人中心";
                     break;
-                case window.App.getAppRoute() + "/consult":
+                case window.App.getAppRoute() + "/consultation":
                     ctrl = <Consultation></Consultation>;
                     label = "业务咨询";
                     break;

@@ -51,7 +51,10 @@ var TopNav=React.createClass({
                             </li>
                             <li className="nav_menu-item"><a href="#" onClick="">个人中心</a>
                             </li>
-                            <li className="nav_menu-item"><a href="#" onClick="">业务咨询</a>
+                            <li className="nav_menu-item">
+                                <Link to={window.App.getAppRoute() + "/consultation"}>
+                                    <a>业务咨询</a>
+                                </Link>
                             </li>
                             <li className="nav_menu-item"><a href="about.jsp">新闻资讯</a></li>
                             <li className="nav_menu-item"><a href="contact.jsp">关于我们</a> </li>

@@ -1,0 +1,127 @@
+
+.search-area .row-50{
+    width: 50%;
+    float: left;
+}
+.search-area .search-term-question{
+    width: 95%;
+    height: 33px;
+    border-radius: 5px;
+    margin-left: 3px;
+
+}
+.search-area .time{
+    float: left;
+    margin: 0;
+    width: 50%;
+}
+.search-area .questionText{
+    float: left;
+    width:25%;
+}
+.search-area .searchButton{
+    float: left;
+    width: 10%;
+    margin-left: -145px;
+    margin-top: 3px;
+}
+.search-area .search-newButton{
+    float: left;
+    width: 15%;
+    margin-left: 95px;
+    margin-top: 3px;
+}
+.searchButton .search-btn {
+    padding: 3px 15px 3px 15px;
+    background: #4c93e1;
+    border-color: #4c93e1;
+    border-radius: 5px;
+    color: aliceblue;
+    cursor: pointer;
+
+}
+.search-newButton .search-new{
+    padding: 3px 15px 3px 15px;
+    background: darkseagreen;
+    border-color: darkseagreen;
+    border-radius: 5px;
+    color: aliceblue;
+    cursor: pointer;
+}
+.question-area{
+    margin-top: 15px;
+}
+.question-area .question-detail {
+    margin-top: 4px;
+    background-color: #fff;
+}
+.question-area .question-detail-masthead {
+    background-color: #f1f1f1;
+    border-width: 1px 0;
+    border-color: #e3e3e3;
+    border-style: solid;
+    color: #999;
+}
+
+.question-area .question-detail .question-detail-masthead li {
+    display: block;
+    float: left;
+    border-right: 1px solid #e3e3e3;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    overflow: hidden;
+}
+.question-area .question-detail .what {
+    float:left;
+    width:60%;
+    borderRight:1px solid #aaa;
+    textAlign:center;
+
+}
+.question-area .question-detail .who{
+    float:left;
+    width:15%;
+    borderRight:1px solid #aaa;
+    textAlign:center;
+}
+.question-area .question-detail .when{
+    float:left;
+    width:15%;
+    borderRight:1px solid #aaa;
+    textAlign:center;
+}
+.question-area .question-detail .details{
+    float:left;
+    width:10%;
+    borderRight:1px solid #aaa;
+    textAlign:center;
+}
+.question-area .question-detail .question-detail-item-list {
+    margin-top: 2px;
+    border-top: 1px solid #f1f1f1;
+}
+.question-area .question-detail .item {
+    padding: 0px 0;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.question-area .question-detail .what .theme {
+    display: block;
+    text-align: left;
+    padding: 20px;
+    margin-top: 1%;
+    color: black;
+}
+
+.question-area .question-detail .item .who {
+    text-align: center;
+}
+.question-area .question-detail .item .when {
+    text-align: center;
+}
+.question-area .question-detail .item .details{
+    color: #0287ca;
+    text-align: center;
+    cursor: pointer;
+}
