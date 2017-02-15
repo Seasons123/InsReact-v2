@@ -373,47 +373,6 @@ var TestConsultation = React.createClass({
         }
             return(
             <div>
-                <div className="top w1008 margin">
-                    <div className="logo ">
-                        <a href="#">
-                            <img src="images/logo_02.png" width="432px" height="110px"/></a>
-                    </div>
-                    <div className="fr">
-                        <ul className="link">
-                            <li className="tell">咨询热线： <i>0531-12345678</i></li>
-                            <li className="plogin" style={{paddingRight:'5px '}}><a href="register.jsp">注册</a></li>
-                            <li className="plogin"><a href="insuranceIndex.jsp">登录</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div className="clear">
-                </div>
-                <div className="nav">
-                    <div className="w1008 margin">
-                        <form id="formForward">
-                            <input type="hidden" name="f" value="gift" id="f"/>
-                            <ul className="nav_menu">
-                                <li className="nav_menu-item"><a href="home.jsp">首页</a></li>
-                                <li className="nav_menu-item"><a href="#">最新资讯</a>
-                                    <ul className="nav_submenu">
-                                        <li className="nav_submenu-item"><a href="#"> 保险咨询</a></li>
-                                        <li className="nav_submenu-item"><a href="#"> 公司动态</a></li>
-                                    </ul>
-                                </li>
-                                <li className="nav_menu-item"><a href="#">产品介绍</a>
-                                    <ul className="nav_submenu">
-                                        <li className="nav_submenu-item"><a href="#">人寿保险</a></li>
-                                        <li className="nav_submenu-item"><a href="#">汽车保险</a></li>
-                                    </ul>
-                                </li>
-                                <li className="nav_menu-item"><a href="About.jsp">关于我们</a></li>
-                                <li className="nav_menu-item"><a href="Contact.jsp">加入我们</a></li>
-                            </ul>
-                        </form>
-                    </div>
-                </div>
-
                 <div className="w1008 margin mar_20 ">
                     <div className="pro_L " style={{float:'left'}}>
 
