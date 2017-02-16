@@ -1,5 +1,5 @@
 .consultationHR{
-    width: 973px;
+    width: 994px;
     border-style: solid;
     border-bottom-width: 2px;
     border-color: #d7e7fc;
@@ -34,8 +34,17 @@
 }
 .questionDetailTitle .questionFootnote .icon-calendar{
     float: right;
+    margin-top: 12px;
 }
 .questionDetailTitle .questionFootnote .icon-comment{
     float: right;
     margin-left: 15px;
+    margin-top: 12px;
+}
+.questionDetailTitle .questionFootnote .backQuestionList{
+    padding: 4px;
+    border-radius: 3px;
+    background-color: #d7e7fc;
+    border-color: aliceblue;
+    margin-bottom: 5px;
 }

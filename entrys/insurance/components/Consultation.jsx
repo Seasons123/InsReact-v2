@@ -255,6 +255,7 @@ var TestConsultation = React.createClass({
 
     render: function () {
         var container=null;
+        var html=this.state.nav;
         if(this.state.data!==undefined&&this.state.data!==null) {
             if(this.state.nav!='consultationDetails'&&this.state.nav!='newQuestion') {
                 var test = this.state.data;
@@ -393,7 +394,11 @@ var TestConsultation = React.createClass({
                     <div className='questionSearchContainer'>
                         {navbar}
                         <div className="question-area" onLoad={this.getAllQuestion()}>
-                            <h3 className="font_15 text">问题列表</h3>
+                            {html == undefined ?
+                                <h3 className="font_15 text">问题列表</h3>
+                                :
+                                <h3 className="font_15 text">问题详情</h3>
+                            }
                             {container}
                         </div>
                     </div>

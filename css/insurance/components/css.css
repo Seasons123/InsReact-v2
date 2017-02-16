@@ -1379,7 +1379,7 @@ a:hover,.limitCnt p a:hover.loginLink,#footer a.ftsite:hover {
     background: #2F8DBC;
     padding: 5px 0;
     width:100%;
-    position:absolute;
+    position:fixed;
     bottom:0
 } /*原色：#0058a0*/
 .footer2 {

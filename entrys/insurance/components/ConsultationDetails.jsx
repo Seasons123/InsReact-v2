@@ -200,6 +200,7 @@ var TestConsultationDetails = React.createClass({
                     <article className="questionDetailTitle clearfix">
                         <h1 className="questionTheme">问题主题：{this.state.title}</h1>
                         <div className="questionFootnote clearfix">
+                            <button className="backQuestionList" onClick={this.Branch.bind(this,undefined)}>返回问题列表</button>
                             <span className="icon-comment" >{this.state.comments+'  '}Comments</span>
                             <span className="icon-calendar">{this.state.date.month+1+'月'+this.state.date.date+'日'}</span>
                         </div>
