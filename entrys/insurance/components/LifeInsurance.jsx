@@ -6,7 +6,7 @@ import '../../../css/insurance/components/commonTopSupnuevo.css';
 import '../../../css/insurance/components/navcontent.css';
 import '../../../css/insurance/components/pagination.css';
 import '../../../css/insurance/components/productIntroduction.css';
-
+import Detail from '../components/LifeInsuranceDetail.jsx';
 import PageNavigator from '../modules/PageNavigator.jsx';
 var Page = require('../modules/Page');
 var ProxyQ = require('../../../components/proxy/ProxyQ');
