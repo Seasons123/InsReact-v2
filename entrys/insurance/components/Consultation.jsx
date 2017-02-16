@@ -5,6 +5,7 @@ import '../../../css/insurance/components/navcontent.css';
 import '../../../css/insurance/components/pagination.css';
 import '../../../css/insurance/components/productIntroduction.css';
 import '../../../css/insurance/components/Consultation.css';
+import ConsultationDetails from '../components/ConsultationDetails.jsx';
 import Calendar from './Calendar.jsx';
 import PageNavigator from '../modules/PageNavigator.jsx';
 
@@ -254,6 +255,7 @@ var TestConsultation = React.createClass({
 
     render: function () {
         var container=null;
+        var html=this.state.nav;
         if(this.state.data!==undefined&&this.state.data!==null) {
             if(this.state.nav!='consultationDetails'&&this.state.nav!='newQuestion') {
                 var test = this.state.data;
@@ -262,8 +264,8 @@ var TestConsultation = React.createClass({
                 var ref = this;
                 data.map(function (item, i) {
                     trs.push(
-                        <ul className="question-detail-item-list" >
-                            <li className="item clearfix" key={i}>
+                        <ul className="question-detail-item-list" key={i}>
+                            <li className="item clearfix" >
                                 <div className="what">
                                     {item.title}
                                 </div>
@@ -309,6 +311,9 @@ var TestConsultation = React.createClass({
                             </div>
                         </div>
 
+                    break;
+                case 'consultationDetails':
+                    container = <ConsultationDetails data={info} title={this.state.title} personId={this.state.personId} date={this.state.date} comments={this.state.comments}Branch={this.Branch}/>;
                     break;
             }
         }else{
@@ -388,7 +393,11 @@ var TestConsultation = React.createClass({
                     <div className='questionSearchContainer'>
                         {navbar}
                         <div className="question-area" onLoad={this.getAllQuestion()}>
-                            <h3 className="font_15 text">问题列表</h3>
+                            {html == undefined ?
+                                <h3 className="font_15 text">问题列表</h3>
+                                :
+                                <h3 className="font_15 text">问题详情</h3>
+                            }
                             {container}
                         </div>
                     </div>

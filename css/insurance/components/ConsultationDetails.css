@@ -1,0 +1,41 @@
+.consultationHR{
+    width: 973px;
+    border-style: solid;
+    border-bottom-width: 2px;
+    border-color: #d7e7fc;
+}
+.questionDetailContain .faqs {
+    padding-top: 20px;
+    padding-left: 20px;
+}
+.questionDetailContain .faqs dt {
+    font-weight: bold;
+    background: url(../../../build/images/q.gif) 0 4px no-repeat;
+    padding: 3px 0 15px 30px;
+    position: relative;
+}
+.questionDetailContain .faqs dd {
+    background: url(../../../build/images/a.gif) 0 2px no-repeat;
+    padding:  3px 0 15px 30px;
+    position: relative;
+    color: #333;
+}
+.questionDetailContain .faqs .questionImage {
+     width: 300px;
+ }
+.questionDetailContain .faqs .questionImageText{
+    width: 60px;
+    float: left;
+}
+.questionDetailTitle .questionTheme {
+    color: #0093de;
+    text-align: center;
+    padding-top: 10px;
+}
+.questionDetailTitle .questionFootnote .icon-calendar{
+    float: right;
+}
+.questionDetailTitle .questionFootnote .icon-comment{
+    float: right;
+    margin-left: 15px;
+}
