@@ -8,6 +8,7 @@ import App from './modules/App.jsx';
 import MainPage from './components/MainPage.jsx';
 import HomePage from './components/HomePage.jsx';
 import MainSection from './modules/MainSection.jsx';
+import consultationDetail from './components/BuyPage';
 
 render((
     <Router history={browserHistory}>
@@ -24,7 +25,7 @@ render((
             <Route path={window.App.getAppRoute()+"/lifeInsurance"} component={MainSection}/>
             <Route path={window.App.getAppRoute()+"/carInsurance"} component={MainSection}/>
             <Route path={window.App.getAppRoute()+"/lifeDetail"} component={MainSection}/>
-            <Route path={window.App.getAppRoute()+"/lifeDetail"} component={MainSection}/>
+            <Route path={window.App.getAppRoute()+"/consultationDetail"} component={consultationDetail}/>
         </Route>
     </Router>
 ), document.getElementById('root'))

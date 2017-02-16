@@ -1,5 +1,6 @@
 import React from 'react';
 import {render} from 'react-dom';
+import {Link} from 'react-router';
 import '../../../css/insurance/components/commonTopSupnuevo.css';
 import '../../../css/insurance/components/navcontent.css';
 import '../../../css/insurance/components/pagination.css';
@@ -16,6 +17,9 @@ var info={};
 var today=new Date().toLocaleDateString().replace("/", "-").replace("/", "-");
 
 var TestConsultation = React.createClass({
+    routerData:function () {
+        SyncStore.setState(this.state);
+    },
     Branch:function(branch){
         this.setState({nav: branch});
         this.initialData();
@@ -276,9 +280,11 @@ var TestConsultation = React.createClass({
                                     {item.createTime.month+1 + "月" + item.createTime.date + "日"
                                 + item.createTime.hours + ":" + item.createTime.minutes}
                                 </div>
-                                <div className="details"  onClick={ref.getQuestionContent.bind(this,item.themeId,item.title,item.personId,item.createTime,item.readCount)}>
+                                <Link to={window.App.getAppRoute() + "/consultationDetail"}>
+                                <div className="details" onClick={ref.routerData}>
                                 <a > 详情 </a>
                                 </div>
+                                </Link>
                             </li>
                         </ul>
                     )
@@ -313,7 +319,8 @@ var TestConsultation = React.createClass({
 
                     break;
                 case 'consultationDetails':
-                    container = <ConsultationDetails data={info} title={this.state.title} personId={this.state.personId} date={this.state.date} comments={this.state.comments}Branch={this.Branch}/>;
+                    // container = <ConsultationDetails data={info} title={this.state.title} personId={this.state.personId} date={this.state.date} comments={this.state.comments}Branch={this.Branch}/>;
+                   // <Link to={window.App.getAppRoute() + "/lifeInsurance"}></Link>
                     break;
             }
         }else{
@@ -403,11 +410,6 @@ var TestConsultation = React.createClass({
                     </div>
                         </div>
                     </div>
-                </div>
-            </div>
-                <div className="footer2">
-                <div className="w1008  margin">
-                    <p>版权所有：山东泓信信息科技股份有限公司 企业邮箱：qichebaoxian@163.com 技术支持：山东大学</p>
                 </div>
             </div>
             </div>

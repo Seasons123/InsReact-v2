@@ -23,7 +23,7 @@ var _mustdone={};
 
 var _note=false;//登录状态
 
-
+var _state={};
 
 
 /**
@@ -106,6 +106,12 @@ var SyncStore = assign({}, EventEmitter.prototype, {
     },
     setNote:function(){
       _note=true;
+    },
+    getState:function () {
+        return _state;
+    },
+    setState:function (state) {
+        _state=state;
     },
 
     getAll: function () {
@@ -203,6 +209,12 @@ AppDispatcher.register(function (action) {
             break;
         case SyncConstants.GET_LOG:
             SyncStore.getNote();
+            break;
+        case SyncConstants.TODO_STATE:
+            SyncStore.setState();
+            break;
+        case SyncConstants.GET_STATE:
+            SyncStore.getState();
             break;
         case SyncConstants.TODO_CREATE:
             sync = action.sync;

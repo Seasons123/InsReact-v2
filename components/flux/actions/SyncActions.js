@@ -17,6 +17,16 @@ var SyncActions = {
             type:SyncConstants.GET_LOG
         });
     },
+    setState:function () {
+        AppDispatcher.dispatch({
+            type:SyncConstants.TODO_STATE
+        });
+    },
+    getState:function () {
+        AppDispatcher.dispatch({
+            type:SyncConstants.GET_STATE
+        });
+    },
 
 
     create: function (ob) {

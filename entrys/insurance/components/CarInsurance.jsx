@@ -299,7 +299,7 @@ var testCar = React.createClass({
                                                             <div className="pointline"></div>
                                                             <div className="btm_btn">
                                                                 <div className="detail_btn">
-                                                                    <a href="#" title="购买" target="_blank" onClick={this.goToOthers.bind(this,'buy')}></a>
+                                                                    <a title="购买" target="_blank" onClick={this.goToOthers.bind(this,'buy')}></a>
                                                                 </div>
                                                             </div>
                                                         </div>
