@@ -396,11 +396,6 @@ var TestConsultation = React.createClass({
                     </div>
                 </div>
             </div>
-                <div className="footer2">
-                <div className="w1008  margin">
-                    <p>版权所有：山东泓信信息科技股份有限公司 企业邮箱：qichebaoxian@163.com 技术支持：山东大学</p>
-                </div>
-            </div>
             </div>
         );
     }

@@ -11,9 +11,9 @@ var Mpage=React.createClass({
                 <div className="clear">
                 </div>
                 <div className="footer">
-                    <div className="w1008  margin">
-                        <p>版权所有：山东泓信信息科技股份有限公司&nbps;&nbps;&nbps;&nbps;
-                            企业邮箱：jhb2017@qq.com&nbps;&nbps;&nbps;&nbps;
+                    <div className="margin">
+                        <p>版权所有：山东泓信信息科技股份有限公司&nbsp;&nbsp;&nbsp;&nbsp;
+                            企业邮箱：jhb2017@qq.com&nbsp;&nbsp;&nbsp;&nbsp;
                             技术支持：山东大学
                         </p>
                     </div>

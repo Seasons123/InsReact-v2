@@ -15,6 +15,7 @@ render((
             <IndexRoute component={HomePage}/>
             <Route path={window.App.getAppRoute()+"/"} component={HomePage}/>
             <Route path={window.App.getAppRoute()+"/mainPage"} component={MainPage}/>
+            <Route path={window.App.getAppRoute()+"/login"} component={MainSection}/>
             <Route path={window.App.getAppRoute()+"/productCenter"} component={MainSection}/>
             <Route path={window.App.getAppRoute()+"/news"} component={MainSection}/>
             <Route path={window.App.getAppRoute()+"/personalCenter"} component={MainSection}/>
