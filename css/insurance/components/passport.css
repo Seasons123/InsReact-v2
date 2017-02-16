@@ -112,11 +112,6 @@ table {
     max-width: 100%;
 }
 
-a {
-    color: #00a8ff;
-    text-decoration: none;
-}
-
 a:hover {
     color: #51cc73;
     text-decoration: underline;

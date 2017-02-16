@@ -5,8 +5,19 @@ import React from 'react';
 import {render} from 'react-dom';
 import {Link} from 'react-router';
 
+var ProxyQ = require('../../../components/proxy/ProxyQ');
+var SyncStore = require('../../../components/flux/stores/SyncStore');
+
 var TopNav=React.createClass({
 
+    getInitialState:function(){
+        var loginState = SyncStore.getNote() //获取取初始的登录状态
+        var path = "/login";
+        if((loginState !== undefined && loginState !== null) && loginState == true){
+            path = "/orderCenter";
+        }
+        return ({path: path});
+    },
     
     render:function(){
         return(
@@ -20,7 +31,11 @@ var TopNav=React.createClass({
                         <ul className="link">
                             <li className="tell">咨询热线： <i>0531-81188593</i></li>
                             <li className="plogin" style={{paddingRight:'5px'}}><a onClick={this.click}>注册</a></li>
-                            <li className="plogin"><a onClick={this.click}>登录</a></li>
+                            <li className="plogin">
+                                <Link to={window.App.getAppRoute() + "/login"}>
+                                    <a>登录</a>
+                                </Link>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -49,7 +64,10 @@ var TopNav=React.createClass({
                                     </li>
                                 </ul>
                             </li>
-                            <li className="nav_menu-item"><a href="#" onClick="">个人中心</a>
+                            <li className="nav_menu-item">
+                                <Link to={window.App.getAppRoute() + this.state.path}>
+                                    <a>个人中心</a>
+                                </Link>
                             </li>
                             <li className="nav_menu-item">
                                 <Link to={window.App.getAppRoute() + "/consultation"}>

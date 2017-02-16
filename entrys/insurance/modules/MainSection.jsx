@@ -4,6 +4,7 @@ import {render} from 'react-dom';
 import Nav from '../modules/TopNav.jsx';
 import MENU from '../../../data/menus.json';
 import Footer from '../modules/Footer.jsx';
+import Login from '../modules/Login.jsx';
 import LifeInsurance from '../components/LifeInsurance.jsx';
 import CarInsurance from '../components/CarInsurance.jsx';
 import Consultation from '../components/Consultation.jsx';
@@ -50,7 +51,11 @@ var MainSection = React.createClass({
             {
                 case window.App.getAppRoute() + "/":
                     ctrl = <App></App>;
-                    label = "主页";
+                    label = "首页";
+                    break;
+                case window.App.getAppRoute() + "/login":
+                    ctrl = <Login></Login>;
+                    label = "登录";
                     break;
                 case window.App.getAppRoute() + "/mainPage":
                     ctrl = <MainPage></MainPage>;
