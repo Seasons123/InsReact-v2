@@ -3,13 +3,53 @@
  */
 import React from 'react';
 import { render } from 'react-dom';
+import {Link} from 'react-router';
 
 import '../../../css/insurance/components/passport.css';
 
+var ProxyQ = require('../../../components/proxy/ProxyQ');
+var SyncStore = require('../../../components/flux/stores/SyncStore');
+
 var Login=React.createClass({
+
+    login:function(){
+        var loginPage = this.refs['loginPage'];
+        var username=$(loginPage).find("input[name='username']").val();
+        var password=$(loginPage).find("input[name='password']").val();
+
+        var url="/bsuims/bsMainFrameInit.do";
+        var params={
+            login_strLoginName: username,
+            login_strPassword: password
+        };
+
+        ProxyQ.queryHandle(
+            'post',
+            url,
+            params,
+            null,
+            function(res) {
+                var re = res.re;
+                if(re!==undefined && re!==null && (re ==1 || re =="1")){ //登陆成功
+                    SyncStore.setNote(); //设置全局登录状态为true
+                    console.log("登陆成功！")
+                }
+            }.bind(this),
+            function(xhr, status, err) {
+                console.error(this.props.url, status, err.toString());
+            }.bind(this)
+        );
+    },
+
+    getInitialState:function(){
+        var path = SyncStore.getState();
+        SyncStore.setState(null);
+        return ({path:path});
+    },
+
     render:function(){
         return(
-            <div className="passport-wrapper">
+            <div className="passport-wrapper" ref="loginPage">
                 <div id="container">
                     <div className="passport-sign">
                         <div className="main-form main-form-sign">
@@ -25,7 +65,7 @@ var Login=React.createClass({
                                         <div className="passport-form passport-form-sign" id="login-form">
                                             <div className="form-item">
                                                 <div className="form-cont">
-                                                    <input type="text" name="uname" className="passport-txt xl w-full" tabIndex="1" placeholder="手机 号" autoComplete="off"/>
+                                                    <input type="text" name="username" className="passport-txt xl w-full" tabIndex="1" placeholder="手机号" autoComplete="off"/>
                                                 </div>
                                             </div>
 
@@ -54,7 +94,9 @@ var Login=React.createClass({
                                             </div>
                                             <div className="form-item">
                                                 <div className="form-cont">
-                                                    <button type="button" id="login" className="passport-btn passport-btn-def xl w-full" tabIndex="4" href="javascript:;">登录</button>
+                                                    <button type="button" id="login" className="passport-btn passport-btn-def xl w-full" tabIndex="4" onClick={this.login}>
+                                                        <Link to={window.App.getAppRoute() + this.state.path}><a>登录</a></Link>
+                                                    </button>
                                                 </div>
                                             </div>
 

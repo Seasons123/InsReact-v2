@@ -9,21 +9,15 @@ var ProxyQ = require('../../../components/proxy/ProxyQ');
 var SyncStore = require('../../../components/flux/stores/SyncStore');
 
 var TopNav=React.createClass({
-
-    getInitialState:function(){
-        var loginState = SyncStore.getNote() //获取取初始的登录状态
-        var path = "/login";
-        if((loginState !== undefined && loginState !== null) && loginState == true){
-            path = "/orderCenter";
-        }
-        return ({path: path});
+    click:function(ob){ //保存跳转的页面信息
+        SyncStore.setState(ob);
     },
     
     render:function(){
         return(
             <div>
                 <div className="top w1008 margin">
-                    <div className="logo" >
+                    <div className="logo">
                         <a href="#">
                             <img src={window.App.getResourceDeployPrefix()+"/images/logo_02.png"} style={{width:'432px', height:'110px'}}></img></a>
                     </div>
@@ -33,7 +27,7 @@ var TopNav=React.createClass({
                             <li className="plogin" style={{paddingRight:'5px'}}><a onClick={this.click}>注册</a></li>
                             <li className="plogin">
                                 <Link to={window.App.getAppRoute() + "/login"}>
-                                    <a>登录</a>
+                                    <a onClick={this.click.bind(this,"/mainPage")}>登录</a>
                                 </Link>
                             </li>
                         </ul>
@@ -65,17 +59,17 @@ var TopNav=React.createClass({
                                 </ul>
                             </li>
                             <li className="nav_menu-item">
-                                <Link to={window.App.getAppRoute() + this.state.path}>
-                                    <a>个人中心</a>
+                                <Link to={window.App.getAppRoute() + "login"}>
+                                    <a onClick={this.click.bind(this,"/personalCenter")}>个人中心</a>
                                 </Link>
                             </li>
                             <li className="nav_menu-item">
                                 <Link to={window.App.getAppRoute() + "/consultation"}>
-                                    <a>业务咨询</a>
+                                    <a >业务咨询</a>
                                 </Link>
                             </li>
-                            <li className="nav_menu-item"><a href="about.jsp">新闻资讯</a></li>
-                            <li className="nav_menu-item"><a href="contact.jsp">关于我们</a> </li>
+                            <li className="nav_menu-item"><a href="about.jsp">关于我们</a></li>
+                            <li className="nav_menu-item"><a href="contact.jsp">联系我们</a> </li>
                         </ul>
                     </div>
                 </div>
