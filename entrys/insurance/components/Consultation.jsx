@@ -1,6 +1,5 @@
 import React from 'react';
 import {render} from 'react-dom';
-import {Link} from 'react-router';
 import '../../../css/insurance/components/commonTopSupnuevo.css';
 import '../../../css/insurance/components/navcontent.css';
 import '../../../css/insurance/components/pagination.css';
@@ -17,9 +16,6 @@ var info={};
 var today=new Date().toLocaleDateString().replace("/", "-").replace("/", "-");
 
 var TestConsultation = React.createClass({
-    routerData:function () {
-        SyncStore.setState(this.state);
-    },
     Branch:function(branch){
         this.setState({nav: branch});
         this.initialData();
@@ -268,8 +264,8 @@ var TestConsultation = React.createClass({
                 var ref = this;
                 data.map(function (item, i) {
                     trs.push(
-                        <ul className="question-detail-item-list" key={i}>
-                            <li className="item clearfix" >
+                        <ul className="question-detail-item-list" >
+                            <li className="item clearfix" key={i}>
                                 <div className="what">
                                     {item.title}
                                 </div>
@@ -280,11 +276,9 @@ var TestConsultation = React.createClass({
                                     {item.createTime.month+1 + "月" + item.createTime.date + "日"
                                 + item.createTime.hours + ":" + item.createTime.minutes}
                                 </div>
-                                <Link to={window.App.getAppRoute() + "/consultationDetail"}>
-                                <div className="details" onClick={ref.routerData}>
+                                <div className="details"  onClick={ref.getQuestionContent.bind(this,item.themeId,item.title,item.personId,item.createTime,item.readCount)}>
                                 <a > 详情 </a>
                                 </div>
-                                </Link>
                             </li>
                         </ul>
                     )
@@ -319,8 +313,8 @@ var TestConsultation = React.createClass({
 
                     break;
                 case 'consultationDetails':
-                    // container = <ConsultationDetails data={info} title={this.state.title} personId={this.state.personId} date={this.state.date} comments={this.state.comments}Branch={this.Branch}/>;
-                   // <Link to={window.App.getAppRoute() + "/lifeInsurance"}></Link>
+                    container = <ConsultationDetails data={info} title={this.state.title} personId={this.state.personId} date={this.state.date} comments={this.state.comments}Branch={this.Branch}/>;
+
                     break;
             }
         }else{
