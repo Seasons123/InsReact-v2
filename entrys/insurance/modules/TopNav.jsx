@@ -24,7 +24,7 @@ var TopNav=React.createClass({
                     <div className="fr">
                         <ul className="link">
                             <li className="tell">咨询热线： <i>0531-81188593</i></li>
-                            <li className="plogin" style={{paddingRight:'5px'}}><a onClick={this.click}>注册</a></li>
+                            <li className="plogin" style={{paddingRight:'5px'}}><a>注册</a></li>
                             <li className="plogin">
                                 <Link to={window.App.getAppRoute() + "/login"}>
                                     <a onClick={this.click.bind(this,"/mainPage")}>登录</a>

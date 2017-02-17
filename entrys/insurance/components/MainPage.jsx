@@ -90,7 +90,9 @@ var MainPage=React.createClass({
                             </div>
                         </div>
                     </div>
+                </div>
 
+                <div className="margin w1008">
                     <div className="company mar_20">
                         <div className="company_B">
                             关于我们
@@ -146,7 +148,16 @@ var MainPage=React.createClass({
                     </div>
                 </div>
 
-                <Footer />
+                <div className="clear">
+                </div>
+                <div className="footer" style={{position:'relative',bottom:'0'}}>
+                    <div className="margin">
+                        <p>版权所有：山东泓信信息科技股份有限公司&nbsp;&nbsp;&nbsp;&nbsp;
+                            企业邮箱：jhb2017@qq.com&nbsp;&nbsp;&nbsp;&nbsp;
+                            技术支持：山东大学
+                        </p>
+                    </div>
+                </div>
             </div>
         );
     },

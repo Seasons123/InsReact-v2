@@ -94,9 +94,11 @@ var Login=React.createClass({
                                             </div>
                                             <div className="form-item">
                                                 <div className="form-cont">
-                                                    <button type="button" id="login" className="passport-btn passport-btn-def xl w-full" tabIndex="4" onClick={this.login}>
-                                                        <Link to={window.App.getAppRoute() + this.state.path}><a>登录</a></Link>
-                                                    </button>
+                                                    <Link to={window.App.getAppRoute() + this.state.path}>
+                                                        <button type="button" id="login" className="passport-btn passport-btn-def xl w-full" tabIndex="4" onClick={this.login}>
+                                                            <a>登录</a>
+                                                        </button>
+                                                    </Link>
                                                 </div>
                                             </div>
 
