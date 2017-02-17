@@ -1,5 +1,6 @@
 import React from 'react';
 import {render} from 'react-dom';
+import {Link} from 'react-router';
 import '../../../css/insurance/components/commonTopSupnuevo.css';
 import '../../../css/insurance/components/navcontent.css';
 import '../../../css/insurance/components/pagination.css';
@@ -368,8 +369,9 @@ var TestConsultation = React.createClass({
                                 </div>
                                 <div className="search-newButton">
                                             <span >
-                                                <input type='button' className="search-new"  onClick={this.goToOthers.bind(this,'newQuestion')}
-                                                       value="创建新问题"/>
+                                                <Link to={window.App.getAppRoute() + "/newConsultation"}>
+                                                <input type='button' className="search-new"  value="创建新问题"/>
+                                                </Link>
                                             </span>
                                 </div>
                             </div>
