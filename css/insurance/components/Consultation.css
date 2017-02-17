@@ -125,3 +125,56 @@
     text-align: center;
     cursor: pointer;
 }
+.CreateNew-area{
+    padding: 10px 0px 0px 20px;
+}
+.CreateNew-area .CreateNew-L{
+    float: left;
+    width: 550px;
+
+}
+.CreateNew-area .CreateNew-R{
+    float: left;
+    width: 270px;
+    margin-left: 150px;
+    margin-bottom: 45px;
+}
+.newConsultation-subtitle{
+    text-align: center;
+    border-bottom-style: dotted;
+    border-bottom-width: initial;
+    border-bottom-color: #eeeeee;
+    padding-bottom: 2px;
+}
+.CreateNew-area .CreateNew-L .CreateNew-area-textArea{
+    width: 480px;
+    margin-left: 25px;
+    height: 150px;
+    border-radius: 5px;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    resize:none;
+}
+.CreateNew-area .CreateNew-L .CreateNew-btn{
+    padding: 6px 45px;
+    border-radius: 5px;
+    background: #d7e7fc;
+    border-color: aliceblue;
+    margin-left: 22px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+.CreateNew-area .CreateNew-R .widget{
+    width: 250px;
+    padding-top:20px;
+}
+.CreateNew-area .CreateNew-R .support-widget {
+    border: 1px solid #e9e6c4;
+    padding: 10px 80px 5px 20px;
+    background: url(../../../build/images/support.png) no-repeat 95% 20px;
+    background-color: antiquewhite;
+    margin-left: 20px;
+}
+.CreateNew-area .CreateNew-R .support-widget .support-widget-title{
+    background-color: inherit;
+}
+
