@@ -370,7 +370,7 @@ var TestConsultation = React.createClass({
                                 <div className="search-newButton">
                                             <span >
                                                 <Link to={window.App.getAppRoute() + "/newConsultation"}>
-                                                <input type='button' className="search-new" value="创建新问题"/>
+                                                <input type='button' className="search-new"  value="创建新问题"/>
                                                 </Link>
                                             </span>
                                 </div>
