@@ -403,8 +403,18 @@ var TestConsultation = React.createClass({
                     <div className='questionSearchContainer'>
                         {navbar}
                         <div className="question-area" onLoad={this.getAllQuestion()}>
+
                             {html == undefined ?
-                                <h3 className="font_15 text">问题列表</h3>
+                                <div>
+                                    <h3 className="font_15 text">问题列表</h3>
+                                    {SyncStore.getNote() ?
+                                        <div className="tglLabel">
+                                        <span className='tg-list-item'>
+                                            <input className='tgl tgl-flip' id='cb5' type='checkbox'/>
+                                            <label id='lab5' style={{marginLeft: '842px'}} onClick={this.setDataTg} className='tgl-btn' data-tg='全部'data-tg-off='全部' data-tg-on='只看自己' htmlFor='cb5'></label>
+                                        </span>
+                                    </div>:null}
+                                </div>
                                 :
                                 <h3 className="font_15 text">问题详情</h3>
                             }
