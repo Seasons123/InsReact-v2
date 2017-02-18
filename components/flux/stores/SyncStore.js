@@ -23,7 +23,13 @@ var _mustdone={};
 
 var _note=false;//登录状态
 
-var _state={};
+var _pageData={};//页面数据
+
+var _router={};//路由地址
+
+var _result=false;//返回结果
+
+
 
 
 /**
@@ -107,11 +113,23 @@ var SyncStore = assign({}, EventEmitter.prototype, {
     setNote:function(){
       _note=true;
     },
-    getState:function () {
-        return _state;
+    getPageData:function () {
+        return _pageData;
     },
-    setState:function (state) {
-        _state=state;
+    setPageData:function (pageData) {
+        _pageData=pageData;
+    },
+    getRouter:function(){
+        return _router;
+    },
+    setRouter:function(router){
+        _router=router;
+    },
+    getResult:function(){
+        return _result;
+    },
+    setResult:function(){
+        _result=true;
     },
 
     getAll: function () {
@@ -210,11 +228,23 @@ AppDispatcher.register(function (action) {
         case SyncConstants.GET_LOG:
             SyncStore.getNote();
             break;
-        case SyncConstants.TODO_STATE:
-            SyncStore.setState();
+        case SyncConstants.TODO_PAGEDATA:
+            SyncStore.setPageData();
             break;
-        case SyncConstants.GET_STATE:
-            SyncStore.getState();
+        case SyncConstants.GET_PAGEDATA:
+            SyncStore.getPageData();
+            break;
+        case SyncConstants.TODO_ROUTER:
+            SyncStore.setRouter();
+            break;
+        case SyncConstants.GET_ROUTER:
+            SyncStore.getRouter();
+            break;
+        case SyncConstants.TODO_RESULT:
+            SyncStore.setResult();
+            break;
+        case SyncConstants.GET_RESULT:
+            SyncStore.getResult();
             break;
         case SyncConstants.TODO_CREATE:
             sync = action.sync;

@@ -10,7 +10,7 @@ var SyncStore = require('../../../components/flux/stores/SyncStore');
 
 var TopNav=React.createClass({
     click:function(ob){ //保存跳转的页面信息
-        SyncStore.setState(ob);
+        SyncStore.setRouter(ob);
     },
     
     render:function(){

@@ -32,6 +32,7 @@ var Login=React.createClass({
                 var re = res.re;
                 if(re!==undefined && re!==null && (re ==1 || re =="1")){ //登陆成功
                     SyncStore.setNote(); //设置全局登录状态为true
+                    SyncStore.setResult(true);
                     console.log("登陆成功！")
                 }
             }.bind(this),
@@ -42,8 +43,8 @@ var Login=React.createClass({
     },
 
     getInitialState:function(){
-        var path = SyncStore.getState();
-        SyncStore.setState(null);
+        var path = SyncStore.getRouter();
+        SyncStore.setRouter(null);
         return ({path:path});
     },
 
@@ -94,9 +95,11 @@ var Login=React.createClass({
                                             </div>
                                             <div className="form-item">
                                                 <div className="form-cont">
+                                                    <Link to={window.App.getAppRoute() + this.state.path}>
                                                     <button type="button" id="login" className="passport-btn passport-btn-def xl w-full" tabIndex="4" onClick={this.login}>
-                                                        <Link to={window.App.getAppRoute() + this.state.path}><a>登录</a></Link>
+                                                       <a>登录</a>
                                                     </button>
+                                                    </Link>
                                                 </div>
                                             </div>
 

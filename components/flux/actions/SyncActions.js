@@ -19,12 +19,32 @@ var SyncActions = {
     },
     setState:function () {
         AppDispatcher.dispatch({
-            type:SyncConstants.TODO_STATE
+            type:SyncConstants.TODO_PAGEDATA
         });
     },
     getState:function () {
         AppDispatcher.dispatch({
-            type:SyncConstants.GET_STATE
+            type:SyncConstants.GET_PAGEDATA
+        });
+    },
+    setRouter:function () {
+        AppDispatcher.dispatch({
+            type:SyncConstants.TODO_ROUTER
+        });
+    },
+    getRouter:function () {
+        AppDispatcher.dispatch({
+            type:SyncConstants.GET_ROUTER
+        });
+    },
+    setResult:function () {
+        AppDispatcher.dispatch({
+            type:SyncConstants.TODO_RESULT
+        });
+    },
+    getResult:function () {
+        AppDispatcher.dispatch({
+            type:SyncConstants.GET_RESULT
         });
     },
 

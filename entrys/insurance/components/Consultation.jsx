@@ -23,6 +23,9 @@ var TestConsultation = React.createClass({
         this.getAllQuestion();
 
     },
+    click:function(ob){ //保存跳转的页面信息
+           SyncStore.setRouter(ob);
+    },
     validate:function(){
         if(this.state.session!=true){
 
@@ -265,8 +268,8 @@ var TestConsultation = React.createClass({
                 var ref = this;
                 data.map(function (item, i) {
                     trs.push(
-                        <ul className="question-detail-item-list" >
-                            <li className="item clearfix" key={i}>
+                        <ul className="question-detail-item-list" key={i} >
+                            <li className="item clearfix" >
                                 <div className="what">
                                     {item.title}
                                 </div>
@@ -369,9 +372,13 @@ var TestConsultation = React.createClass({
                                 </div>
                                 <div className="search-newButton">
                                             <span >
-                                                <Link to={window.App.getAppRoute() + "/newConsultation"}>
-                                                <input type='button' className="search-new"  value="创建新问题"/>
-                                                </Link>
+                                                {SyncStore.getNote() ?
+                                                    <Link to={window.App.getAppRoute() + "/newConsultation"}>
+                                                        <input type='button' className="search-new"  value="创建新问题"/>
+                                                    </Link>:
+                                                    <Link to={window.App.getAppRoute() + "/login"}>
+                                                        <input type='button' className="search-new" onClick={this.click.bind(this,'newConsultation')} value="创建新问题"/>
+                                                    </Link>}
                                             </span>
                                 </div>
                             </div>
@@ -387,7 +394,7 @@ var TestConsultation = React.createClass({
                     </div>
                     <div className="pro_R fr bg" style={{width:'1035px'}}>
                         <div className="pro_bg">
-                            <span className="fr pad_L">您的位置： <a href="home.jsp">首页</a> &gt; 人寿保险 &gt; <a
+                            <span className="fr pad_L">您的位置： <a >首页</a> &gt; 人寿保险 &gt; <a
                                 href="#">理财保险</a></span>
                         </div>
                         <div className="article">
