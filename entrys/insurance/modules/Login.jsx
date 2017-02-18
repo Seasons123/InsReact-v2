@@ -50,6 +50,9 @@ var Login=React.createClass({
     render:function(){
         return(
             <div className="passport-wrapper" ref="loginPage">
+                <header id="header" className="passport-header">
+                    <div id="logo"><a><img src="images/loginLogo.png" /></a></div>
+                </header>
                 <div id="container">
                     <div className="passport-sign">
                         <div className="main-form main-form-sign">
