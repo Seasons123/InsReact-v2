@@ -8,6 +8,7 @@ import App from './modules/App.jsx';
 import MainPage from './components/MainPage.jsx';
 import HomePage from './components/HomePage.jsx';
 import MainSection from './modules/MainSection.jsx';
+import Login from './modules/Login.jsx';
 
 render((
     <Router history={browserHistory}>
@@ -15,7 +16,7 @@ render((
             <IndexRoute component={HomePage}/>
             <Route path={window.App.getAppRoute()+"/"} component={HomePage}/>
             <Route path={window.App.getAppRoute()+"/mainPage"} component={MainPage}/>
-            <Route path={window.App.getAppRoute()+"/login"} component={MainSection}/>
+            <Route path={window.App.getAppRoute()+"/login"} component={Login}/>
             <Route path={window.App.getAppRoute()+"/productCenter"} component={MainSection}/>
             <Route path={window.App.getAppRoute()+"/news"} component={MainSection}/>
             <Route path={window.App.getAppRoute()+"/personalCenter"} component={MainSection}/>

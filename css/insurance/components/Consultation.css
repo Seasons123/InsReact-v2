@@ -177,4 +177,9 @@
 .CreateNew-area .CreateNew-R .support-widget .support-widget-title{
     background-color: inherit;
 }
+.modalCloseBtn{
+    padding: 2px 35px;
+    background: darkgrey;
+    border-radius: 5px;
+}
 
