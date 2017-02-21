@@ -10,6 +10,7 @@ import LifeInsurance from '../components/LifeInsurance.jsx';
 import CarInsurance from '../components/CarInsurance.jsx';
 import Consultation from '../components/Consultation.jsx';
 import NewConsultation from '../components/NewConsultation';
+import PersonalCenter from '../components/PersonalCenter.jsx';
 
 import App from '../modules/App.jsx';
 
@@ -186,8 +187,10 @@ var MainSection = React.createClass({
         return (
             <div style={{margin: "0px auto 0 auto",width:"100%"}} className="baba">
                 <Nav />
-                <div ref="mainSection" className="mainSection" style={{display:"none",marginLeft:"auto",marginRight:"auto",marginBottom:"auto"}}>
-                    {ctrl}
+                <div>
+                    <div ref="mainSection" className="mainSection" style={{display:"none",marginLeft:"auto",marginRight:"auto",marginBottom:"auto"}}>
+                        {ctrl}
+                    </div>
                 </div>
                 <Footer />
             </div>

@@ -6,8 +6,8 @@
 
 
 var ob=function(){
-    var thresholds=null;
-    var pageCategory=10;
+    var thresholds = 10; //每页最多显示的页号按钮
+    var pageCategory=5; //每页显示的数据条数
     var getInitialDataIndex=function (threshold,capacity,pageIndex,callback) {
         let begin =pageIndex*threshold;
         let end = begin;
