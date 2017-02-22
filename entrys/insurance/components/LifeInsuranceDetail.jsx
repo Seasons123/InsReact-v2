@@ -1,5 +1,6 @@
 import React from 'react';
 import {render} from 'react-dom';
+import {Link} from 'react-router';
 import '../../../css/insurance/components/commonTopSupnuevo.css';
 import '../../../css/insurance/components/navcontent.css';
 import '../../../css/insurance/components/pagination.css';
@@ -8,7 +9,7 @@ import '../../../css/insurance/components/lifeDetails.css';
 import Download from '../../../components/basic/Download.jsx';
 var ProxyQ = require('../../../components/proxy/ProxyQ');
 var _val = "";
-var TestLifeDetail = React.createClass({
+var LifeDetail = React.createClass({
     changeVal:function(type,e){
         var val = e.target.value;
         if(isNaN(val)){
@@ -166,11 +167,12 @@ var TestLifeDetail = React.createClass({
             var charact=[];
             var safeGR=[];
             var stars=[];
-            var attachs=[];var ycAttachs=[];
+            var attachs=[];
+            var ycAttachs=[];
             var hrf=this;
             attach.map(function(item,i){
                 attachs.push(
-                    <p key={"attach"+i}className="bold bzfwp textSize"><input style={{marginRight:"2em"}} className="fjxbox" type="checkbox"/>{item.productName}</p>
+                    <p key={"attach"+i}className="bold bzfwp textSize">{item.productName}</p>
                 )
             });
             attach.map(function(item,i){
@@ -246,6 +248,11 @@ var TestLifeDetail = React.createClass({
                                         </div>
                                     </div>
                                 </div>
+                                <div className="proBuyBtn">
+                                    <Link to={window.App.getAppRoute() + "/lifeInsuranceBuyPage"}>
+                                        <input className="proBtn" value='我要投保'/>
+                                    </Link>
+                                </div>
                             </div>
                             <div className="lyys">
                                 <h3 className="detailTitle">利益测算</h3>
@@ -313,9 +320,7 @@ var TestLifeDetail = React.createClass({
                                 <hr className="titleLine"/>
                                 <div className="line-height35">您可以根据自己的需要选购您所需的附加产品：</div>
                                 <div className="bxj ">
-                                    <p className="bold bzfwp textSize">
-                                        <input style={{marginRight:"2em"}} onClick={this.getProductFeeInfo} type="checkbox"/>
-                                        非意外身故保险金</p>
+                                    <p className="bold bzfwp textSize">非意外身故保险金</p>
                                     {attachs}
                                 </div>
                             </div>
@@ -372,4 +377,4 @@ var TestLifeDetail = React.createClass({
     }
 
 });
-module.exports = TestLifeDetail;
+module.exports = LifeDetail;

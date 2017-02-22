@@ -16,7 +16,7 @@ var SyncStore = require('../../../components/flux/stores/SyncStore');
 var info={};
 var today=new Date().toLocaleDateString().replace("/", "-").replace("/", "-");
 
-var TestConsultation = React.createClass({
+var Consultation = React.createClass({
     Branch:function(branch){
         this.setState({nav: branch});
         this.initialData();
@@ -429,4 +429,4 @@ var TestConsultation = React.createClass({
         );
     }
 });
-module.exports = TestConsultation;
+module.exports = Consultation;

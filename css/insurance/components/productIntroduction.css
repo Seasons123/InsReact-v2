@@ -369,6 +369,11 @@ h2 {
     margin-top: 10px;
     float: left;
 }
+.detail_btn_input{
+    width: 112px;
+    margin-top: 10px;
+    float: left;
+}
 .detail_btn a {
     width: 112px;
     height: 24px;

@@ -12,7 +12,7 @@ var Page = require('../modules/Page');
 var ProxyQ = require('../../../components/proxy/ProxyQ');
 var info=null;
 
-var Test = React.createClass({
+var LifeInsurance = React.createClass({
     paginationData:function (data,pageIndex) {
         let capacity=data.length;
         var slices=null;
@@ -569,4 +569,4 @@ var Test = React.createClass({
         return container;
     }
 });
-module.exports = Test;
+module.exports = LifeInsurance;

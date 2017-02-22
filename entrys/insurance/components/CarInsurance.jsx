@@ -11,19 +11,30 @@ var info={};
 
 var testCar = React.createClass({
     getInitialState: function() {
+        var jqx=['交强险','none'];
         return {
             proNum:1,
-            buyName:[],
-            buyCheck:[]
+            buyName:["交强险"],
+            buyCheck:[jqx]
         }
     },
     goToOthers:function(branch){
 
-        if(this.state.buyName!=null&&this.state.buyName!=undefined&&this.state.buyName.length!=0){
+        if(this.state.buyName!=null&&this.state.buyName!=undefined&&this.state.buyName.length!=1){
             //    this.setState({
             //    nav: branch
             //});
-            alert("该部分功能暂未开放！");
+            var item2=null;
+            $('#jqx input:radio:checked').each(function (index, domEle) {
+               item2= $(domEle);
+            });
+
+            if(item2!=null){
+                alert("该部分功能暂未开放！");
+            }else {
+                alert("请选择是否拥有交强险！")
+            }
+
         }else{
             alert("您还没有选购商品！");
         }
@@ -71,6 +82,8 @@ var testCar = React.createClass({
             //购买项
             if(this.state.buyName.length==0){
                 this.state.buyName.push(productName);
+                // this.state.buyName.push("交强险");
+
             }else{
                 var q=this.state.buyName;
                 var ref=this;
@@ -117,6 +130,7 @@ var testCar = React.createClass({
                 }else{
                     this.state.buyCheck.push([productName,'none',num]);
                 }
+                // this.state.buyCheck.push(['交强险','none']);
             }else {
                 var p = this.state.buyCheck;
                 var a = $(items).find(attach)[0];
@@ -177,7 +191,7 @@ var testCar = React.createClass({
                 $(items).attr("value","0");
                 //this.setState({proNum:this.state.proNum-1});
             }
-            this.setState({proNum: this.state.buyName.length+1});
+            this.setState({proNum: this.state.buyName.length});
         }
 
     },
@@ -297,10 +311,15 @@ var testCar = React.createClass({
                                                         </div>
                                                         <div className="car_btm_area">
                                                             <div className="pointline"></div>
+
                                                             <div className="btm_btn">
-                                                                <div className="detail_btn">
-                                                                    <a title="购买" target="_blank" onClick={this.goToOthers.bind(this,'buy')}></a>
+                                                                <div className="detail_btn_input">
+                                                                    <input className="nextTo" onClick={this.goToOthers.bind(this,'buy')}  value="下一步" />
                                                                 </div>
+                                                            </div>
+                                                            <div id="jqx" style={{float:'right',marginTop:'8px'}}>
+                                                            我已在他处购买交强险<input id="jqxY" type="radio" name="jqx" value='y' />
+                                                            我尚未拥有交强险<input id="jqxN" type="radio" name="jqx" value='n' />
                                                             </div>
                                                         </div>
                                                     </div>

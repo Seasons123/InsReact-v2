@@ -1,0 +1,90 @@
+.buyPage{
+    width: 1024px;
+    background: white;
+}
+.buyPage .MenuItem_select{
+    background:#d7e7fc;
+    box-shadow: 0px 0px 75px #5297ef;
+    margin-top: 25px;
+}
+.buyPage .MenuItem_select .menuTable{
+    width:865px;
+    border:0;
+}
+.buyPage .MenuItem_select .menuTable .menuItems{
+    color:black;
+    fontSize: 13px;
+    width:159px;
+    text-align: center;
+}
+.buyPage .MenuItem_select .menuTable .menuImg{
+    width: 30px;
+}
+.item_select{
+    background: cornflowerblue;
+}
+.insuranceName{
+    margin-top: 30px;
+}
+.insuranceName .nameTitle{
+    padding-left: 50px;
+    font-size: 16px;
+    font-weight: bold;
+    color: rgb(44, 126, 235);
+}
+.insurancePlan {
+    border-style: solid;
+    border-width: thin;
+    border-color: aliceblue;
+    box-shadow: 0 0 25px lightgrey;
+    width: 820px;
+    margin-left: 42px;
+}
+.insurancePlan .planContain {
+    border: 0;
+    margin-left: 82px;
+}
+.insurancePlan .planContain .plan_tr{
+    height:37px;
+    text-align: right;
+    width: 150px;
+    background-color:#F0F0F0;
+}
+.insurancePlan .planContain .plan_line{
+    border-bottom-style: solid;
+    border-bottom-color: cornflowerblue;
+}
+.insurancePlan .planContain .plan_tr .plan_td_1{
+    text-align:right;
+    width:150px;
+
+}
+.insurancePlan .planContain .plan_tr .plan_td_2{
+    width:120px;
+    text-align: left;
+}
+.insurancePlan .planContain .plan_tr .plan_td_3{
+    text-align:left;
+    width:355px;
+}
+.insurancePlan .insWarn{
+    color:blue;
+    padding-top:5px;
+    padding-left:5px;
+    margin-left: 82px;
+    width: 643px;
+    text-indent: 25px;
+}
+.insurancePlan .addInsPro{
+    margin-left: 82px;
+}
+.nextTo{
+    background: #4c93e1;
+    color: #FFFFFF;
+    padding: 8px;
+    border: none;
+    width: 90px;
+    border-radius: 2px;
+    text-align: center;
+    cursor: pointer;
+}
