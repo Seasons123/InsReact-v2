@@ -8,7 +8,7 @@
 .font_15 {
     font-size: 15px;
 }
-.menu ul li {
+.menu ul li{
     background: url("../../../build/images/blue.gif") no-repeat 0;
     height: 36px;
     line-height: 36px;

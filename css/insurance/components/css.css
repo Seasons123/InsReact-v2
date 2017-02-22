@@ -5,8 +5,8 @@ body, h1, h2, h3, h4, h5, h6, hr, p,blockquote, dl, dt, dd, ul, ol, li,pre,form,
 }
 /** 设置默认字体 **/
 body, button, input, select, textarea {
-    font: 12px/150% "Microsoft YaHei", "微软雅黑", sans-serif,Arial, Helvetica;
-    color: #666666;
+    font: 14px/150% "Microsoft YaHei", "微软雅黑", "sans-serif,Arial, Helvetica";
+    color: #000000;
 }
 
 body {

@@ -3,31 +3,34 @@
 }
 
 .Business{
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
     background: #e8e8e8;
 }
 
+a{
+    cursor: pointer;
+}
 
 .nav-collapse{
     width: 100%;
 }
 
-.nav-collapse .nav{
+.nav-collapse .nav-person-center{
     text-align: center;
     width: 100%;
     height: 100%;
     margin: 0;
 }
 
-.nav-collapse .nav > li {
+.nav-collapse .nav-person-center > li {
     float: none;
     display: inline-block;
     text-align: center;
     margin: 0 6px;
 }
 
-.nav-collapse .nav > li > a {
+.nav-collapse .nav-person-center > li > a {
     display: block;
     height: 100%;
     text-align: center;
@@ -40,7 +43,7 @@
     transition: all 0.3s;
 }
 
-.nav-collapse .nav > li > a span {
+.nav-collapse .nav-person-center > li > a span {
     font-size: 28px;
     width: 38px;
     height: 38px;
@@ -48,7 +51,7 @@
     margin: 0 auto 2px;
 }
 
-.nav-collapse .nav > li .dropdown-menu {
+.nav-collapse .nav-person-center > li .dropdown-menu {
     text-align: left;
 }
 
@@ -85,7 +88,7 @@
     font-size: 85%;
     line-height: 1.4;
     font-weight: 300;
-    border-radius: 0px;
+    border-radius: 0;
     margin: 0 5px;
     display: inline-block;
 }
@@ -101,12 +104,12 @@
 
 
 .main-content{
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 
 .page-title {
     padding: 0 20px;
-    margin-top: 0px;
+    margin-top: 0;
     font-size: 22px;
     text-align: center;
 }
@@ -155,7 +158,7 @@
 }
 
 .table-head{
-    font-size: 18px;
+    font-size: 16px;
 }
 
 .table tfoot > tr:first-child > td {
@@ -181,47 +184,45 @@
     border-top: 0;
 }
 .summary {
-    padding: 28px 0;
+    padding: 10px 0;
     border: 2px solid #e2e2e2;
     background-color: #f1f1f1;
 }
 .summary .valid {
-    width: 25%;
+    width: 30%;
 }
 .summary .desc {
-    font-size: 20px;
+    font-size: 15px;
     font-weight: 700;
     color: #666;
 }
 .summary .point {
-    font-size: 26px;
+    font-size: 20px;
     font-weight: 700;
     color: #288c29;
-    height: 40px;
-    line-height: 40px;
 }
 .summary span {
     display: block;
-    text-indent: 60px;
+    text-indent: 45px;
     text-align: left;
+    line-height: 50px;
 }
 .summary .item {
     float: left;
     border-right: 1px solid #e2e2e2;
 }
 .summary .exchange {
-    width: 75%;
+    width: 70%;
     border-right: 0;
 }
 .summary .exchange a {
     display: block;
-    width: 260px;
-    height: 44px;
-    margin: 2px auto;
-    line-height: 44px;
+    width: 150px;
+    margin: 8px auto;
+    line-height: 35px;
     background: cadetblue;
     color: #fff;
-    font-size: 18px;
+    font-size: 15px;
     border-radius: 3px;
     text-align: center;
 }
@@ -306,5 +307,20 @@
 }
 .nav-return{
     text-align: center;
-    padding:12px 0 70px 0
+    padding:0px 0 20px 0
+}
+.score{
+    width: 930px;
+}
+.menu ul li a.nav-text{
+    cursor: pointer;
+    font-size: 16px;
+}
+.menu ul li span.span-icon{
+    margin-left: 10px;
+    font-size: 16px;
+    color: #0287ca;
+}
+a.all a.income a.used{
+    visited: #288329;
 }
