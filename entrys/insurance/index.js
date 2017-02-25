@@ -9,7 +9,8 @@ import MainPage from './components/MainPage.jsx';
 import HomePage from './components/HomePage.jsx';
 import MainSection from './modules/MainSection.jsx';
 import Login from './modules/Login.jsx';
-import lifeInsuranceBuyPage from  './components/LifeInsuranceBuyPage';
+import lifeInsuranceBuyPage from './components/LifeInsuranceBuyPage';
+import carInsuranceBuyPage from './components/CarInsuranceBuyPage';
 
 render((
     <Router history={browserHistory}>
@@ -29,6 +30,7 @@ render((
             <Route path={window.App.getAppRoute()+"/lifeDetail"} component={MainSection}/>
             <Route path={window.App.getAppRoute()+"/newConsultation"} component={MainSection}/>
             <Route path={window.App.getAppRoute()+"/lifeInsuranceBuyPage"} component={lifeInsuranceBuyPage}/>
+            <Route path={window.App.getAppRoute()+"/carInsuranceBuyPage"} component={carInsuranceBuyPage}/>
         </Route>
     </Router>
 ), document.getElementById('root'))

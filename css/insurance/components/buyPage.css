@@ -1,3 +1,7 @@
+/*lifeInsuranceBuyPage*/
+/**/
+/**/
+/**/
 .buyPage{
     width: 1024px;
     background: white;
@@ -87,4 +91,135 @@
     border-radius: 2px;
     text-align: center;
     cursor: pointer;
+}
+/*carInsuranceBuyPage*/
+/**/
+/**/
+/**/
+.cart-header {
+    position: relative;
+    margin-top: 12px;
+}
+.close{
+    background: url(../../../build/images/close.png) no-repeat 0px 0px;
+    cursor: pointer;
+    width: 28px;
+    height: 28px;
+    position: absolute;
+    right: 8px;
+    top: 1.5px;
+    transition: color 0.2s ease-in-out;
+}
+.carPlan{
+    padding-top: 10px;
+}
+.carPlan .carPlan-detail-masthead {
+    background-color: #f1f1f1;
+    border-width: 1px 0;
+    border-color: #e3e3e3;
+    border-style: solid;
+    color: #999;
+}
+
+.carPlan .carPlan-detail-masthead li {
+    display: block;
+    float: left;
+    border-right: 1px solid #e3e3e3;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    overflow: hidden;
+}
+.carPlan .id{
+    float:left;
+    width:5%;
+    border-right:1px solid #e3e3e3;
+    text-align:center;
+
+}
+.carPlan .what {
+    float:left;
+    width:20%;
+    border-right:1px solid #e3e3e3;
+    text-align:center;
+
+}
+.carPlan .type{
+    float:left;
+    width:55%;
+    border-right:1px solid #e3e3e3;
+    text-align:center;
+
+}
+.carPlan .attach{
+    float:left;
+    width:15%;
+    border-right:1px solid #e3e3e3;
+    text-align:center;
+
+}
+.carPlan .delete{
+    float:left;
+    width:5%;
+    border-right:1px solid #e3e3e3;
+    text-align:center;
+}
+.cart-header .carPlan-detail-item-list {
+    margin-top: 2px;
+    border-top: 1px solid #f1f1f1;
+}
+.cart-header .carPlan-detail-item-list .item {
+    padding: 0px 0;
+    border-bottom: 1px solid #f1f1f1;
+    height: 30px;
+}
+.cart-header .carPlan-detail-item-list .type {
+    text-align: center;
+}
+.cart-header .carPlan-detail-item-list .type .check{
+    margin:0px 8px;
+}
+.cart-header .carPlan-detail-item-list .attach {
+    text-align: center;
+}
+.cart-header .carPlan-detail-item-list .delete{
+    color: #0287ca;
+    text-align: center;
+    cursor: pointer;
+}
+.carPlanInfo{
+    border-bottom-style: ridge;
+    border-bottom-color: #d7e7fc;
+    padding: 15px 0px 30px 0px;
+}
+.sect_title{
+    margin: 0px 10px 0px 20px;
+}
+.carPlanInfo .sect_car .sect_myCar{
+    width: 272px;
+    height: 33px;
+    margin: 0px 20px 0px 24px;
+}
+.carPlanInfo .sect_company .openCompanyInput{
+    padding: 6px 99px 6px 99px;
+}
+.carPlanInfo .sect_relative .sect_myRelative{
+    width: 272px;
+    height: 33px;
+    margin: 0px 20px 0px 24px;
+}
+.carPlanInfo .createNew_man,.createNew_car{
+    padding: 5px 10px 5px 10px;
+    margin-left: 90px;
+    background-color: #d7e7fc;
+    border-color: #d7e7fc;
+    border-radius: 5px;
+}
+.margin10{
+    margin-top: 10px;
+}
+.jqxNum .addHaveInsNum{
+    height: 34px;
+    border-radius: 5px;
+    width: 237px;
 }
