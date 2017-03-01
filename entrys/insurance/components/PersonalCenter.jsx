@@ -64,11 +64,6 @@ var OrderCenter=React.createClass({
 
     tabChange:function(tab){
 
-        var carInsurance = this.refs.carInsurance; //用引用设置指向右边的箭头
-        var lifeInsurance = this.refs.lifeInsurance;
-        var service = this.refs.service;
-        var score = this.refs.score;
-
         var url = "/insurance/insuranceReactPageDataRequest.do";
         switch (tab) {
             case 'carOrder':
@@ -76,49 +71,38 @@ var OrderCenter=React.createClass({
                     reactPageName:'insurancePersonalCenterCarOrderPage',
                     reactActionName:'getInsuranceCarOrder'
                 };
-
-                $(carInsurance).addClass('icon-arrow-right');
-                $(lifeInsurance).removeClass('icon-arrow-right');
-                $(service).removeClass('icon-arrow-right');
-                $(score).removeClass('icon-arrow-right')
-
                 break;
+
             case 'lifeOrder':
                 var params={
                     reactPageName:'insurancePersonalCenterLifeOrderPage',
                     reactActionName:'getInsuranceLifeOrder'
                 };
-
-                $(carInsurance).removeClass('icon-arrow-right');
-                $(lifeInsurance).addClass('icon-arrow-right');
-                $(service).removeClass('icon-arrow-right');
-                $(score).removeClass('icon-arrow-right')
-
                 break;
+
             case 'serviceOrder':
                 var params={
                     reactPageName:'insurancePersonalCenterCarServicePage',
                     reactActionName:'getInsuranceCarServiceOrder'
                 };
-
-                $(carInsurance).removeClass('icon-arrow-right');
-                $(lifeInsurance).removeClass('icon-arrow-right');
-                $(service).addClass('icon-arrow-right');
-                $(score).removeClass('icon-arrow-right')
-
                 break;
+
             case 'score':
                 var params={
                     reactPageName:'insurancePersonalCenterScorePage',
                     reactActionName:'getCustomerScore'
                 };
-
-                $(carInsurance).removeClass('icon-arrow-right');
-                $(lifeInsurance).removeClass('icon-arrow-right');
-                $(service).removeClass('icon-arrow-right');
-                $(score).addClass('icon-arrow-right')
-
                 break;
+
+            case 'baseInfo':
+                this.setState({current:null, currentContent:tab});
+                return;
+            case 'relatedInfo':
+                this.setState({current:null, currentContent:tab});
+                return;
+            case 'carInfo':
+                this.setState({current:null, currentContent:tab});
+                return;
         }
 
         ProxyQ.queryHandle(
@@ -140,7 +124,85 @@ var OrderCenter=React.createClass({
         );
     },
 
-    slideClick:function(i){
+    //切换左侧导航（通过添加类名 产生效果）
+    switchNav:function(ob){
+
+        var carInsurance = this.refs.carInsurance; //用引用设置指向右边的箭头
+        var lifeInsurance = this.refs.lifeInsurance;
+        var service = this.refs.service;
+        var score = this.refs.score;
+        var baseInfo = this.refs.baseInfo;
+        var relatedPerson = this.refs.relatedPerson;
+        var carInfo = this.refs.carInfo;
+
+        switch(ob){
+            case 'carInsurance':
+                $(carInsurance).addClass('icon-arrow-right');
+                $(lifeInsurance).removeClass('icon-arrow-right');
+                $(service).removeClass('icon-arrow-right');
+                $(score).removeClass('icon-arrow-right');
+                $(baseInfo).removeClass('icon-arrow-right');
+                $(relatedPerson).removeClass('icon-arrow-right');
+                $(carInfo).removeClass('icon-arrow-right')
+                break;
+            case 'lifeInsurance':
+                $(carInsurance).removeClass('icon-arrow-right');
+                $(lifeInsurance).addClass('icon-arrow-right');
+                $(service).removeClass('icon-arrow-right');
+                $(score).removeClass('icon-arrow-right');
+                $(baseInfo).removeClass('icon-arrow-right');
+                $(relatedPerson).removeClass('icon-arrow-right');
+                $(carInfo).removeClass('icon-arrow-right')
+                break;
+            case 'service':
+                $(carInsurance).removeClass('icon-arrow-right');
+                $(lifeInsurance).removeClass('icon-arrow-right');
+                $(service).addClass('icon-arrow-right');
+                $(score).removeClass('icon-arrow-right');
+                $(baseInfo).removeClass('icon-arrow-right');
+                $(relatedPerson).removeClass('icon-arrow-right');
+                $(carInfo).removeClass('icon-arrow-right')
+                break;
+            case 'score':
+                $(carInsurance).removeClass('icon-arrow-right');
+                $(lifeInsurance).removeClass('icon-arrow-right');
+                $(service).removeClass('icon-arrow-right');
+                $(score).addClass('icon-arrow-right');
+                $(baseInfo).removeClass('icon-arrow-right');
+                $(relatedPerson).removeClass('icon-arrow-right');
+                $(carInfo).removeClass('icon-arrow-right')
+                break;
+            case 'baseInfo':
+                $(carInsurance).removeClass('icon-arrow-right');
+                $(lifeInsurance).removeClass('icon-arrow-right');
+                $(service).removeClass('icon-arrow-right');
+                $(score).removeClass('icon-arrow-right');
+                $(baseInfo).addClass('icon-arrow-right');
+                $(relatedPerson).removeClass('icon-arrow-right');
+                $(carInfo).removeClass('icon-arrow-right')
+                break;
+            case 'relatedInfo':
+                $(carInsurance).removeClass('icon-arrow-right');
+                $(lifeInsurance).removeClass('icon-arrow-right');
+                $(service).removeClass('icon-arrow-right');
+                $(score).removeClass('icon-arrow-right');
+                $(baseInfo).removeClass('icon-arrow-right');
+                $(relatedPerson).addClass('icon-arrow-right');
+                $(carInfo).removeClass('icon-arrow-right')
+                break;
+            case 'carInfo':
+                $(carInsurance).removeClass('icon-arrow-right');
+                $(lifeInsurance).removeClass('icon-arrow-right');
+                $(service).removeClass('icon-arrow-right');
+                $(score).removeClass('icon-arrow-right');
+                $(baseInfo).removeClass('icon-arrow-right');
+                $(relatedPerson).removeClass('icon-arrow-right');
+                $(carInfo).addClass('icon-arrow-right')
+                break;
+        }
+    },
+
+    detailClick:function(i){
         var data=this.state.data; //所有订单数据
         var pageIndex=this.state.pageIndex; //页面索引
         var orderDetail;
@@ -222,7 +284,7 @@ var OrderCenter=React.createClass({
         );
     },
 
-    getInitialState:function(){
+    getInitialState:function(){ //current 用于控制左侧面板的选择，currentContent 用于右侧面板的显示
         return ({current:'carOrder', currentContent:'carOrder', data:null, scoreTabCurrent:'all',
             pageIndex:0, orderDetail:null, isChange:false});
     },
@@ -245,15 +307,10 @@ var OrderCenter=React.createClass({
         let serviceOrderList=null; //服务订单列表
         let scoreList=null; //积分列表（明细，收入，支出）
         let data;
-        let personInfo;
-        let perName="我的信息";
-        let phone;
-        let address;
-        let postCode;
 
         let payment;
 
-        var slideDetail=this.slideClick;
+        var slideDetail=this.detailClick;
         var ins=this;  //用在map()函数里面，外面的this不能在里面用
         if(this.state.data!==undefined&&this.state.data!==null)
         {
@@ -992,7 +1049,7 @@ var OrderCenter=React.createClass({
                             <div className="nav-return">
                                 <hr style={{height:'2px',border:'none',borderTop:'2px dotted #185598'}} />
                                 <a href="javascript:void(0);" onClick={this.return.bind(this,"carOrder")}>
-                                    <div style={{display:'inline-block',fontSize:'19px'}}>
+                                    <div className="retrun">
                                         <span aria-hidden="true">返回</span>
                                     </div>
                                 </a>
@@ -1095,7 +1152,7 @@ var OrderCenter=React.createClass({
                             <div className="nav-return">
                                 <hr style={{height:'2px',border:'none',borderTop:'2px dotted #185598'}} />
                                 <a href="javascript:void(0)" onClick={this.return.bind(this,"lifeOrder")}>
-                                    <div style={{display:'inline-block',fontSize:'19px'}}>
+                                    <div className="retrun">
                                         <span aria-hidden="true">返回</span>
                                     </div>
                                 </a>
@@ -1171,7 +1228,7 @@ var OrderCenter=React.createClass({
                             <div className="nav-return">
                                 <hr style={{height:'2px',border:'none',borderTop:'2px dotted #185598'}} />
                                 <a href="javascript:void(0)" onClick={this.return.bind(this,"serviceOrder")}>
-                                    <div style={{display:'inline-block',fontSize:'19px'}}>
+                                    <div className="retrun">
                                         <span aria-hidden="true">返回</span>
                                     </div>
                                 </a>
@@ -1250,13 +1307,29 @@ var OrderCenter=React.createClass({
                                 <div className="nav-return">
                                     <hr style={{height:'2px',border:'none',borderTop:'2px dotted #185598'}} />
                                     <a href="javascript:void(0)" onClick={this.return.bind(this,"score")}>
-                                        <div style={{display:'inline-block',fontSize:'19px'}}>
+                                        <div className="retrun">
                                             <span aria-hidden="true">返回</span>
                                         </div>
                                     </a>
                                 </div>
                             </div>
                         </div>);
+                    break;
+
+                case 'baseInfo':
+                    mainContent =(
+                        <PersonInfo info='baseInfo'/>
+                    );
+                    break;
+                case 'relatedInfo':
+                    mainContent =(
+                        <PersonInfo info='relatedInfo'/>
+                    );
+                    break;
+                case 'carInfo':
+                    mainContent =(
+                        <PersonInfo info='carInfo'/>
+                    );
                     break;
             }
         }else{
@@ -1265,39 +1338,65 @@ var OrderCenter=React.createClass({
         }
 
         return (
-            <div className="w1008 margin mar_20">
-                <div className="pro_L" style={{float:'left',width:"100px"}}>
+            <div className="w1100 margin mar_20">
+                <div className="pro_L" style={{float:'left',width:"200px"}}>
                     <div className="menu">
-                        <h3 className="font_15">订单中心</h3>
+                        <h3 className="font_15">个人订单</h3>
                         <ul>
                             <li onClick={this.tabChange.bind(this,'carOrder')}>
-                                <a className="nav-text">车险</a>
+                                <a className="nav-text" onClick={this.switchNav.bind(this,"carInsurance")}>车险</a>
                                 <span aria-hidden="true" className="span-icon">
                                     <i className="icon-arrow-right" ref="carInsurance"></i>
                                 </span>
                             </li>
                             <li onClick={this.tabChange.bind(this,'lifeOrder')}>
-                                <a className="nav-text">寿险</a>
+                                <a className="nav-text" onClick={this.switchNav.bind(this,"lifeInsurance")}>寿险</a>
                                 <span aria-hidden="true" className="span-icon">
                                     <i className="" ref="lifeInsurance"></i>
                                 </span>
                             </li>
                             <li onClick={this.tabChange.bind(this,'serviceOrder')}>
-                                <a className="nav-text">服务</a>
+                                <a className="nav-text" onClick={this.switchNav.bind(this,"service")}>服务</a>
                                 <span aria-hidden="true" className="span-icon">
                                     <i className="" ref="service"></i>
                                 </span>
                             </li>
                             <li onClick={this.tabChange.bind(this,'score')}>
-                                <a className="nav-text">积分</a>
+                                <a className="nav-text" onClick={this.switchNav.bind(this,"score")}>积分</a>
                                 <span aria-hidden="true" className="span-icon">
                                     <i className="" ref="score"></i>
                                 </span>
                             </li>
                         </ul>
                     </div>
+
+                    <div className="menu">
+                        <h3 className="font_15">个人信息</h3>
+                        <ul>
+                            <li onClick={this.tabChange.bind(this,'baseInfo')}>
+                                <a className="nav-text" onClick={this.switchNav.bind(this,"baseInfo")}>基本信息</a>
+                                <span aria-hidden="true" className="span-icon">
+                                    <i className="" ref="baseInfo"></i>
+                                </span>
+                            </li>
+                            <li onClick={this.tabChange.bind(this,'relatedInfo')}>
+                                <a className="nav-text" onClick={this.switchNav.bind(this,"relatedInfo")}>关联人员</a>
+                                <span aria-hidden="true" className="span-icon">
+                                    <i className="" ref="relatedPerson"></i>
+                                </span>
+                            </li>
+                            <li onClick={this.tabChange.bind(this,'carInfo')}>
+                                <a className="nav-text" onClick={this.switchNav.bind(this,"carInfo")}>车辆信息</a>
+                                <span aria-hidden="true" className="span-icon">
+                                    <i className="" ref="carInfo"></i>
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                <div className="pro_R fr bg" style={{width:"930px"}}>
+
+
+                <div className="pro_R fr bg" style={{width:"890px"}}>
                     <div className="pro_bg">
                         <span className="fr pad_L">您的位置： <a>首页</a> &gt; 个人中心 &gt; <a>订单</a></span>
                     </div>

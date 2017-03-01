@@ -12,7 +12,7 @@ body{
     color: #222222;
 }
 /* 内外边距通常让各个浏览器样式的表现位置不同 */
-body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td,hr,button,article,aside,details,figcaption,figure,footer,header,menu,nav,section {
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td,hr,button,article,aside,details,figcaption,figure,footer,menu,nav,section {
     margin:0;
     padding:0;
 }
@@ -58,10 +58,7 @@ address,caption,cite,code,dfn,em,th,var {
 ol,ul {
     list-style:none;
 }
-/* 对齐是排版最重要的因素，别让什么都居中 */
-caption,th {
-    text-align:left;
-}
+
 /* 来自yahoo，让标题都自定义，适应多个系统应用 */
 h1,h2,h3,h4,h5,h6 {
     font-weight:500;
@@ -124,20 +121,6 @@ a:focus,*:focus {
 .block {
     display:block;
 }
-/* 设置浮动，减少浮动带来的 bug */
-.fl,.fr {
-    display:inline;
-}
-.fl {
-    float:left;
-}
-.fr {
-    float:right;
-}
-.oh {
-	overflow: hidden;
-}
 /* 设置对齐 */
 .tc {text-align: center;}
-.tr {text-align: right;}
 .tl {text-align: left;}

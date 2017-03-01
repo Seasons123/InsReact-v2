@@ -78,6 +78,10 @@ h1,h2,h3,h4,h5,h6 {
     width: 1040px;
 }
 
+.w1100 {
+    width: 1100px;
+}
+
 /*top*/
 .top {
     height: 110px;

@@ -25,7 +25,7 @@ var Upload = React.createClass({
 
                     <div className="input-append">
                         <div style={{float:'left'}}>
-                            <input className="input" style={{borderRadius: '4px',width: '352px'}} name="filename" type="text" ref="pathPreview"/>
+                            <input className="input" style={{borderRadius: '4px',width: '250px'}} name="filename" type="text" ref="pathPreview"/>
                         </div>
                         <div>
                             <a className="UploadBtn" style={{height: '33px',width: '75px',lineHeight:'32px'}} onClick={this.clickCb}>
