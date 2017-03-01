@@ -2,7 +2,6 @@ import React from 'react';
 import {render} from 'react-dom';
 
 import Nav from '../modules/TopNav.jsx';
-import MENU from '../../../data/menus.json';
 import Footer from '../modules/Footer.jsx';
 import MainPage from '../components/MainPage.jsx';
 import Login from '../modules/Login.jsx';
