@@ -32,6 +32,14 @@
     width:600px;
     height:70px;
 }
+.homePage_R {
+    float:right;
+    width: 500px;
 
+}
+.homePage_L{
+    float: left;
+    width: 450px;
+}
 
 

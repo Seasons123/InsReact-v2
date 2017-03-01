@@ -10,7 +10,7 @@ var Mpage=React.createClass({
             <div>
                 <div className="clear">
                 </div>
-                <div className="footer">
+                <div className="footer" style={{height: '35px'}}>
                     <div className="margin">
                         <p>版权所有：山东泓信信息科技股份有限公司&nbsp;&nbsp;&nbsp;&nbsp;
                             企业邮箱：jhb2017@qq.com&nbsp;&nbsp;&nbsp;&nbsp;

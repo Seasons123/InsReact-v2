@@ -1,33 +1,45 @@
 import React from 'react';
 import {render} from 'react-dom';
-
+import {Link} from 'react-router';
 import '../../../css/insurance/components/commonTopSupnuevo.css';
 import '../../../css/insurance/components/navcontent.css';
 import '../../../css/insurance/components/pagination.css';
 import '../../../css/insurance/components/productIntroduction.css';
-
+var SyncStore = require('../../../components/flux/stores/SyncStore');
+import BuyPage from'../components/CarInsuranceBuyPage';
 var ProxyQ = require('../../../components/proxy/ProxyQ');
 var info={};
 
-var testCar = React.createClass({
+var CarInsurance = React.createClass({
+    sendPageDate:function () {
+        var temporaryStore=[];
+        temporaryStore.push(this.state.buyName);
+        temporaryStore.push(this.state.buyCheck);
+        temporaryStore.push(this.state.jqx);
+        SyncStore.setPageData(temporaryStore);
+        SyncStore.setRouter('carInsuranceBuyPage');
+    },
     getInitialState: function() {
+        var jqx=['交强险','none'];
         return {
             proNum:1,
-            buyName:[],
-            buyCheck:[]
+            buyName:["交强险"],
+            buyCheck:[jqx],
+            jqx:null
         }
     },
-    goToOthers:function(branch){
-
-        if(this.state.buyName!=null&&this.state.buyName!=undefined&&this.state.buyName.length!=0){
-            //    this.setState({
-            //    nav: branch
-            //});
-            alert("该部分功能暂未开放！");
-        }else{
-            alert("您还没有选购商品！");
-        }
-
+    checkJQX:function(){
+            var item2=null;
+            $('#jqx input:radio:checked').each(function (index, domEle) {
+               item2= $(domEle).val();
+            });
+            if(item2!=null){
+                $(this.refs["nextTo"]).removeAttr("disabled");
+                $(this.refs["nextTo"]).attr("style","");
+                this.setState({jqx:item2});
+            }else {
+                alert("请选择是否拥有交强险！");
+            }
     },
     changeBuyState:function(num,productName) {
         var step =null;
@@ -71,6 +83,8 @@ var testCar = React.createClass({
             //购买项
             if(this.state.buyName.length==0){
                 this.state.buyName.push(productName);
+                // this.state.buyName.push("交强险");
+
             }else{
                 var q=this.state.buyName;
                 var ref=this;
@@ -117,6 +131,7 @@ var testCar = React.createClass({
                 }else{
                     this.state.buyCheck.push([productName,'none',num]);
                 }
+                // this.state.buyCheck.push(['交强险','none']);
             }else {
                 var p = this.state.buyCheck;
                 var a = $(items).find(attach)[0];
@@ -168,16 +183,20 @@ var testCar = React.createClass({
             }
 
             var val=$(items).attr("value");
+            var p = document.getElementById("XG"+num);
+
             if(val=='0'){
                 $(items).attr("style", "background: #c4f4a1");
                 $(items).attr("value","1");
+                p.innerHTML = "取消";
                 //this.setState({proNum:this.state.proNum+1});
             }else{
                 $(items).attr("style", "");
                 $(items).attr("value","0");
                 //this.setState({proNum:this.state.proNum-1});
+                p.innerHTML = "选购";
             }
-            this.setState({proNum: this.state.buyName.length+1});
+            this.setState({proNum: this.state.buyName.length});
         }
 
     },
@@ -242,7 +261,7 @@ var testCar = React.createClass({
                             <label className="checkLab" style={{height: '30px'}}>
                             </label>
                             <h1 className="buyCar">
-                                <a onClick={ref.changeBuyState.bind(this,i,item.productName)}>选购</a>
+                                <a id={"XG"+i} onClick={ref.changeBuyState.bind(this,i,item.productName)}>选购</a>
                             </h1>
                         </p>
                     )
@@ -257,7 +276,7 @@ var testCar = React.createClass({
                                 <span className="checkText">不计免赔</span>
                             </label>
                             <h1 className="buyCar">
-                                <a onClick={ref.changeBuyState.bind(this,i,item.productName)}>选购</a>
+                                <a id={"XG"+i} onClick={ref.changeBuyState.bind(this,i,item.productName)}>选购</a>
                             </h1>
                         </p>
                         )
@@ -297,10 +316,21 @@ var testCar = React.createClass({
                                                         </div>
                                                         <div className="car_btm_area">
                                                             <div className="pointline"></div>
+
                                                             <div className="btm_btn">
-                                                                <div className="detail_btn">
-                                                                    <a title="购买" target="_blank" onClick={this.goToOthers.bind(this,'buy')}></a>
+                                                                <div className="detail_btn_input">
+                                                                    {SyncStore.getNote() ?
+                                                                    <Link to={window.App.getAppRoute() + "/carInsuranceBuyPage"}>
+                                                                        <input className="nextTo" ref="nextTo" type="button" style={{background: 'darkgrey'}} onClick={this.sendPageDate()} disabled="true" value="下一步" />
+                                                                    </Link> :
+                                                                    <Link to={window.App.getAppRoute() + "/login"}>
+                                                                        <input className="nextTo" ref="nextTo" type="button" style={{background: 'darkgrey'}} onClick={this.sendPageDate()} disabled="true" value="下一步" />
+                                                                    </Link>}
                                                                 </div>
+                                                            </div>
+                                                            <div id="jqx" style={{float:'right',margin: '12px 12px'}} onClick={this.checkJQX}>
+                                                            我已在他处购买交强险<input id="jqxY" type="radio" style={{margin: '0px 15px 2px 5px'}} name="jqx" value='y' />
+                                                            我尚未拥有交强险<input id="jqxN" type="radio" style={{margin: '0px 15px 2px 5px'}} name="jqx" value='n' />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -322,4 +352,4 @@ var testCar = React.createClass({
         return container;
     }
 });
-module.exports = testCar;
+module.exports = CarInsurance;

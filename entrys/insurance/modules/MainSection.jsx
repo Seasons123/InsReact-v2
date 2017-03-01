@@ -10,7 +10,9 @@ import LifeInsurance from '../components/LifeInsurance.jsx';
 import CarInsurance from '../components/CarInsurance.jsx';
 import Consultation from '../components/Consultation.jsx';
 import NewConsultation from '../components/NewConsultation';
+import LifeInsuranceBuyPage from '../components/LifeInsuranceBuyPage';
 import PersonalCenter from '../components/PersonalCenter.jsx';
+
 
 import App from '../modules/App.jsx';
 
@@ -104,6 +106,10 @@ var MainSection = React.createClass({
                     break;
                 case window.App.getAppRoute() + "/newConsultation":
                     ctrl = <NewConsultation></NewConsultation>;
+                    label = "关于我们";
+                    break;
+                case window.App.getAppRoute() + "/lifeInsuranceBuyPage":
+                    ctrl = <LifeInsuranceBuyPage></LifeInsuranceBuyPage>;
                     label = "关于我们";
                     break;
 

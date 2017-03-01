@@ -90,6 +90,17 @@
     overflow: hidden;
     padding-left:5em;
 }
+.proBuyBtn .proBtn{
+    background: #4c93e1;
+    color: #FFFFFF;
+    padding: 10px;
+    border: none;
+    width: 100px;
+    margin-top: 25px;
+    margin-left: 425px;
+    text-align: center;
+    cursor: pointer;
+}
 .line-height25 {
     line-height: 25px;
     text-align: -webkit-left;

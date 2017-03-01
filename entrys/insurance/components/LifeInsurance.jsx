@@ -12,7 +12,7 @@ var Page = require('../modules/Page');
 var ProxyQ = require('../../../components/proxy/ProxyQ');
 var info=null;
 
-var Test = React.createClass({
+var LifeInsurance = React.createClass({
     paginationData:function (data,pageIndex) {
         let capacity=data.length;
         var slices=null;
@@ -146,15 +146,6 @@ var Test = React.createClass({
     getSelectLifeInsuranceType:function(){
         var selected=$('#lifeInsuranceType option:selected').val();
         this.state.selectLifeInsuranceType=selected;
-    },
-    slidePage:function(type){
-        if(type=='right'){
-            var detail=this.refs.slider;
-            $(detail).animate({left:'-100%'});
-        }else{
-            var detail=this.refs.slider;
-            $(detail).animate({left:'0'}); //使页面划回到最左边
-        }
     },
     onSaveInput:function(event){
 
@@ -569,4 +560,4 @@ var Test = React.createClass({
         return container;
     }
 });
-module.exports = Test;
+module.exports = LifeInsurance;
