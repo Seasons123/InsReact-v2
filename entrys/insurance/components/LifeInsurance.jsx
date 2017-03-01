@@ -147,15 +147,6 @@ var LifeInsurance = React.createClass({
         var selected=$('#lifeInsuranceType option:selected').val();
         this.state.selectLifeInsuranceType=selected;
     },
-    slidePage:function(type){
-        if(type=='right'){
-            var detail=this.refs.slider;
-            $(detail).animate({left:'-100%'});
-        }else{
-            var detail=this.refs.slider;
-            $(detail).animate({left:'0'}); //使页面划回到最左边
-        }
-    },
     onSaveInput:function(event){
 
         this.setState({value: event.target.value});

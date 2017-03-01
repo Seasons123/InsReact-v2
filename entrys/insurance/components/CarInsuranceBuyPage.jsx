@@ -10,7 +10,11 @@ var ProxyQ = require('../../../components/proxy/ProxyQ');
 var SyncStore = require('../../../components/flux/stores/SyncStore');
 
 var CarInsuranceBuyPage = React.createClass({
+    closeModal:function(ob){ //保存跳转的页面信息
+        var successModal = this.refs['successModal'];
+        $(successModal).modal('hide');
 
+    },
     openCompanyInput:function(){
         $('#carCompany').selectpicker('refresh');
         $('#carCompany').selectpicker('show');
@@ -153,7 +157,7 @@ var CarInsuranceBuyPage = React.createClass({
     },
     updateOrderInfo:function(){
         if(this.state.insuranceType.length==this.state.typeNum){
-            if(this.state.selectCar!==0||this.state.selectCarCompany!==0){
+            if(this.state.selectCar!==0&&this.state.selectCarCompany!==0){
                 var ref=this;
                 var att=[];
                 this.state.attach.map(function(item,i){
@@ -199,7 +203,9 @@ var CarInsuranceBuyPage = React.createClass({
                     null,
                     function(ob) {
                         if(ob.data=='success'){
-                            alert('您的车险计划单已提交成功，请等待客服人员报价！')
+                            // alert('您的车险计划单已提交成功，请等待客服人员报价！')
+                            var successModal = this.refs['successModal'];
+                            $(successModal).modal('show');
                         }
 
                     }.bind(this),
@@ -395,18 +401,6 @@ var CarInsuranceBuyPage = React.createClass({
                                 </tbody>
                             </table>
                         </div>
-
-                        {this.state.jqx == 'y'?
-                            <div>
-                                <div className="article" style={{padding: '50px 0px 2px 0px'}}>
-                                    <h3 className="font_15 text">填写您的交强险单号</h3>
-                                </div>
-                                <div className="jqxNum margin10">
-                                    <label className="sect_title">已购买的交强险单号：</label>
-                                    <label><input className="addHaveInsNum" type="text"/></label>
-                                 </div>
-                            </div>:null}
-
                         <div className="article" style={{padding: '50px 0px 2px 0px'}}>
                             <h3 className="font_15 text">制定您的车险计划单</h3>
                         </div>
@@ -421,6 +415,16 @@ var CarInsuranceBuyPage = React.createClass({
                             {lrs}
                             {this.state.noIns == true? lrsNothing:null}
                         </div>
+                        {this.state.jqx == 'y'?
+                            <div>
+                                <div className="article" style={{padding: '15px 0px 2px 0px'}}>
+                                    <h3 className="font_15 text">填写您的交强险单号</h3>
+                                </div>
+                                <div className="jqxNum margin10">
+                                    <label className="sect_title">已购买的交强险单号：</label>
+                                    <label><input className="addHaveInsNum" type="text"/></label>
+                                </div>
+                            </div>:null}
                         <div className="article" style={{padding: '20px 0px 2px 0px'}}>
                             <h3 className="font_15 text">完善您的计划单信息</h3>
                         </div>
@@ -469,6 +473,33 @@ var CarInsuranceBuyPage = React.createClass({
                     </div>
                 </div>
                 <Footer/>
+
+                <div className="modal fade bs-example-modal-sm login-container"
+                     tabIndex="-1"
+                     role="dialog"
+                     aria-labelledby="myLargeModalLabel"
+                     aria-hidden="true"
+                     ref='successModal'
+                     data-backdrop="static"
+                     data-keyboard="false"
+                >
+                    <div className="modal-dialog modal-sm"
+                         style={{position: 'absolute', top: '30%', width: '50%', marginLeft: '25%'}}>
+                        <div className="modal-content"
+                             style={{position: 'relative', width: '100%', padding: '40px'}}>
+
+                            <div className="modal-body">
+                                <div className="form-group" style={{position: 'relative'}}>
+                                    <div>{'车险计划已经提交，请等待客服人员报价后再个人中心处查看！'}</div>
+                                    <Link to={window.App.getAppRoute() + "/personalCenter"}>
+                                        <input type='button' className="modalCloseBtn"  onClick={this.closeModal} value="OK"/>
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         }else {
             this.initialData();

@@ -183,14 +183,18 @@ var CarInsurance = React.createClass({
             }
 
             var val=$(items).attr("value");
+            var p = document.getElementById("XG"+num);
+
             if(val=='0'){
                 $(items).attr("style", "background: #c4f4a1");
                 $(items).attr("value","1");
+                p.innerHTML = "取消";
                 //this.setState({proNum:this.state.proNum+1});
             }else{
                 $(items).attr("style", "");
                 $(items).attr("value","0");
                 //this.setState({proNum:this.state.proNum-1});
+                p.innerHTML = "选购";
             }
             this.setState({proNum: this.state.buyName.length});
         }
@@ -257,7 +261,7 @@ var CarInsurance = React.createClass({
                             <label className="checkLab" style={{height: '30px'}}>
                             </label>
                             <h1 className="buyCar">
-                                <a onClick={ref.changeBuyState.bind(this,i,item.productName)}>选购</a>
+                                <a id={"XG"+i} onClick={ref.changeBuyState.bind(this,i,item.productName)}>选购</a>
                             </h1>
                         </p>
                     )
@@ -272,7 +276,7 @@ var CarInsurance = React.createClass({
                                 <span className="checkText">不计免赔</span>
                             </label>
                             <h1 className="buyCar">
-                                <a onClick={ref.changeBuyState.bind(this,i,item.productName)}>选购</a>
+                                <a id={"XG"+i} onClick={ref.changeBuyState.bind(this,i,item.productName)}>选购</a>
                             </h1>
                         </p>
                         )

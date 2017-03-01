@@ -17,6 +17,20 @@ var info={};
 var today=new Date().toLocaleDateString().replace("/", "-").replace("/", "-");
 
 var Consultation = React.createClass({
+//     getCookie: function () {
+//     var strCookie = document.cookie;
+//     var arrCookie = strCookie.split("; ");
+//     var login=null;
+//     for (var i = 0; i < arrCookie.length; i++) {
+//         var arr = arrCookie[i].split("=");
+//         if (arr[0] == 'user_identify')
+//             login = arr[1];
+//     }
+//     if(login!==null&&login!==undefined){
+//         SyncStore.setNote();
+//     }
+//     return SyncStore.getNote();
+// },
     Branch:function(branch){
         this.setState({nav: branch});
         this.initialData();
