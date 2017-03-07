@@ -43,18 +43,18 @@
 .list li.main {
     height: 40px;
     line-height: 40px;
-    font-size: 1.2em;
+    font-size: 16px;
 }
 
 .list li.main span {
-    margin-left: 5%;
+    margin-left: 10%;
     color: #336699;
     font-weight: bold;
 }
 
 .list li.main span.more {
     float: right;
-    margin-right: 20%;
+    margin-right: 15%;
     cursor: pointer;
 }
 
@@ -65,7 +65,7 @@
 
 .list li.vice span.title {
     color: #337ab7;
-    margin-left: 2%;
+    margin-left: 6%;
     cursor: pointer;
 }
 
@@ -183,16 +183,16 @@ div.next span:hover{
 .list li.vice span.title{
     display: block;
     float: left;
-    width: 98%;
+    width: 75%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    font-size: 14px;
+    font-size: 15px;
 }
 
 .list li.vice span.date{
     float: right;
     margin-right: 10%;
     color: #000000;
-    font-size: 1.2em;
+    font-size: 15px;
 }

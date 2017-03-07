@@ -55,7 +55,7 @@ var OrderCenter=React.createClass({
                 $(used).css("color","#0287ca");
                 break;
             case 'used':
-                $(used).css("color","#0287ca");
+                $(all).css("color","#0287ca");
                 $(income).css("color","#0287ca");
                 $(used).css("color","#288329");
                 break;
