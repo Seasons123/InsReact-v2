@@ -48,3 +48,24 @@
     border-color: aliceblue;
     margin-bottom: 5px;
 }
+.question-quiz{
+    padding-left:20px;
+}
+.question-quiz .quizArea{
+    resize: none;
+    width: 450px;
+    border-radius: 5px;
+    height: 150px;
+}
+.question-quiz .quizBtn{
+    background: #4c93e1;
+    border-color: #4c93e1;
+    border-radius: 5px;
+    padding: 6px 15px 6px 15px;
+    margin-top: 15px;
+}
+.question-quiz .quizImg{
+    height:200px;
+    width:300px;
+    margin:2px;
+}

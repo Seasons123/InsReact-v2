@@ -48,6 +48,11 @@
     border: 0;
     margin-left: 82px;
 }
+.insurancePlan .insAdd {
+    border: 0;
+    margin-left: 0px;
+    width: 90%;
+}
 .insurancePlan .planContain .plan_tr{
     height:37px;
     text-align: right;

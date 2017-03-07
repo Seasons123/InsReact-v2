@@ -6,7 +6,7 @@ import '../../../css/insurance/components/pagination.css';
 import '../../../css/insurance/components/productIntroduction.css';
 import '../../../css/insurance/components/Consultation.css';
 import '../../../css/insurance/components/ConsultationDetails.css';
-import Upload from '../../../components/basic/Upload.jsx';
+import Upload from '../../../entrys/insurance/components/Upload';
 var SyncStore = require('../../../components/flux/stores/SyncStore');
 var ProxyQ = require('../../../components/proxy/ProxyQ');
 
@@ -135,29 +135,26 @@ var TestConsultationDetails = React.createClass({
         var lrs=[];
         if(this.state.notes==true&&this.state.myself==true){
             lrs.push(
-                <div key={'my'}>
-                    <form  className="row"  method="post">
-                        <div className="span2">
+                <div key={'my'} className="question-quiz" >
+                        <div >
                             <label >继续提问:<span>*</span> </label>
                         </div>
-                        <div className="span6">
-                            <textarea  onChange={this.onSaveInput.bind(this)} name="message"  className="required span6" rows="6" title="* Please enter your message"></textarea>
+                        <div >
+                            <textarea  className="quizArea" onChange={this.onSaveInput.bind(this)}></textarea>
                         </div>
-                        <div className="span2">
+                        <div >
                             <label>上传图片: <span>*</span> </label>
                         </div>
+                    <div>
                         <Upload ctrlName={'test'} callbackParent={this.onChildChanged.bind(this)}/>
+                    </div>
                         {this.state.img ?
-                            <div className="thumb-box" style={{height:'200px',width:'300px',margin:'2px'}}>
-                                <img     style={{marginLeft: '46%',
-                                    marginTop: '3%'}}src={this.state.img}/>
+                            <div className="thumb-box" >
+                                <img    className="quizImg" src={this.state.img}/>
                             </div> : null}
-                        <div className="span6 offset2 bm30">
-                            <input  onClick={this.uploadAllQuestionContents}  value="Send Message" className="btn btn-inverse"/>
+                        <div >
+                            <input type="button" className="quizBtn" onClick={this.uploadAllQuestionContents}  value="Send Message" />
                         </div>
-                        <div className="span6 offset2 error-container"></div>
-                        <div className="span8 offset2" ></div>
-                    </form>
                 </div>
             )
         }

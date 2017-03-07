@@ -6,10 +6,86 @@ import '../../../css/insurance/components/pagination.css';
 import '../../../css/insurance/components/productIntroduction.css';
 import '../../../css/insurance/components/buyPage.css';
 import Footer from '../modules/Footer';
+var ProxyQ = require('../../../components/proxy/ProxyQ');
 var LifeInsuranceBuyPage = React.createClass({
+    getInsurant:function(){
+        var url="/insurance/insuranceReactPageDataRequest.do";
+        var params={
+            reactPageName:'insurancePersonalCenterScorePage',
+            reactActionName:'getInsurant'
+        };
+        ProxyQ.queryHandle(
+            'post',
+            url,
+            params,
+            null,
+            function(ob) {
+                this.setState({data:ob.data});
+            }.bind(this),
 
+            function(xhr, status, err) {
+                console.error(this.props.url, status, err.toString());
+            }.bind(this)
+        );
+    },
+    getSelectedInsurant:function(){
+        var selected=$('#Insurant option:selected').val();
+        this.state.selectInsurant=selected;
+    },
+    getSelectInsFeeType:function () {
+        var selected=$('#insFeeType option:selected').val();
+        this.state.selectInsFeeType=selected;
+    },
+    onSaveInput:function(event){
 
+        this.setState({value: event.target.value});
+
+    },
+
+    insFeeCompute:function () {
+        if($('#insFeeCompute').val()=="修改"){
+            $(this.refs["attach"+1]).attr("disabled","disabled");//禁止附加险
+            $('#insFeeCompute').attr("value","计算保费");
+            $('#Insurant').removeAttr("disabled");
+            $('#insFeeType').removeAttr("disabled");
+            $('#insBasicFee').removeAttr("disabled");
+            // $(this.refs[""]).removeAttr("disabled");//保险费
+        }else {
+            $(this.refs["attach"+1]).removeAttr("disabled");//开放附加险
+            $('#insFeeCompute').attr("value","修改");
+            $('#Insurant').attr("disabled","disabled");
+            $('#insFeeType').attr("disabled","disabled");
+            $('#insBasicFee').attr("disabled","disabled");
+            // $(this.refs[""]).attr("","");//保险费
+        }
+
+    },
+    showInsAddDetail:function () {
+      $('#addInsModal').removeAttr("hidden");
+    },
+    initialData:function(){
+        this.getInsurant();
+    },
+    getInitialState: function() {
+        return {
+            selectInsurant:null,
+            selectInsFeeType:null
+        }
+    },
     render:function () {
+
+        if(this.state.data!==null&&this.state.data!==undefined){
+            var data=this.state.data;
+            var rrs=[];//相关人员项
+            var myRelative=data;
+            myRelative.map(function(item,i){
+                rrs.push(
+                    <option key={i} value={item.personId}>{item.perName}</option>
+                )
+            });
+        }else {
+            this.initialData();
+        }
         return(
             <div>
                 <div className="buyPage margin">
@@ -48,41 +124,17 @@ var LifeInsuranceBuyPage = React.createClass({
                                     <td className="plan_line" colSpan="4"></td>
                                 </tr>
                                 <tr className="plan_tr">
-                                    <td className="plan_td_1">被保险人出生日期：</td>
+                                    <td className="plan_td_1">被保险人：</td>
                                     <td width="5px"></td>
-                                    <td className="plan_td_2"><input id="insBirthday" type="date" name="user_birthday"/></td>
+                                    <td className="plan_td_2">
+                                        <select style={{width:'130px'}} onChange={this.getSelectedInsurant} id="Insurant" >
+                                            <option value={0}>自己</option>
+                                            {rrs}
+                                        </select>
+                                    </td>
                                     <td className="plan_td_3">&nbsp;
                                         <span >*</span>
                                         <span id="insBirthday_err" style={{color: 'red', paddingLeft: '5px'}}></span></td>
-                                </tr>
-                                <tr>
-                                    <td className="plan_line" colSpan="4"></td>
-                                </tr>
-                                <tr className="plan_tr">
-                                    <td className="plan_td_1">被保险人性别：</td>
-                                    <td width="5px"></td>
-                                    <td className="plan_td_2" >
-                                        <div style={{float:'left'}}>
-                                        <input id="insBirthday" type="radio" name="user_sex"/>
-                                        <span>男</span>
-                                        </div>
-                                        <div style={{float:'left',paddingLeft:'20px'}}>
-                                        <input id="insSex" type="radio" name="user_sex"/>
-                                        <span>女</span>
-                                        </div>
-                                    </td>
-                                    <td ></td>
-                                </tr>
-                                <tr>
-                                    <td className="plan_line" colSpan="4"></td>
-                                </tr>
-                                <tr className="plan_tr">
-                                    <td className="plan_td_1">被保险人职业：</td>
-                                    <td width="5px"></td>
-                                    <td className="plan_td_2" >
-                                            <input id="insWork" type="text" name="user_work"/>
-                                    </td>
-                                    <td ></td>
                                 </tr>
                                 <tr>
                                     <td className="plan_line" colSpan="4"></td>
@@ -113,9 +165,11 @@ var LifeInsuranceBuyPage = React.createClass({
                                     <td className="plan_td_1">缴费期间：</td>
                                     <td width="5px"></td>
                                     <td className="plan_td_2" >
-                                        <select style={{width:'130px'}} id="insFeeType"  name="user_feeType">
+                                        <select style={{width:'130px'}} onChange={this.getSelectInsFeeType} id="insFeeType"  name="user_feeType">
                                             <option>5年</option>
                                             <option>10年</option>
+                                            <option>15年</option>
+                                            <option>20年</option>
                                         </select>
 
                                     </td>
@@ -128,12 +182,12 @@ var LifeInsuranceBuyPage = React.createClass({
                                     <td className="plan_td_1">基本保险金额：</td>
                                     <td width="5px"></td>
                                     <td className="plan_td_2" >
-                                        <input id="insBasicFee" type="text" name="user_BasicFee"/>
+                                        <input id="insBasicFee" onChange={this.onSaveInput.bind(this)}type="text" name="user_BasicFee"/>
                                     </td>
                                     <td className="plan_td_3">&nbsp;
                                         <span >*</span>
                                         <span id="insBirthday_err" style={{color: 'red', paddingLeft: '5px'}}></span>
-                                        <input id="insFeeCompute" style={{padding: '2.5px 10px'}} type="button" name="user_compute" value="计算保费"/>
+                                        <input id="insFeeCompute" onClick={this.insFeeCompute}  style={{padding: '2.5px 10px'}} type="button" name="user_compute" value="计算保费"/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -142,8 +196,8 @@ var LifeInsuranceBuyPage = React.createClass({
                                 <tr className="plan_tr">
                                     <td className="plan_td_1">保险费：</td>
                                     <td width="5px"></td>
-                                    <td className="plan_td_2" >
-                                        1000
+                                    <td className="plan_td_2">
+                                        ？？？
                                     </td>
                                     <td ></td>
                                 </tr>
@@ -158,12 +212,53 @@ var LifeInsuranceBuyPage = React.createClass({
                             <div className="article">
                             <h3 className="font_15 text">选择您的附加产品</h3>
                             </div>
-                            <div className="addInsPro">
-                                <input type="checkbox" />
-                                附加：国华附加意外伤害保险
+                            <div className="addInsPro" >
+                                <span >
+                                    <input type="checkbox" onChange={this.showInsAddDetail} ref={'attach'+1} disabled="disabled"/>
+                                    附加：国华附加意外伤害保险
+                                </span>
                                 <span style={{color:'blue',paddingLeft:'5px'}}>被保人年龄范围在28 天-55周岁之间方可附加本险种</span>
+                                <div id="addInsModal" hidden="hidden">
+                                <table className="planContain insAdd">
+                                    <tr>
+                                        <td className="plan_line" colSpan="4"></td>
+                                    </tr>
+                                    <tr className="plan_tr">
+                                        <td className="plan_td_1">基本保险金额：</td>
+                                        <td width="5px"></td>
+                                        <td className="plan_td_2" >
+                                            <input  type="text" />
+                                        </td>
+                                        <td className="plan_td_3">&nbsp;
+                                            <span >*</span>
+                                            <span style={{color: 'red', paddingLeft: '5px'}}></span>
+                                            <input style={{padding: '2.5px 10px'}} type="button"  value="计算保费"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="plan_line" colSpan="4"></td>
+                                    </tr>
+                                    <tr className="plan_tr">
+                                        <td className="plan_td_1">保险费：</td>
+                                        <td width="5px"></td>
+                                        <td className="plan_td_2" >
+                                            1000
+                                        </td>
+                                        <td ></td>
+                                    </tr>
+                                    <tr>
+                                        <td className="plan_line" colSpan="4"></td>
+                                    </tr>
+                                    <tr className="plan_tr">
+                                        <td colSpan="4" style={{textAlign:'left',color: 'blue'}}>被保人年龄范围在28 天-55周岁之间方可附加本险种！</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="plan_line" colSpan="4"></td>
+                                    </tr>
+                                </table>
+                                </div>
                             </div>
-                            <div className="addInsPro">
+                            <div className="addInsPro" >
                                 <input type="checkbox" />
                                 附加：国华附加意外伤害保险
                                 <span style={{color:'blue',paddingLeft:'5px'}}>被保人年龄范围在28 天-55周岁之间方可附加本险种</span>
