@@ -656,7 +656,7 @@ var Panel=React.createClass({
                                 break;
                             case 'return':
 
-                                    ctrl = <button  onClick={returnCb} style={{width:"8%", height:'30px',fontSize:'1.2em'}} data-return={props.returnCb}>
+                                    ctrl = <button  onClick={returnCb} style={{width:"5%", height:'30px',fontSize:'14px'}} data-return={props.returnCb}>
                                         {coms[0]}</button>;
 
 
