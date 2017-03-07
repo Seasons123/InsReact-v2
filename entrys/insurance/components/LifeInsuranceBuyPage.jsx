@@ -41,6 +41,7 @@ var LifeInsuranceBuyPage = React.createClass({
         this.setState({value: event.target.value});
 
     },
+
     insFeeCompute:function () {
         if($('#insFeeCompute').val()=="修改"){
             $(this.refs["attach"+1]).attr("disabled","disabled");//禁止附加险
@@ -58,6 +59,9 @@ var LifeInsuranceBuyPage = React.createClass({
             // $(this.refs[""]).attr("","");//保险费
         }
 
+    },
+    showInsAddDetail:function () {
+      $('#addInsModal').removeAttr("hidden");
     },
     initialData:function(){
         this.getInsurant();
@@ -208,12 +212,53 @@ var LifeInsuranceBuyPage = React.createClass({
                             <div className="article">
                             <h3 className="font_15 text">选择您的附加产品</h3>
                             </div>
-                            <div className="addInsPro">
-                                <input type="checkbox" ref={'attach'+1} disabled="disabled"/>
-                                附加：国华附加意外伤害保险
+                            <div className="addInsPro" >
+                                <span >
+                                    <input type="checkbox" onChange={this.showInsAddDetail} ref={'attach'+1} disabled="disabled"/>
+                                    附加：国华附加意外伤害保险
+                                </span>
                                 <span style={{color:'blue',paddingLeft:'5px'}}>被保人年龄范围在28 天-55周岁之间方可附加本险种</span>
+                                <div id="addInsModal" hidden="hidden">
+                                <table className="planContain insAdd">
+                                    <tr>
+                                        <td className="plan_line" colSpan="4"></td>
+                                    </tr>
+                                    <tr className="plan_tr">
+                                        <td className="plan_td_1">基本保险金额：</td>
+                                        <td width="5px"></td>
+                                        <td className="plan_td_2" >
+                                            <input  type="text" />
+                                        </td>
+                                        <td className="plan_td_3">&nbsp;
+                                            <span >*</span>
+                                            <span style={{color: 'red', paddingLeft: '5px'}}></span>
+                                            <input style={{padding: '2.5px 10px'}} type="button"  value="计算保费"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="plan_line" colSpan="4"></td>
+                                    </tr>
+                                    <tr className="plan_tr">
+                                        <td className="plan_td_1">保险费：</td>
+                                        <td width="5px"></td>
+                                        <td className="plan_td_2" >
+                                            1000
+                                        </td>
+                                        <td ></td>
+                                    </tr>
+                                    <tr>
+                                        <td className="plan_line" colSpan="4"></td>
+                                    </tr>
+                                    <tr className="plan_tr">
+                                        <td colSpan="4" style={{textAlign:'left',color: 'blue'}}>被保人年龄范围在28 天-55周岁之间方可附加本险种！</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="plan_line" colSpan="4"></td>
+                                    </tr>
+                                </table>
+                                </div>
                             </div>
-                            <div className="addInsPro">
+                            <div className="addInsPro" >
                                 <input type="checkbox" />
                                 附加：国华附加意外伤害保险
                                 <span style={{color:'blue',paddingLeft:'5px'}}>被保人年龄范围在28 天-55周岁之间方可附加本险种</span>

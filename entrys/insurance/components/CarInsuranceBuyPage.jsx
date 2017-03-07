@@ -600,13 +600,15 @@ var CarInsuranceBuyPage = React.createClass({
                                         <div>
                                             <label >用车城市:</label>
                                             <div className="self_controls">
-                                                <input type="text" className="self_input email"/>
+                                                <select  id="carCity" >
+                                                   <option>00</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div>
                                             <label >车牌:</label>
                                             <div className="self_controls">
-                                                <input name="" type="text" className="self_input passwd" />
+                                                <input name="carNum" defaultValue="" maxLength='7' className="car_input"/>
                                             </div>
                                         </div>
                                         <div>
@@ -618,13 +620,22 @@ var CarInsuranceBuyPage = React.createClass({
                                         <div>
                                             <label >注册日期:</label>
                                             <div className="self_controls">
-                                                <input type="text" name="" className="self_input email"/>
+                                                <span>
+                                                    <Calendar data={today} ctrlName='registerDate'/>
+                                                </span>
                                             </div>
                                         </div>
+                                        <div >
+                                            <label >是否车主</label>
+                                            <div className="self_controls">
+                                                <input type="checkbox" name="isOwner" className="car_input" />
+                                            </div>
+                                        </div>
+
                                         <div>
                                             <label >是一年内过户的二手车吗:</label>
                                             <div className="self_controls">
-                                                <input type="text" name="" className="self_input email"/>
+                                                <input type="checkbox" name="isSecondHand" className="car_input" />
                                             </div>
                                         </div>
                                         <div>
