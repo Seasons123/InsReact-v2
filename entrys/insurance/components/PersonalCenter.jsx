@@ -8,7 +8,9 @@ import '../../../css/insurance/components/Business.css';
 import '../../../css/insurance/components/navcontent.css';
 
 import PageNavigator from '../modules/PageNavigator.jsx';
-import PersonInfo from './PersonInfo.jsx';
+import SelfBaseInfo from './SelfBaseInfo.jsx';
+import RelatedPersonInfo from './RelatedPersonInfo.jsx';
+import RelatedCarInfo from './RelatedCarInfo.jsx';
 
 var ProxyQ = require('../../../components/proxy/ProxyQ');
 var Page = require('../modules/Page');
@@ -1318,17 +1320,17 @@ var OrderCenter=React.createClass({
 
                 case 'baseInfo':
                     mainContent =(
-                        <PersonInfo info='baseInfo'/>
+                        <SelfBaseInfo />
                     );
                     break;
                 case 'relatedInfo':
                     mainContent =(
-                        <PersonInfo info='relatedInfo'/>
+                        <RelatedPersonInfo />
                     );
                     break;
                 case 'carInfo':
                     mainContent =(
-                        <PersonInfo info='carInfo'/>
+                        <RelatedCarInfo />
                     );
                     break;
             }

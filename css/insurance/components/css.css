@@ -1158,7 +1158,7 @@ a:hover,.limitCnt p a:hover.loginLink,#footer a.ftsite:hover {
     padding-right: 10px;
 }
 
-.product_B span a, .company span a, .partner_B span a {
+.product_B span a, .partner_B span a {
     color: #333;
     font-weight: normal;
     font-size: 12px;
@@ -1243,7 +1243,7 @@ a:hover,.limitCnt p a:hover.loginLink,#footer a.ftsite:hover {
     font-size: 14px;
 }
 
-.company span, .news span {
+.company span.about-more, .news span.news-more {
     position: absolute;
     right: 0;
     top: 0;
