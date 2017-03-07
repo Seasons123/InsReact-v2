@@ -12,6 +12,11 @@ var TopNav=React.createClass({
     click:function(ob){ //保存跳转的页面信息
         SyncStore.setRouter(ob);
     },
+
+    getInitialState:function(){
+        var note=SyncStore.getNote();
+        return({loginState:note})
+    },
     
     render:function(){
         return(
@@ -59,9 +64,14 @@ var TopNav=React.createClass({
                                 </ul>
                             </li>
                             <li className="nav_menu-item">
-                                <Link to={window.App.getAppRoute() + "login"}>
-                                    <a onClick={this.click.bind(this,"/personalCenter")}>个人中心</a>
-                                </Link>
+                                {this.state.loginState ?
+                                    <Link to={window.App.getAppRoute() + "personalCenter"}>
+                                        <a>个人中心</a>
+                                    </Link> :
+                                    <Link to={window.App.getAppRoute() + "login"}>
+                                        <a onClick={this.click.bind(this,"/personalCenter")}>个人中心</a>
+                                    </Link>
+                                }
                             </li>
                             <li className="nav_menu-item">
                                 <Link to={window.App.getAppRoute() + "/consultation"}>

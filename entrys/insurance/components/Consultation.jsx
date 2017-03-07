@@ -7,7 +7,7 @@ import '../../../css/insurance/components/pagination.css';
 import '../../../css/insurance/components/productIntroduction.css';
 import '../../../css/insurance/components/Consultation.css';
 import ConsultationDetails from '../components/ConsultationDetails.jsx';
-import Calendar from './Calendar.jsx';
+import Calendar from '../../../components/basic/Calendar.jsx';
 import PageNavigator from '../modules/PageNavigator.jsx';
 
 var ProxyQ = require('../../../components/proxy/ProxyQ');
