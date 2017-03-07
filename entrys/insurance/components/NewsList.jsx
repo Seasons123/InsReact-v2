@@ -5,9 +5,10 @@ import React from 'react';
 import {render} from 'react-dom';
 import {Link} from 'react-router'
 import NewsInfo from '../../insurance/components/NewsPage.jsx';
+
 import '../../../css/insurance/components/newsList.css';
 
-var News=React.createClass({
+var NewsList=React.createClass({
 
     clickCb:function (evt) {
         var target = evt.target;
@@ -97,4 +98,4 @@ var News=React.createClass({
     }
 });
 
-module.exports=News;
+module.exports=NewsList;

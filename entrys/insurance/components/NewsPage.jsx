@@ -7,7 +7,7 @@ import '../../../css/insurance/components/newsPage.css';
 var ProxyQ = require('../../../components/proxy/ProxyQ');
 
 
-var News=React.createClass({
+var NewsPage=React.createClass({
     returnCb:function () {
         this.setState({hiddenInfo: null, display:'list'});
         //$(this.refs.contentDiv).slideDown();
@@ -98,7 +98,7 @@ var News=React.createClass({
         var hiddenInfo;
         var auto =true;
         var display='list';
-        var nav=null;
+        var TopNav=null;
         if(this.props.data!==undefined&&this.props.data!==null) {
             data = this.props.data;
             data$initialed=true;
@@ -121,11 +121,11 @@ var News=React.createClass({
             contentMapping=this.props.contentMapping;
         }
 
-        if(this.props.nav!==undefined&&this.props.nav!==null){
-            nav=this.props.nav;
+        if(this.props.TopNav!==undefined&&this.props.TopNav!==null){
+            TopNav=this.props.TopNav;
         }
 
-        return ({data: data, data$initialed: data$initialed, auto: auto,hiddenInfo: hiddenInfo, contentMapping: contentMapping, display:display, nav:nav});
+        return ({data: data, data$initialed: data$initialed, auto: auto,hiddenInfo: hiddenInfo, contentMapping: contentMapping, display:display, TopNav:TopNav});
     },
 
     render:function () {
@@ -185,6 +185,7 @@ var News=React.createClass({
                         case 'panel':
                             hide$c = <Panel
                                 padding="0px"
+                                paddingLeft="0px"
                                 autoComplete={true}
                                 data={this.state.hiddenInfo.data}
                                 returnCb={this.returnCb}
@@ -227,17 +228,24 @@ var News=React.createClass({
 
 
             return (
-                <div className="section clearfix" ref="news">
-                    {mainContent}
-                    <div ref="pagination">
-                        <li key={0} className="active">
-                            <a href="javascript:void(0);">{}</a>
-                        </li>
+                <div>
+                    <div style={{width:'100%'}}>
+                        {this.state.TopNav}
+                    </div>
+
+                    <div className="margin w1008">
+                        <div className="section clearfix" ref="news">
+                            {mainContent}
+                            <div ref="pagination">
+                                <li key={0} className="active">
+                                    <a href="javascript:void(0);">{}</a>
+                                </li>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
             );
         }
     }
 });
-module.exports = News;
+module.exports = NewsPage;
