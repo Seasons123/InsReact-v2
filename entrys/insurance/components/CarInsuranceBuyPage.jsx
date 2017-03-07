@@ -6,6 +6,7 @@ import '../../../css/insurance/components/navcontent.css';
 import '../../../css/insurance/components/pagination.css';
 import '../../../css/insurance/components/productIntroduction.css';
 import Footer from '../modules/Footer';
+import Upload from '../../../entrys/insurance/components/Upload';
 var ProxyQ = require('../../../components/proxy/ProxyQ');
 var SyncStore = require('../../../components/flux/stores/SyncStore');
 
@@ -278,6 +279,20 @@ var CarInsuranceBuyPage = React.createClass({
         this.getMyRelativeAndMyCar();
         this.getCarCompanies();
     },
+    addNewMan:function () {
+        var addNewManModal = this.refs['addNewManModal'];
+        $(addNewManModal).modal('show');
+    },
+    addNewCar:function () {
+        var addNewCarModal = this.refs['addNewCarModal'];
+        $(addNewCarModal).modal('show');
+    },
+    onChildChanged: function (date) {
+        this.setState({
+            img: date
+        });
+
+    },
     render: function () {
         var container=null;
         if(this.state.mainPage ==undefined){
@@ -446,7 +461,7 @@ var CarInsuranceBuyPage = React.createClass({
                                 <label style={{color:'#0093de'}}>若没有您需要的车辆信息，请点击新增车辆！</label>
                                 <label >
                                     <form >
-                                        <input className="createNew_car" type="button" value="新增车辆"/>
+                                        <input onClick={this.addNewCar} className="createNew_car" type="button" value="新增车辆"/>
                                     </form>
                                 </label>
                             </div>
@@ -461,7 +476,7 @@ var CarInsuranceBuyPage = React.createClass({
                                 <label style={{color:'#0093de'}}>若没有您需要的人员信息，请点击新增人员！</label>
                                 <label >
                                     <form >
-                                        <input className="createNew_man" type="button" value="新增人员"/>
+                                        <input onClick={this.addNewMan} className="createNew_man" type="button" value="新增人员"/>
                                     </form>
                                 </label>
                             </div>
@@ -494,6 +509,161 @@ var CarInsuranceBuyPage = React.createClass({
                                     <Link to={window.App.getAppRoute() + "/personalCenter"}>
                                         <input type='button' className="modalCloseBtn"  onClick={this.closeModal} value="OK"/>
                                     </Link>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="modal fade bs-example-modal-sm login-container"
+                     tabIndex="-1"
+                     role="dialog"
+                     aria-labelledby="myLargeModalLabel"
+                     aria-hidden="true"
+                     ref='addNewManModal'
+                     data-backdrop="static"
+                     data-keyboard="false"
+                >
+                    <div className="modal-dialog modal-sm"
+                         style={{position: 'absolute', top: '30%', width: '660px', marginLeft: '25%'}}>
+                        <div className="modal-content"
+                             style={{padding: '30px 0px 5px 90px'}}>
+                            <div className="close" > </div>
+                            <div className="modal-body">
+
+                                <div className="form-group" style={{position: 'relative'}}>
+                                    <div style={{width:'440px'}}>
+
+                                        <div style={{float:'left'}}>
+                                            <div className="related_control_group" style={{float:'left'}}>
+                                                <label className="related_label">姓名</label>
+                                                <div className="self_controls">
+                                                    <input name="relatedName"   className="self_input"/>
+                                                </div>
+                                            </div>
+
+                                            <div className="related_control_group">
+                                                <label className="related_label" >关系</label>
+                                                <div className="self_controls">
+                                                    <select style={{width:'300px',height:'35px'}} id="relative" className="buy-field required">
+                                                        <option value={-1}>请选择亲属关系</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="clear">
+                                        </div>
+
+                                        <div style={{paddingLeft:'36px'}}>
+                                            <label  >身份证正面:</label>
+                                            <div style={{paddingLeft:'66px'}}>
+                                                <Upload ctrlName={'test'} callbackParent={this.onChildChanged.bind(this,"frontImg")} />
+                                            </div>
+
+                                        </div>
+                                        <div style={{paddingLeft:'36px'}}>
+                                            <label >身份证反面:</label>
+                                            <div style={{paddingLeft:'66px'}}>
+                                                <Upload ctrlName={'test'} callbackParent={this.onChildChanged.bind(this,"backImg")} />
+                                            </div>
+                                        </div>
+                                        <div className="save_control" style={{marginLeft: '36%', marginTop:'24px'}}>
+                                            <a className="saveBtn btn_primary" href="javascript:;">添加</a>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="modal fade bs-example-modal-sm login-container"
+                     tabIndex="-1"
+                     role="dialog"
+                     aria-labelledby="myLargeModalLabel"
+                     aria-hidden="true"
+                     ref='addNewCarModal'
+                     data-backdrop="static"
+                     data-keyboard="false"
+                >
+                    <div className="modal-dialog modal-sm"
+                         style={{position: 'absolute', width: '660px', marginLeft: '25%'}}>
+                        <div className="modal-content"
+                             style={{padding: '30px 0px 5px 90px'}}>
+                            <div className="close" > </div>
+                            <div className="modal-body">
+
+                                <div className="form-group" style={{position: 'relative'}}>
+                                    <div >
+                                        <div>
+                                            <label >用车城市:</label>
+                                            <div className="self_controls">
+                                                <input type="text" className="self_input email"/>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label >车牌:</label>
+                                            <div className="self_controls">
+                                                <input name="" type="text" className="self_input passwd" />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label >姓名:</label>
+                                            <div className="self_controls verifycode">
+                                                <input type="text" name="" className="self_input verifyCode" maxLength="4"/>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label >注册日期:</label>
+                                            <div className="self_controls">
+                                                <input type="text" name="" className="self_input email"/>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label >是一年内过户的二手车吗:</label>
+                                            <div className="self_controls">
+                                                <input type="text" name="" className="self_input email"/>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label >过户日期:</label>
+                                            <div className="self_controls">
+                                                <input type="text" name="" className="self_input email"/>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label >厂牌型号:</label>
+                                            <div className="self_controls">
+                                                <input type="text" name="" className="self_input email"/>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label >发动机号:</label>
+                                            <div className="self_controls">
+                                                <input type="text" name="" className="self_input email"/>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label >车架号:</label>
+                                            <div className="self_controls">
+                                                <input type="text" name="" className="self_input email"/>
+                                            </div>
+                                        </div>
+
+                                        <div style={{float:'left',width:'100%'}}>
+                                            <label  style={{width:'7em'}}>上传行驶证:</label>
+                                            <div style={{marginTop:'5px'}}>
+                                                <Upload ctrlName={'test'} callbackParent={this.onChildChanged.bind(this,"driveLicenseImg")} />
+                                            </div>
+                                        </div>
+
+                                        <div className="toolBar">
+                                            <a id="nextBtn" className="saveBtn btn_primary" href="javascript:;">保存</a>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>

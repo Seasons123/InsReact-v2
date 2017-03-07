@@ -12,31 +12,95 @@ var info={};
 
 var CarInsurance = React.createClass({
     sendPageDate:function () {
-        var temporaryStore=[];
-        temporaryStore.push(this.state.buyName);
-        temporaryStore.push(this.state.buyCheck);
-        temporaryStore.push(this.state.jqx);
-        SyncStore.setPageData(temporaryStore);
-        SyncStore.setRouter('carInsuranceBuyPage');
+
+            var temporaryStore=[];
+            temporaryStore.push(this.state.buyName);
+            temporaryStore.push(this.state.buyCheck);
+            temporaryStore.push(this.state.jqx);
+            SyncStore.setPageData(temporaryStore);
+            SyncStore.setRouter('carInsuranceBuyPage');
     },
     getInitialState: function() {
-        var jqx=['交强险','none'];
+
         return {
             proNum:1,
-            buyName:["交强险"],
-            buyCheck:[jqx],
+            buyName:[],
+            buyCheck:[],
             jqx:null
         }
     },
     checkJQX:function(){
             var item2=null;
+            var check=null;
             $('#jqx input:radio:checked').each(function (index, domEle) {
                item2= $(domEle).val();
             });
             if(item2!=null){
-                $(this.refs["nextTo"]).removeAttr("disabled");
-                $(this.refs["nextTo"]).attr("style","");
-                this.setState({jqx:item2});
+                if(item2=='n'){
+                    if(this.state.jqx!=='n'){
+                        this.state.buyName.push("交强险");
+                        this.state.buyCheck.push(['交强险','none']);
+                        $(this.refs["nextTo"]).removeAttr("disabled");
+                        $(this.refs["nextTo"]).attr("style","");
+                        this.setState({jqx:item2});
+                    }
+
+                }else {
+                    if(this.state.buyName.length!=0){
+                        var buy=this.state.buyName;
+                        buy.map(function(item,i){
+                          if(item=='交强险'){
+                              buy[i]=null;
+                              check=true;
+                          }
+                        })
+                        var buyName=[];
+                        buy.map(function (item,i) {
+                            if(item!=null){
+                                buyName.push(item);
+                            }
+
+                        })
+                        this.state.buyName=buyName;
+                        if(check==true){
+                            var bc=this.state.buyCheck;
+                            bc.map(function(item,i){
+                                if(item[0]=='交强险'){
+                                    bc[i]=null;
+                                }
+                            })
+                            var bck=[];
+                            bc.map(function (item,i) {
+                                if(item!=null){
+                                    bck.push(item);
+                                }
+
+                            })
+                            this.state.buyCheck=bck;
+                        }
+
+                        if(this.state.buyName.length!=0){
+                            $(this.refs["nextTo"]).removeAttr("disabled");
+                            $(this.refs["nextTo"]).attr("style","");
+                            this.setState({jqx:item2});
+                        }else {
+                            if(check==true){
+                                $(this.refs["nextTo"]).attr("disabled",true);
+                                $(this.refs["nextTo"]).attr("style","background:darkgrey");
+                                this.setState({jqx:item2});
+                                $('#jqx input:radio:checked').each(function (index, domEle) {
+                                    $(domEle).attr("checked",false);
+                                });
+                            }
+                        }
+                    }else {
+                        alert('您为选购任何产品！');
+                        $('#jqx input:radio:checked').each(function (index, domEle) {
+                            $(domEle).attr("checked",false);
+                        });
+                    }
+                }
+
             }else {
                 alert("请选择是否拥有交强险！");
             }
@@ -44,6 +108,7 @@ var CarInsurance = React.createClass({
     changeBuyState:function(num,productName) {
         var step =null;
         var items = this.refs[num];
+        var ref=this;
         if(productName=='玻璃单独破碎险'||productName=='车身划痕损失险'||productName=='自燃损失险'
             ||productName=='车损险无法找到第三方'||productName=='新增设备损失险'||productName=='发动机涉水损失险'){
             if(this.state.buyName.length!=0){
@@ -87,7 +152,7 @@ var CarInsurance = React.createClass({
 
             }else{
                 var q=this.state.buyName;
-                var ref=this;
+
                 var op=false;
                 var c=[];
                 q.map(function(item,i){

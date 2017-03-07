@@ -270,7 +270,8 @@ var LifeDetail = React.createClass({
                                             <option value="2">女</option>
                                         </select></td>
                                         <td style={{height:"37px", width:"20%"}}>交费期间：</td>
-                                        <td style={{width:"10%"}}><select id="payYears"
+                                        <td style={{width:"10%"}}>
+                                            <select id="payYears"
                                                                           name="ebizOrderInsuranceDto.payYears"
                                                                           style={{width:'100px'}}>
                                             <option value="2">5年</option>
