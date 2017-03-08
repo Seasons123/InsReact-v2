@@ -8,6 +8,7 @@ import '../../../css/insurance/components/productIntroduction.css';
 import '../../../css/insurance/components/personInfoBase.css';
 import '../../../css/insurance/components/personInfoLayout.css';
 import AddRelatedCarInfo from './AddRelatedCarInfo.jsx';
+import AddRelatedPersonInfo from './AddRelatedPersonInfo.jsx';
 import Footer from '../modules/Footer';
 import Upload from '../../../entrys/insurance/components/Upload';
 var ProxyQ = require('../../../components/proxy/ProxyQ');
@@ -15,8 +16,8 @@ var SyncStore = require('../../../components/flux/stores/SyncStore');
 
 var CarInsuranceBuyPage = React.createClass({
     closeModal:function(ob){ //保存跳转的页面信息
-        var successModal = this.refs['successModal'];
-        $(successModal).modal('hide');
+        var Modal = this.refs[ob];
+        $(Modal).modal('hide');
 
     },
     openCompanyInput:function(){
@@ -510,7 +511,7 @@ var CarInsuranceBuyPage = React.createClass({
                                 <div className="form-group" style={{position: 'relative'}}>
                                     <div>{'车险计划已经提交，请等待客服人员报价后再个人中心处查看！'}</div>
                                     <Link to={window.App.getAppRoute() + "/personalCenter"}>
-                                        <input type='button' className="modalCloseBtn"  onClick={this.closeModal} value="OK"/>
+                                        <input type='button' className="modalCloseBtn"  onClick={this.closeModal.bind(this,'successModal')} value="OK"/>
                                     </Link>
                                 </div>
                             </div>
@@ -528,53 +529,14 @@ var CarInsuranceBuyPage = React.createClass({
                      data-keyboard="false"
                 >
                     <div className="modal-dialog modal-sm"
-                         style={{position: 'absolute', top: '30%', width: '660px', marginLeft: '25%'}}>
+                         style={{position: 'absolute', top: '30%', width: '920px', marginLeft: '20%'}}>
                         <div className="modal-content"
-                             style={{padding: '30px 0px 5px 90px'}}>
-                            <div className="close" > </div>
+                             style={{padding: '30px 0px 0px 0px', height: '280px'}}>
+                            <div className="close" onClick={this.closeModal.bind(this,'addNewManModal')}> </div>
                             <div className="modal-body">
-
                                 <div className="form-group" style={{position: 'relative'}}>
-                                    <div style={{width:'440px'}}>
-
-                                        <div style={{float:'left'}}>
-                                            <div className="related_control_group" style={{float:'left'}}>
-                                                <label className="related_label">姓名</label>
-                                                <div className="self_controls">
-                                                    <input name="relatedName"   className="self_input"/>
-                                                </div>
-                                            </div>
-
-                                            <div className="related_control_group">
-                                                <label className="related_label" >关系</label>
-                                                <div className="self_controls">
-                                                    <select style={{width:'300px',height:'35px'}} id="relative" className="buy-field required">
-                                                        <option value={-1}>请选择亲属关系</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div className="clear">
-                                        </div>
-
-                                        <div style={{paddingLeft:'36px'}}>
-                                            <label  >身份证正面:</label>
-                                            <div style={{paddingLeft:'66px'}}>
-                                                <Upload ctrlName={'test'} callbackParent={this.onChildChanged.bind(this,"frontImg")} />
-                                            </div>
-
-                                        </div>
-                                        <div style={{paddingLeft:'36px'}}>
-                                            <label >身份证反面:</label>
-                                            <div style={{paddingLeft:'66px'}}>
-                                                <Upload ctrlName={'test'} callbackParent={this.onChildChanged.bind(this,"backImg")} />
-                                            </div>
-                                        </div>
-                                        <div className="save_control" style={{marginLeft: '36%', marginTop:'24px'}}>
-                                            <a className="saveBtn btn_primary" href="javascript:;">添加</a>
-                                        </div>
-
+                                    <div >
+                                        <AddRelatedPersonInfo customerId={this.state.customerId} flush={this.initialData}/>
                                     </div>
 
                                 </div>
@@ -592,10 +554,10 @@ var CarInsuranceBuyPage = React.createClass({
                      data-keyboard="false"
                 >
                     <div className="modal-dialog modal-sm"
-                         style={{position: 'absolute', width: '900px', marginLeft: '25%'}}>
+                         style={{position: 'absolute', width: '900px',marginLeft: '20%', top: '15%'}}>
                         <div className="modal-content"
                              style={{padding: '50px 0px 0px 0px',height: '600px'}}>
-                            <div className="close" > </div>
+                            <div className="close" onClick={this.closeModal.bind(this,'addNewCarModal')}> </div>
                             <div className="modal-body">
 
                                 <div className="form-group" style={{position: 'relative'}}>

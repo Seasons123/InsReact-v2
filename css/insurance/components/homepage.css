@@ -1,6 +1,6 @@
 .homePage {
     margin: 0 auto;
-    background: url(../../../build/images/images-8.png) no-repeat;
+
 }
 .topAndCenter{
     position:absolute;
@@ -36,14 +36,14 @@
     height:70px;
 }
 .homePage_R {
-    float:right;
+    float:left;
     width: 500px;
-    height: 643px;
+    margin-left: 120px;
 
 }
 .homePage_L{
     float: left;
-    width: 450px;
+    width: 800px;
 }
 
 

@@ -331,7 +331,7 @@ var Consultation = React.createClass({
 
                     break;
                 case 'consultationDetails':
-                    container = <ConsultationDetails data={info} title={this.state.title} personId={this.state.personId} date={this.state.date} comments={this.state.comments}Branch={this.Branch}/>;
+                    container = <ConsultationDetails data={info} title={this.state.title} personId={this.state.personId} date={this.state.date} comments={this.state.comments} Branch={this.Branch}/>;
 
                     break;
             }
