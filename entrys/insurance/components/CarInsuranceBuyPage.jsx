@@ -5,6 +5,9 @@ import '../../../css/insurance/components/commonTopSupnuevo.css';
 import '../../../css/insurance/components/navcontent.css';
 import '../../../css/insurance/components/pagination.css';
 import '../../../css/insurance/components/productIntroduction.css';
+import '../../../css/insurance/components/personInfoBase.css';
+import '../../../css/insurance/components/personInfoLayout.css';
+import AddRelatedCarInfo from './AddRelatedCarInfo.jsx';
 import Footer from '../modules/Footer';
 import Upload from '../../../entrys/insurance/components/Upload';
 var ProxyQ = require('../../../components/proxy/ProxyQ');
@@ -589,90 +592,15 @@ var CarInsuranceBuyPage = React.createClass({
                      data-keyboard="false"
                 >
                     <div className="modal-dialog modal-sm"
-                         style={{position: 'absolute', width: '660px', marginLeft: '25%'}}>
+                         style={{position: 'absolute', width: '900px', marginLeft: '25%'}}>
                         <div className="modal-content"
-                             style={{padding: '30px 0px 5px 90px'}}>
+                             style={{padding: '50px 0px 0px 0px',height: '600px'}}>
                             <div className="close" > </div>
                             <div className="modal-body">
 
                                 <div className="form-group" style={{position: 'relative'}}>
                                     <div >
-                                        <div>
-                                            <label >用车城市:</label>
-                                            <div className="self_controls">
-                                                <select  id="carCity" >
-                                                   <option>00</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <label >车牌:</label>
-                                            <div className="self_controls">
-                                                <input name="carNum" defaultValue="" maxLength='7' className="car_input"/>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <label >姓名:</label>
-                                            <div className="self_controls verifycode">
-                                                <input type="text" name="" className="self_input verifyCode" maxLength="4"/>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <label >注册日期:</label>
-                                            <div className="self_controls">
-                                                <span>
-                                                    <Calendar data={today} ctrlName='registerDate'/>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div >
-                                            <label >是否车主</label>
-                                            <div className="self_controls">
-                                                <input type="checkbox" name="isOwner" className="car_input" />
-                                            </div>
-                                        </div>
-
-                                        <div>
-                                            <label >是一年内过户的二手车吗:</label>
-                                            <div className="self_controls">
-                                                <input type="checkbox" name="isSecondHand" className="car_input" />
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <label >过户日期:</label>
-                                            <div className="self_controls">
-                                                <input type="text" name="" className="self_input email"/>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <label >厂牌型号:</label>
-                                            <div className="self_controls">
-                                                <input type="text" name="" className="self_input email"/>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <label >发动机号:</label>
-                                            <div className="self_controls">
-                                                <input type="text" name="" className="self_input email"/>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <label >车架号:</label>
-                                            <div className="self_controls">
-                                                <input type="text" name="" className="self_input email"/>
-                                            </div>
-                                        </div>
-
-                                        <div style={{float:'left',width:'100%'}}>
-                                            <label  style={{width:'7em'}}>上传行驶证:</label>
-                                            <div style={{marginTop:'5px'}}>
-                                                <Upload ctrlName={'test'} callbackParent={this.onChildChanged.bind(this,"driveLicenseImg")} />
-                                            </div>
-                                        </div>
-
-                                        <div className="toolBar">
-                                            <a id="nextBtn" className="saveBtn btn_primary" href="javascript:;">保存</a>
-                                        </div>
+                                        <AddRelatedCarInfo customerId={this.state.customerId} flush={this.initialData}/>
                                     </div>
 
                                 </div>
