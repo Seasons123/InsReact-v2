@@ -3,9 +3,10 @@ import {render} from 'react-dom';
 var Panel = require('../../../components/panel/Panel.jsx');
 var Li = require('../../../components/basic/Li.jsx');
 import Hide from '../../../components/basic/Hide.jsx';
+import TopNav from '../modules/TopNav.jsx';
+
 import '../../../css/insurance/components/newsPage.css';
 var ProxyQ = require('../../../components/proxy/ProxyQ');
-
 
 var NewsPage=React.createClass({
     returnCb:function () {
@@ -98,7 +99,7 @@ var NewsPage=React.createClass({
         var hiddenInfo;
         var auto =true;
         var display='list';
-        var TopNav=null;
+        var addNav=false;
         if(this.props.data!==undefined&&this.props.data!==null) {
             data = this.props.data;
             data$initialed=true;
@@ -121,11 +122,11 @@ var NewsPage=React.createClass({
             contentMapping=this.props.contentMapping;
         }
 
-        if(this.props.TopNav!==undefined&&this.props.TopNav!==null){
-            TopNav=this.props.TopNav;
+        if(this.props.addNav!==undefined && this.props.addNav!==null){
+            addNav=this.props.addNav;
         }
 
-        return ({data: data, data$initialed: data$initialed, auto: auto,hiddenInfo: hiddenInfo, contentMapping: contentMapping, display:display, TopNav:TopNav});
+        return ({data: data, data$initialed: data$initialed, auto: auto,hiddenInfo: hiddenInfo, contentMapping: contentMapping, display:display, addNav:addNav});
     },
 
     render:function () {
@@ -160,7 +161,7 @@ var NewsPage=React.createClass({
                             var content = news.content;
                             var author = news.author;
                             var title = news.title;
-                            //var date = news.newsTimeStr;
+                            var date = news.newsTimeStr;
                             state.contentMapping[k] = {
                                 content: content,
                                 author : author,
@@ -171,6 +172,7 @@ var NewsPage=React.createClass({
                             uls.push(
                                 <li key={k} className="vice">
                                     <span className="title" data-index={k++} onClick={cb}>{title}</span>
+                                    <span className='date'>{date}</span>
                                 </li>);
                         });
                     }
@@ -229,9 +231,12 @@ var NewsPage=React.createClass({
 
             return (
                 <div>
-                    <div style={{width:'100%'}}>
-                        {this.state.TopNav}
-                    </div>
+
+                    {this.state.addNav ?
+                        <div style={{width:'100%'}}>
+                            <TopNav />
+                        </div> : null}
+
 
                     <div className="margin w1008">
                         <div className="section clearfix" ref="news">

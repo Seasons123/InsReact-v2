@@ -210,11 +210,10 @@ var MainPage=React.createClass({
             this.initialData();
         }
 
-        //var TopNav = <TopNav />;
         if (this.state.isEnter != undefined && this.state.isEnter != null) { //进入新闻详情
             return (
                 <NewsPage
-
+                    addNav={true}
                     data={this.state.data}
                     auto={true}
                     hiddenInfo={this.state.hiddenInfo}
