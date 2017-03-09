@@ -36,9 +36,10 @@
     height:70px;
 }
 .homePage_R {
-    float:left;
+    position: fixed;
     width: 500px;
-    margin-left: 120px;
+    height: 710px;
+    left: 56%;
 
 }
 .homePage_L{
