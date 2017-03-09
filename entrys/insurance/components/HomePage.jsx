@@ -22,7 +22,7 @@ var HomePage=React.createClass({
                  <Nav/>
                 <div className="w1500">
                     <div className="homePage_L">
-                        <img src={App.getResourceDeployPrefix()+"/images/imagex-1.png"}/>
+                        <img src={App.getResourceDeployPrefix()+"/images/images-8.png"}/>
                     </div>
                     <div className="homePage_R" >
                     <div style={{minHeight: '450px', paddingTop: '200px'}}>
