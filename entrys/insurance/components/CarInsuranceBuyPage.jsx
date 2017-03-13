@@ -501,6 +501,7 @@ var CarInsuranceBuyPage = React.createClass({
                      ref='successModal'
                      data-backdrop="static"
                      data-keyboard="false"
+                     style={{zIndex:1045}}
                 >
                     <div className="modal-dialog modal-sm"
                          style={{position: 'absolute', top: '30%', width: '50%', marginLeft: '25%'}}>
@@ -527,11 +528,12 @@ var CarInsuranceBuyPage = React.createClass({
                      ref='addNewManModal'
                      data-backdrop="static"
                      data-keyboard="false"
+                     style={{zIndex:1045}}
                 >
                     <div className="modal-dialog modal-sm"
                          style={{position: 'absolute', top: '30%', width: '920px', marginLeft: '20%'}}>
                         <div className="modal-content"
-                             style={{padding: '30px 0px 0px 0px', height: '280px'}}>
+                             style={{padding: '30px 0px 0px 0px', height: '530px'}}>
                             <div className="close" onClick={this.closeModal.bind(this,'addNewManModal')}> </div>
                             <div className="modal-body">
                                 <div className="form-group" style={{position: 'relative'}}>
@@ -552,6 +554,7 @@ var CarInsuranceBuyPage = React.createClass({
                      ref='addNewCarModal'
                      data-backdrop="static"
                      data-keyboard="false"
+                     style={{zIndex:1045}}
                 >
                     <div className="modal-dialog modal-sm"
                          style={{position: 'absolute', width: '900px',marginLeft: '20%', top: '15%'}}>

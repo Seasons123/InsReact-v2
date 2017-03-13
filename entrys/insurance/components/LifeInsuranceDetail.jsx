@@ -7,6 +7,7 @@ import '../../../css/insurance/components/pagination.css';
 import '../../../css/insurance/components/productIntroduction.css';
 import '../../../css/insurance/components/lifeDetails.css';
 import Download from '../../../components/basic/Download.jsx';
+var SyncStore = require('../../../components/flux/stores/SyncStore');
 var ProxyQ = require('../../../components/proxy/ProxyQ');
 var _val = "";
 var LifeDetail = React.createClass({
@@ -149,6 +150,14 @@ var LifeDetail = React.createClass({
             }.bind(this)
         );
     },
+    sendPageDate:function () {
+
+        var temporaryStore=[];
+        temporaryStore.push(this.state.data[0]);
+        temporaryStore.push(this.state.attach);
+        SyncStore.setPageData(temporaryStore);
+        SyncStore.setRouter('LifeInsuranceBuyPage');
+    },
     render: function () {
         if(this.state.data!==undefined&&this.state.data!==null){
             var data=this.state.data[0];
@@ -250,7 +259,7 @@ var LifeDetail = React.createClass({
                                 </div>
                                 <div className="proBuyBtn">
                                     <Link to={window.App.getAppRoute() + "/lifeInsuranceBuyPage"}>
-                                        <input className="proBtn" value='我要投保'/>
+                                        <input className="proBtn" onClick={this.sendPageDate} value='我要投保'/>
                                     </Link>
                                 </div>
                             </div>
@@ -270,8 +279,7 @@ var LifeDetail = React.createClass({
                                             <option value="2">女</option>
                                         </select></td>
                                         <td style={{height:"37px", width:"20%"}}>交费期间：</td>
-                                        <td style={{width:"10%"}}>
-                                            <select id="payYears"
+                                        <td style={{width:"10%"}}><select id="payYears"
                                                                           name="ebizOrderInsuranceDto.payYears"
                                                                           style={{width:'100px'}}>
                                             <option value="2">5年</option>
