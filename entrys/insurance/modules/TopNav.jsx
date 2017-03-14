@@ -15,7 +15,14 @@ var TopNav=React.createClass({
 
     getInitialState:function(){
         var note=SyncStore.getNote();
-        return({loginState:note})
+        var userName=SyncStore.getPageData();
+        return({loginState:note, userName:userName})
+    },
+
+    componentWillReceiveProps: function(){
+        var note=SyncStore.getNote();
+        var userName=SyncStore.getPageData();
+        this.setState({loginState:note, userName: userName})
     },
     
     render:function(){
@@ -29,12 +36,22 @@ var TopNav=React.createClass({
                     <div className="fr">
                         <ul className="link">
                             <li className="tell">咨询热线： <i>0531-81188593</i></li>
-                            <li className="plogin" style={{paddingRight:'5px'}}><a>注册</a></li>
-                            <li className="plogin">
-                                <Link to={window.App.getAppRoute() + "/login"}>
-                                    <a onClick={this.click.bind(this,"/mainPage")}>登录</a>
-                                </Link>
-                            </li>
+                            {SyncStore.getNote() ?
+                                <li className="plogin">
+                                    <a className="user" href="javascript:void(0)">
+                                        <i className='icon-user'></i>
+                                        <strong style={{marginLeft:'5px'}}>{this.state.userName}</strong>
+                                    </a>
+                                </li>
+
+                             :
+                                <li className="plogin">
+                                    <Link to={window.App.getAppRoute() + "/login"}>
+                                        <a className="login-btn" onClick={this.click.bind(this,"/mainPage")}>登录</a>
+                                    </Link>
+                                </li>
+                            }
+
                         </ul>
                     </div>
                 </div>
@@ -49,7 +66,7 @@ var TopNav=React.createClass({
                                     <a >首页</a>
                                 </Link>
                             </li>
-                            <li className="nav_menu-item"><a href="#" onClick="">产品中心</a>
+                            <li className="nav_menu-item"><a href="javascript:void(0)" onClick="">产品中心</a>
                                 <ul className="nav_submenu">
                                     <li className="nav_submenu-item">
                                         <Link to={window.App.getAppRoute() + "/carInsurance"}>
@@ -75,11 +92,14 @@ var TopNav=React.createClass({
                             </li>
                             <li className="nav_menu-item">
                                 <Link to={window.App.getAppRoute() + "/consultation"}>
-                                    <a >业务咨询</a>
+                                    <a>业务咨询</a>
                                 </Link>
                             </li>
-                            <li className="nav_menu-item"><a href="about.jsp">关于我们</a></li>
-                            <li className="nav_menu-item"><a href="contact.jsp">联系我们</a> </li>
+                            <li className="nav_menu-item">
+                                <Link to={window.App.getAppRoute() + "/aboutUs"}>
+                                    <a>关于我们</a>
+                                </Link>
+                            </li>
                         </ul>
                     </div>
                 </div>

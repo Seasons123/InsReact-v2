@@ -33,12 +33,13 @@ var Login=React.createClass({
                 if(re!==undefined && re!==null && (re ==1 || re =="1")){ //登陆成功
                     SyncStore.setNote(); //设置全局登录状态为true
                     SyncStore.setResult(true);
-                    console.log("登陆成功！");
-                    // var exp = new Date();
-                    // exp.setTime(exp.getTime() + 1000 * 60 * 60 * 24); //这里表示保存24小时
-                    // document.cookie = "user_identify=" + username + ";expires=" + exp.toGMTString();
-                    // document.cookie = "user_key=" + password + ";expires=" + exp.toGMTString();
+                    SyncStore.setPageData(username);
 
+                    console.log("登陆成功！");
+                    //var exp = new Date();
+                    //exp.setTime(exp.getTime() + 1000 * 60 * 60 * 2); //这里表示保存2小时
+                    //document.cookie = "username=" + username + ";expires=" + exp.toGMTString();
+                    //document.cookie = "password=" + password + ";expires=" + exp.toGMTString();
                 }
             }.bind(this),
             function(xhr, status, err) {
@@ -113,21 +114,6 @@ var Login=React.createClass({
 
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="aside">
-                            <div className="passport-goto">没有账号? <a tabIndex="5">新用户注册</a></div>
-                            <div className="sendgift"></div>
-                            <div className="passport-third">
-                                <header className="hd">
-                                    <div className="layout-inner">
-                                        <h3>汽车保险</h3>
-                                    </div>
-                                </header>
-                                <div className="links">
-                                    <img src="images/loginCar.jpg" />
                                 </div>
                             </div>
                         </div>

@@ -756,7 +756,7 @@ body {
     margin-left: auto;
     padding-top: 100px;
     padding-bottom: 20px;
-    width: 820px;
+    width: 560px;
 }
 
 .passport-sign {
@@ -771,9 +771,9 @@ body {
 }
 
 .passport-sign .main-form {
-    padding-right: 40px;
-    width: 360px;
-    border-right: 2px solid #fafafa;
+    padding-right: 20px;
+    width: 390px;
+    margin-left: 50px;
 }
 
 .passport-sign .main-form h2 {
