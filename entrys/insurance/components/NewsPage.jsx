@@ -238,13 +238,19 @@ var NewsPage=React.createClass({
                         </div> : null}
 
 
-                    <div className="margin w1008">
-                        <div className="section clearfix" ref="news">
-                            {mainContent}
-                            <div ref="pagination">
-                                <li key={0} className="active">
-                                    <a href="javascript:void(0);">{}</a>
-                                </li>
+                    <div className="margin w1100 mar_20">
+                        <div className="pro_R fr bg" style={{width:'1100px'}}>
+                            <div className="pro_bg">
+                                <span className="fr pad_L">您的位置：<a>主页</a> &gt; 新闻资讯</span>
+                            </div>
+
+                            <div className="section clearfix" ref="news">
+                                {mainContent}
+                                <div ref="pagination">
+                                    <li key={0} className="active">
+                                        <a href="javascript:void(0);">{}</a>
+                                    </li>
+                                </div>
                             </div>
                         </div>
                     </div>
