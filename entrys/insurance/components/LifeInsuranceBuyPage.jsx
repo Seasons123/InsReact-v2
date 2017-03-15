@@ -33,96 +33,230 @@ var LifeInsuranceBuyPage = React.createClass({
         var selected=$('#Insurant option:selected').val();
         this.state.selectInsurant=selected;
     },
+    getSelectBenefit:function () {
+        var selected=$('#benefit option:selected').val();
+        this.state.selectBenefit=selected;
+    },
     getSelectInsFeeType:function () {
         var selected=$('#insFeeType option:selected').val();
         this.state.selectInsFeeType=selected;
     },
+    getSelectSocietyIns:function () {
+        var selected=$('#societyIns option:selected').val();
+        this.state.selectSocietyIns=selected;
+    },
+    getSelectBusinessIns:function () {
+        var selected=$('#businessIns option:selected').val();
+        this.state.selectBusinessIns=selected;
+    },
     computeAttachInsFee:function (i,productId,insuranceQuota) {
-        var attachInsFee =$('#baseAttachInsFee'+i).val();
-        var a=attachInsFee/insuranceQuota;
-        var url="/insurance/insuranceReactPageDataRequest.do";
-        var params={
-            reactPageName:'insuranceLifeProductCenterPage',
-            reactActionName:'getMeasure',
-            productId:productId,
-            val:a,
-            payYears:this.state.selectInsFeeType,
-            personId:this.state.selectInsurant
-        };
-        ProxyQ.queryHandle(
-            'post',
-            url,
-            params,
-            null,
-            function(ob) {
-                $('#attachInsFeeResult'+i).attr("placeholder",ob.data)
-                $('#attachInsFeeCompute'+i).attr("value","修改");
-                $('#baseAttachInsFee'+i).attr("disabled","disabled");
-            }.bind(this),
-            function(xhr, status, err) {
-                console.error(this.props.url, status, err.toString());
-            }.bind(this)
-        );
+        if($('#baseAttachInsFee'+i).val()%insuranceQuota==0&&
+            $('#baseAttachInsFee'+i).val()!=0) {
+            if ($('#attachInsFeeCompute' + i).val() == "修改") {
+                var a=parseFloat($('#finalInsFee').attr("placeholder"))-
+                    parseFloat($('#attachInsFeeResult' + i).attr("placeholder"));
+                $('#finalInsFee').attr("placeholder",a);
+                $('#attachInsFeeResult' + i).attr("placeholder", "")
+                $('#attachInsFeeCompute' + i).attr("value", "计算保费");
+                $('#baseAttachInsFee' + i).removeAttr("disabled");
+                this.state.attachInsIds=[];
+            } else {
+                var attachInsFee = $('#baseAttachInsFee' + i).val();
+                var a = attachInsFee / insuranceQuota;
+                var url = "/insurance/insuranceReactPageDataRequest.do";
+                var params = {
+                    reactPageName: 'insuranceLifeProductCenterPage',
+                    reactActionName: 'getMeasure',
+                    productId: productId,
+                    val: a,
+                    payYears: this.state.selectInsFeeType,
+                    personId: this.state.selectInsurant
+                };
+                ProxyQ.queryHandle(
+                    'post',
+                    url,
+                    params,
+                    null,
+                    function (ob) {
+                        $('#attachInsFeeResult' + i).attr("placeholder", ob.data);
+                        $('#attachInsFeeCompute' + i).attr("value", "修改");
+                        $('#baseAttachInsFee' + i).attr("disabled", "disabled");
+                        var a=parseFloat($('#finalInsFee').attr("placeholder"))+ob.data;
+                        $('#finalInsFee').attr("placeholder",a);
+                    }.bind(this),
+                    function (xhr, status, err) {
+                        console.error(this.props.url, status, err.toString());
+                    }.bind(this)
+                );
+                this.state.attachInsIds.push(productId);
+            }
+        }else {
+            alert("本产品最低保额为"+insuranceQuota+",请您输入其整数倍的数字进行投保！");
+        }
     },
     onSaveInput:function(event){
 
         this.setState({value: event.target.value});
 
     },
-    insFeeCompute:function (productId,a) {
-        var n=this.state.attachIns.length;
-        if($('#insFeeCompute').val()=="修改"){
-            for(var i=0;i<n;i++){
-                $(this.refs["attach"+i]).attr("disabled","disabled");//禁止附加险
-                $(this.refs["attach"+i]).attr("checked",false);
-                $('#addInsModal'+i).attr("hidden",true);
+    insFeeCompute:function (productId,value,insuranceQuota) {
+        var a=value/insuranceQuota;
+        if($('#insBasicFee').val()%insuranceQuota==0&&
+            $('#insBasicFee').val()!=0) {
+            var n = this.state.attachIns.length;
+            if ($('#insFeeCompute').val() == "修改") {
+                for (var i = 0; i < n; i++) {
+                    $(this.refs["attach" + i]).attr("disabled", "disabled");//禁止附加险
+                    $(this.refs["attach" + i]).attr("checked", false);
+                    $('#addInsModal' + i).attr("hidden", true);
+                    $('#attachInsFeeResult' + i).attr("placeholder", "");//重置附加险
+                    $('#attachInsFeeCompute' + i).attr("value", "计算保费");
+                    $('#baseAttachInsFee' + i).removeAttr("disabled");
+                    var q=this.state.attachInsIds;
+                    var c=[];
+                    q.map(function (item,i) {
+                        if(item==productId){
+                            q[i]=null;
+                        }
+                    })
+                    q.map(function(item,i){
+                        if(item!=null) {
+                            c.push(item);
+                        }
+                    });
+                    this.state.attachInsIds=c;
+                }
+                $('#insFeeCompute').attr("value", "计算保费");
+                $('#Insurant').removeAttr("disabled");
+                $('#insFeeType').removeAttr("disabled");
+                $('#insBasicFee').removeAttr("disabled");
+                $('#benefit').removeAttr("disabled");
+                $('#societyIns').removeAttr("disabled");
+                $('#businessIns').removeAttr("disabled");
+                $('#finalInsFee').attr("placeholder","0.0");
+                this.setState({"measure": null});
+                // $(this.refs[""]).removeAttr("disabled");//保险费
+            } else {
+                for (var i = 0; i < n; i++) {
+                    $(this.refs["attach" + i]).removeAttr("disabled");//开放附加险
+                }
+                $('#Insurant').attr("disabled", "disabled");
+                $('#insFeeType').attr("disabled", "disabled");
+                $('#insBasicFee').attr("disabled", "disabled");
+                $('#benefit').attr("disabled","disabled");
+                $('#societyIns').attr("disabled","disabled");
+                $('#businessIns').attr("disabled","disabled");
+
+                // $(this.refs[""]).attr("","");//保险费
+                //查询保费
+                var url = "/insurance/insuranceReactPageDataRequest.do";
+                var params = {
+                    reactPageName: 'insuranceLifeProductCenterPage',
+                    reactActionName: 'getMeasure',
+                    productId: productId,
+                    val: a,
+                    payYears: this.state.selectInsFeeType,
+                    personId: this.state.selectInsurant
+                };
+                ProxyQ.queryHandle(
+                    'post',
+                    url,
+                    params,
+                    null,
+                    function (ob) {
+                        this.setState({measure: ob.data});
+                        $('#insFeeCompute').attr("value", "修改");
+                        $('#finalInsFee').attr("placeholder",ob.data);
+                    }.bind(this),
+                    function (xhr, status, err) {
+                        console.error(this.props.url, status, err.toString());
+                    }.bind(this)
+                );
             }
-            $('#insFeeCompute').attr("value","计算保费");
-            $('#Insurant').removeAttr("disabled");
-            $('#insFeeType').removeAttr("disabled");
-            $('#insBasicFee').removeAttr("disabled");
-            this.setState({"measure":null});
-            // $(this.refs[""]).removeAttr("disabled");//保险费
         }else {
-            for(var i=0;i<n;i++){
-                $(this.refs["attach"+i]).removeAttr("disabled");//开放附加险
-            }
-            $('#Insurant').attr("disabled","disabled");
-            $('#insFeeType').attr("disabled","disabled");
-            $('#insBasicFee').attr("disabled","disabled");
-            // $(this.refs[""]).attr("","");//保险费
-            //查询保费
-            var url="/insurance/insuranceReactPageDataRequest.do";
-            var params={
-                reactPageName:'insuranceLifeProductCenterPage',
-                reactActionName:'getMeasure',
-                productId:productId,
-                val:a,
-                payYears:this.state.selectInsFeeType,
-                personId:this.state.selectInsurant
-            };
-            ProxyQ.queryHandle(
-                'post',
-                url,
-                params,
-                null,
-                function(ob) {
-                    this.setState({measure:ob.data});
-                    $('#insFeeCompute').attr("value","修改");
-                }.bind(this),
-                function(xhr, status, err) {
-                    console.error(this.props.url, status, err.toString());
-                }.bind(this)
-            );
+            alert("本产品最低保额为"+insuranceQuota+",请您输入其整数倍的数字进行投保！")
         }
 
     },
-    showInsAddDetail:function (n) {
+    showInsAddDetail:function (n,id) {
 
         if($('#attach'+n).get(0).checked==true){
             $('#addInsModal'+n).removeAttr("hidden");
         }else {
             $('#addInsModal'+n).attr("hidden",true);
+            if($('#attachInsFeeResult' + n).attr("placeholder")!=""&&
+                $('#attachInsFeeResult' + n).attr("placeholder")!=null){
+                var a=parseFloat($('#finalInsFee').attr("placeholder"))-//重置缴费数额
+                    parseFloat($('#attachInsFeeResult' + n).attr("placeholder"));
+                $('#finalInsFee').attr("placeholder",a);
+            }
+
+            $('#attachInsFeeResult' + n).attr("placeholder", "");//重置附加险
+            $('#attachInsFeeCompute' + n).attr("value", "计算保费");
+
+            var q=this.state.attachInsIds;
+            var c=[];
+            q.map(function (item,i) {
+                if(item==id){
+                    q[i]=null;
+                }
+            })
+            q.map(function(item,i){
+                if(item!=null) {
+                    c.push(item);
+                }
+            });
+            this.state.attachInsIds=c;
+        }
+
+    },
+    createLifeInsOrder:function (productId) {
+        var flag=0;
+        if($('#insFeeCompute').val() == "修改"){
+
+            $("#addInsPro input:checkbox:checked").each(function (index, domEle) {
+                if ($('#attachInsFeeCompute' + index).attr("value")!="修改"){
+                    flag=1;
+                }
+            });
+            if (flag==1){
+                alert("附加险保费未计算！")
+            }else{
+                if(this.state.attachInsIds!=null) {
+                    var attachInsIds = null;
+                    this.state.attachInsIds.map(function (item, i) {
+                        attachInsIds = item.toString() + ",";
+                    })
+                }
+                var url = "/insurance/insuranceReactPageDataRequest.do";
+                var params = {
+                    reactPageName: 'insuranceLifeProductCenterPage',
+                    reactActionName: 'getMeasure',
+                    productId: productId,
+                    payYears: this.state.selectInsFeeType,
+                    insurancederId: this.state.selectInsurant,
+                    measure:this.state.value,
+                    businessIns:this.state.selectBusinessIns,
+                    societyIns:this.state.selectSocietyIns,
+                    benefiterId:this.state.selectBenefit,
+                    attachInsIds:attachInsIds
+
+                };
+                ProxyQ.queryHandle(
+                    'post',
+                    url,
+                    params,
+                    null,
+                    function (ob) {
+                        var a=ob
+                    }.bind(this),
+                    function (xhr, status, err) {
+                        console.error(this.props.url, status, err.toString());
+                    }.bind(this)
+                );
+            }
+        }else{
+            alert("主险保费未计算！")
         }
 
     },
@@ -135,10 +269,14 @@ var LifeInsuranceBuyPage = React.createClass({
         var attachIns=temporaryStore[1];
         return {
             selectInsurant:0,
+            selectBenefit:0,
+            selectSocietyIns:0,
+            selectBusinessIns:0,
             selectInsFeeType:2,
             insInfo:insInfo,
             attachIns:attachIns,
-            measure:null
+            measure:null,
+            attachInsIds:[]
 
         }
     },
@@ -156,9 +294,9 @@ var LifeInsuranceBuyPage = React.createClass({
             var ref=this;
             attach.map(function (item,i) {
                 attach_item.push(
-                    <div key={i}>
+                    <div key={i} >
                                 <span >
-                                    <input type="checkbox" onChange={ref.showInsAddDetail.bind(this,i)} ref={'attach'+i} id={'attach'+i} disabled="disabled"/>
+                                    <input type="checkbox" onChange={ref.showInsAddDetail.bind(this,i,item.productId)} ref={'attach'+i} id={'attach'+i} disabled="disabled"/>
                                     附加：{item.productName}
                                 </span>
                         <span style={{color:'blue',paddingLeft:'5px'}}>被保人年龄范围在28 天-55周岁之间方可附加本险种</span>
@@ -263,7 +401,23 @@ var LifeInsuranceBuyPage = React.createClass({
                                         </select>
                                     </td>
                                     <td className="plan_td_3">&nbsp;
-                                        <span >*</span>
+                                        <span style={{color: 'red'}}>*</span>
+                                        <span id="insBirthday_err" style={{color: 'red', paddingLeft: '5px'}}></span></td>
+                                </tr>
+                                <tr>
+                                    <td className="plan_line" colSpan="4"></td>
+                                </tr>
+                                <tr className="plan_tr">
+                                    <td className="plan_td_1">受益人：</td>
+                                    <td width="5px"></td>
+                                    <td className="plan_td_2">
+                                        <select style={{width:'130px'}} onChange={this.getSelectBenefit} id="benefit" >
+                                            <option value={0}>自己</option>
+                                            {rrs}
+                                        </select>
+                                    </td>
+                                    <td className="plan_td_3">&nbsp;
+                                        <span style={{color: 'red'}}>*</span>
                                         <span id="insBirthday_err" style={{color: 'red', paddingLeft: '5px'}}></span></td>
                                 </tr>
                                 <tr>
@@ -303,7 +457,35 @@ var LifeInsuranceBuyPage = React.createClass({
                                         </select>
 
                                     </td>
-                                    <td ></td>
+                                    <td className="plan_td_3"><span style={{color: 'red'}}>*</span></td>
+                                </tr>
+                                <tr>
+                                    <td className="plan_line" colSpan="4"></td>
+                                </tr>
+                                <tr className="plan_tr">
+                                    <td className="plan_td_1">有无社会保险：</td>
+                                    <td width="5px"></td>
+                                    <td className="plan_td_2" >
+                                        <select style={{width:'130px'}} onChange={this.getSelectSocietyIns} id="societyIns"  name="user_feeType">
+                                            <option value={0}>无</option>
+                                            <option value={1}>有</option>
+                                        </select>
+                                    </td>
+                                    <td className="plan_td_3"><span style={{color: 'red'}}>*</span></td>
+                                </tr>
+                                <tr>
+                                    <td className="plan_line" colSpan="4"></td>
+                                </tr>
+                                <tr className="plan_tr">
+                                    <td className="plan_td_1">有无商业保险：</td>
+                                    <td width="5px"></td>
+                                    <td className="plan_td_2" >
+                                        <select style={{width:'130px'}} onChange={this.getSelectBusinessIns} id="businessIns"  name="user_feeType">
+                                            <option value={0}>无</option>
+                                            <option value={1}>有</option>
+                                        </select>
+                                    </td>
+                                    <td className="plan_td_3"><span style={{color: 'red'}}>*</span></td>
                                 </tr>
                                 <tr>
                                     <td className="plan_line" colSpan="4"></td>
@@ -315,9 +497,9 @@ var LifeInsuranceBuyPage = React.createClass({
                                         <input id="insBasicFee" onChange={this.onSaveInput.bind(this)} type="text" name="user_BasicFee"/>
                                     </td>
                                     <td className="plan_td_3">&nbsp;
-                                        <span >*</span>
+                                        <span style={{color: 'red'}}>*</span>
                                         <span id="insBirthday_err" style={{color: 'red', paddingLeft: '5px'}}></span>
-                                        <input id="insFeeCompute" onClick={this.insFeeCompute.bind(this,productId,this.state.value/insuranceQuota,)}  style={{padding: '2.5px 10px'}} type="button" name="user_compute" defaultValue={"计算保费"} />
+                                        <input id="insFeeCompute" onClick={this.insFeeCompute.bind(this,productId,this.state.value,insuranceQuota,)}  style={{padding: '2.5px 10px'}} type="button" name="user_compute" defaultValue={"计算保费"} />
                                     </td>
                                 </tr>
                                 <tr>
@@ -345,8 +527,24 @@ var LifeInsuranceBuyPage = React.createClass({
                             <div className="addInsPro" id="addInsPro">
                                 {attach_item}
                             </div>
+                            <table className="planContain" style={{marginTop:'40px'}}>
+                                <tr>
+                                    <td className="plan_line" colSpan="4"></td>
+                                </tr>
+                                <tr className="plan_tr">
+                                    <td className="plan_td_1">缴纳费用：</td>
+                                    <td width="5px"></td>
+                                    <td className="plan_td_2">
+                                        <input style={{borderStyle:'none'}} disabled="disabled" id="finalInsFee" placeholder="0.0" type="text"/>
+                                    </td>
+                                    <td width="360px"></td>
+                                </tr>
+                                <tr>
+                                    <td className="plan_line" colSpan="4"></td>
+                                </tr>
+                            </table>
                             <div style={{margin: '25px 0px 45px 365px'}} >
-                                <input className="nextTo" value="下一步" />
+                                <input className="nextTo" onClick={this.createLifeInsOrder.bind(this,productId)} value="下一步" />
                             </div>
                         </div>
                     </div>
