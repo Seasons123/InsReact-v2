@@ -10,7 +10,26 @@ import Footer from '../modules/Footer.jsx';
 import NewsList from './NewsList.jsx';
 import NewsPage from './NewsPage.jsx';
 
+import Banner from '../../../components/ad/Banner/Banner';
+
 var ProxyQ = require('../../../components/proxy/ProxyQ');
+
+/**Configure the image information for the ad section start*/
+const IMAGE_DATA = [
+    {
+        src: require('../../../components/ad/images/size7(1008.331)/1.jpg'),
+        /*alt: 'images-1',
+        textHeader:'Banner animation demo',
+        textOne:'Today is not another day ,today I will create something beautiful ',
+        textTwo:'Study hard , play harder',
+        textColor:'#323232',
+        textPosition:'upLeft'*/
+    },
+    {
+        src: require('../../../components/ad/images/size7(1008.331)/2.jpg')
+    }
+];
+/**Configure the image information for the ad section end*/
 
 var MainPage=React.createClass({
 
@@ -58,27 +77,18 @@ var MainPage=React.createClass({
                 <div>
                     <TopNav />
 
-                    <div className="w1008 margin">
-                        <div id="playBox">
-                            <div className="pre">
-                            </div>
-                            <div className="next">
-                            </div>
-                            <div className="smalltitle">
-                                <ul>
-                                    <li className="thistitle"></li>
-                                    <li className=""></li>
-                                </ul>
-                            </div>
-                            <ul className="oUlplay" style={{left:'0'}}>
-                                <li><a href="javascript:void(0)"><img src={window.App.getResourceDeployPrefix()+"/images/uploads/banner/201508051024452571_40401877.jpg"} style={{width: '1009px', height: '336px'}}></img></a></li>
-                                <li><a href="javascript:void(0)"><img src={window.App.getResourceDeployPrefix()+"/images/uploads/banner/201508041229461753_40451054.jpg"} style={{width: '1009px', height: '336px'}}></img></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div className="shadow margin">
-                        <img src={window.App.getResourceDeployPrefix()+"/images/yyy_05.jpg"} style={{width:'901px', height:'8px'}}></img>
-                    </div>
+                    <Banner
+                        items={IMAGE_DATA}
+                        width={'1008px'}
+                        height={'331px'}
+                        speed={0.6}
+                        delay={2.6}
+                        pause={true}
+                        autoplay={true}
+                        dots={true}
+                        arrows={false}
+                        animType={"Slider"}
+                    />
 
                     <div className="clear">
                     </div>
