@@ -35,8 +35,8 @@
 
 .slider .slider-arrow {
   display: inline-block;
-  color: #fff;
-  font-size: 50px;
+  color: #efefef;
+  font-size: 45px;
   position: absolute;
   top: 50%;
   margin-top: -50px;

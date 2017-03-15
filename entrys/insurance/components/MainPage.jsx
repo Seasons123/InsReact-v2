@@ -86,7 +86,7 @@ var MainPage=React.createClass({
                         pause={true}
                         autoplay={true}
                         dots={true}
-                        arrows={false}
+                        arrows={true}
                         animType={"Slider"}
                     />
 
