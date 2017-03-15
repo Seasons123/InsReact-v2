@@ -172,6 +172,8 @@ export default class Banner extends Component {
 }
 
 Banner.defaultProps = {
+  width:'1008px',
+  height:'331px',
   speed: 1,
   delay: 2,
   pause: true,
@@ -179,7 +181,6 @@ Banner.defaultProps = {
   dots: true,
   arrows: true,
   items: [],
-  size:"fullScreen",
   animType:"Slider"
 };
 Banner.autoPlayFlag = null;
