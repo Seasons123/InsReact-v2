@@ -71,8 +71,8 @@ var MainPage=React.createClass({
                                 </ul>
                             </div>
                             <ul className="oUlplay" style={{left:'0'}}>
-                                <li><a href="#" target="_blank"><img src={window.App.getResourceDeployPrefix()+"/images/uploads/banner/201508051024452571_40401877.jpg"} style={{width: '1009px', height: '336px'}}></img></a></li>
-                                <li><a href="#" target="_blank"><img src={window.App.getResourceDeployPrefix()+"/images/uploads/banner/201508041229461753_40451054.jpg"} style={{width: '1009px', height: '336px'}}></img></a></li>
+                                <li><a href="javascript:void(0)"><img src={window.App.getResourceDeployPrefix()+"/images/uploads/banner/201508051024452571_40401877.jpg"} style={{width: '1009px', height: '336px'}}></img></a></li>
+                                <li><a href="javascript:void(0)"><img src={window.App.getResourceDeployPrefix()+"/images/uploads/banner/201508041229461753_40451054.jpg"} style={{width: '1009px', height: '336px'}}></img></a></li>
                             </ul>
                         </div>
                     </div>
@@ -86,7 +86,7 @@ var MainPage=React.createClass({
                     <div className="margin w1008">
                         <div className="product">
                             <div className="product_B">
-                                <a href="Product.jsp">产品介绍 </a><span><a href="Product.">更多&gt;&gt; </a></span>
+                                <a href="javascript:void(0)">产品介绍 </a><span><a href="Product.">更多&gt;&gt; </a></span>
                             </div>
 
                             <div className="product_img">
@@ -94,7 +94,7 @@ var MainPage=React.createClass({
                                 <div className="product_bg">
                                 </div>
                                 <div className="product_font">
-                                    <a href="Product.jsp" id="585"> 车险产品</a>
+                                    <a href="javascript:void(0)" id="585"> 车险产品</a>
                                 </div>
                                 <div className="clear">
                                 </div>
@@ -106,7 +106,7 @@ var MainPage=React.createClass({
                                 <div className="product_bg">
                                 </div>
                                 <div className="product_font">
-                                    <a href="Product.jsp?id=584"> 财产险产品</a>
+                                    <a href="javascript:void(0)"> 财产险产品</a>
                                 </div>
                                 <div className="clear">
                                 </div>
@@ -118,7 +118,7 @@ var MainPage=React.createClass({
                                 <div className="product_bg">
                                 </div>
                                 <div className="product_font">
-                                    <a href="Product.jsp?id=583">人身保险产品</a>
+                                    <a href="javascript:void(0)">人身保险产品</a>
                                 </div>
                                 <div className="clear">
                                 </div>
@@ -130,7 +130,7 @@ var MainPage=React.createClass({
                                 <div className="product_bg">
                                 </div>
                                 <div className="product_font">
-                                    <a href="Product.jsp?id=581">  理财类保险产品</a>
+                                    <a href="javascript:void(0)">  理财类保险产品</a>
                                 </div>
                                 <div className="clear">
                                 </div>
@@ -143,10 +143,12 @@ var MainPage=React.createClass({
                             <div className="company_B">
                                 关于我们
                             </div>
-                            <span className="about-more"><a href="javascript:void(0)">more&gt;&gt;</a></span>
+                            <Link to={window.App.getAppRoute() + "/aboutUs"}>
+                                <span className="about-more"><a href="javascript:void(0)">more&gt;&gt;</a></span>
+                            </Link>
                             <div className="company_img">
                                 <img alt="" src={window.App.getResourceDeployPrefix()+"/images/company.jpg"}></img>
-                                <br/> 捷惠保：立足于客户立场，深度发掘客户需求，客观分析，在众多保险产品中为客户选择适合的产品；
+                                捷惠保：立足于客户立场，深度发掘客户需求，客观分析，在众多保险产品中为客户选择适合的产品；
                                 与保险主体公司深度合作，依据已有客户需求研发更多，保障全，保费低的优质产品；
                                 为客户提供咨询，理赔，资料代管，车驾管服务等与保险相关的一站式服务。
                             </div>

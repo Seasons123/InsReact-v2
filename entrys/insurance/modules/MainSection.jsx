@@ -12,7 +12,7 @@ import NewConsultation from '../components/NewConsultation';
 import LifeInsuranceBuyPage from '../components/LifeInsuranceBuyPage';
 import PersonalCenter from '../components/PersonalCenter.jsx';
 import News from '../components/NewsPage.jsx';
-
+import AboutUs from '../components/AboutUs.jsx';
 import App from '../modules/App.jsx';
 
 var config=require('../../../config.json');
@@ -87,10 +87,6 @@ var MainSection = React.createClass({
                     ctrl = <Consultation></Consultation>;
                     label = "业务咨询";
                     break;
-                case window.App.getAppRoute() + "/aboutUs":
-                    ctrl = <AboutUs></AboutUs>;
-                    label = "关于我们";
-                    break;
                 case window.App.getAppRoute() + "/lifeInsurance":
                     ctrl = <LifeInsurance></LifeInsurance>;
                     label = "寿险";
@@ -106,6 +102,10 @@ var MainSection = React.createClass({
                 case window.App.getAppRoute() + "/lifeInsuranceBuyPage":
                     ctrl = <LifeInsuranceBuyPage></LifeInsuranceBuyPage>;
                     label = "寿险购买";
+                    break;
+                case window.App.getAppRoute() + "/aboutUs":
+                    ctrl = <AboutUs></AboutUs>;
+                    label = "关于我们";
                     break;
 
                 default:

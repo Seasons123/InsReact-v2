@@ -1,5 +1,5 @@
 /**
- * Created by dell on 2016/10/27.
+ * Created by douxiaobin on 2016/10/27.
  */
 import React from 'react';
 import { render } from 'react-dom';
