@@ -30,10 +30,11 @@ var Login=React.createClass({
             null,
             function(res) {
                 var re = res.re;
+                var realName=res.realName;
                 if(re!==undefined && re!==null && (re ==1 || re =="1")){ //登陆成功
                     SyncStore.setNote(); //设置全局登录状态为true
                     SyncStore.setResult(true);
-                    SyncStore.setPageData(username);
+                    SyncStore.setPageData(realName);
 
                     console.log("登陆成功！");
                     //var exp = new Date();
@@ -84,17 +85,6 @@ var Login=React.createClass({
                                                     <input type="password" name="password" className="passport-txt xl w-full" tabIndex="2" placeholder="密码" autoComplete="off"/>
                                                 </div>
                                             </div>
-                                            <div className="form-item form-imgcode mb-25">
-                                                <div className="form-cont">
-                                                    <div className="layout-inner">
-                                                        <input type="text" name="verify" className="passport-txt xl w-lg" tabIndex="3" placeholder="验证码" autoComplete="off"/>
-                                                    </div>
-                                                    <div className="imgcode">
-                                                        <img src="#" alt="验证码" className="verifyCode" />
-                                                        <i className="passport-icon icon-refresh refreshCode"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
 
                                             <div className="form-item form-sevenday">
                                                 <div className="form-cont clearfix">
@@ -105,15 +95,30 @@ var Login=React.createClass({
                                             <div className="form-item">
                                                 <div className="form-cont">
                                                     <Link to={window.App.getAppRoute() + this.state.path}>
-                                                    <button type="button" id="login" className="passport-btn passport-btn-def xl w-full" tabIndex="4" onClick={this.login}>
-                                                       <a>登录</a>
-                                                    </button>
+                                                        <button type="button" id="login" className="passport-btn passport-btn-def xl w-full" tabIndex="4" onClick={this.login}>
+                                                            <a style={{color:'#ffffff'}}>登录</a>
+                                                        </button>
                                                     </Link>
                                                 </div>
                                             </div>
 
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="aside">
+                            <div className="passport-goto">没有账号? <a tabIndex="5">新用户注册</a></div>
+                            <div className="sendgift"></div>
+                            <div className="passport-third">
+                                <header className="hd">
+                                    <div className="layout-inner">
+                                        <h3>汽车保险</h3>
+                                    </div>
+                                </header>
+                                <div className="links">
+                                    <img src="images/loginCar.jpg" />
                                 </div>
                             </div>
                         </div>

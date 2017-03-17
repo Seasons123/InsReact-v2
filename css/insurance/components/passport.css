@@ -279,6 +279,7 @@ div.passport-note {
 }
 
 input[type=checkbox],input[type=radio] {
+    margin: 0;
     width: 17px;
     height: 30px;
     cursor: pointer;
@@ -756,7 +757,7 @@ body {
     margin-left: auto;
     padding-top: 100px;
     padding-bottom: 20px;
-    width: 560px;
+    width: 820px;
 }
 
 .passport-sign {
@@ -772,8 +773,8 @@ body {
 
 .passport-sign .main-form {
     padding-right: 20px;
-    width: 390px;
-    margin-left: 50px;
+    width: 360px;
+    border-right: 2px solid #fafafa;
 }
 
 .passport-sign .main-form h2 {
@@ -846,7 +847,7 @@ body {
 }
 
 .passport-sign .passport-tab .tabs {
-    margin-bottom: 15px;
+    margin-bottom: 30px;
 }
 
 .passport-sign .passport-tab .tabs ul {
@@ -868,7 +869,7 @@ body {
 }
 
 .passport-form .form-item {
-    margin-bottom: 12px;
+    margin-bottom: 30px;
 }
 
 .passport-form .form-cont {
@@ -1128,7 +1129,7 @@ body {
     }
 
     .passport-wrapper .passport-sign {
-        padding: 40px 0;
+        padding: 30px 0;
         height: auto;
     }
 
