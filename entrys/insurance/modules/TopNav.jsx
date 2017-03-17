@@ -40,7 +40,7 @@ var TopNav=React.createClass({
                                 <li className="plogin">
                                     <a className="user" href="javascript:void(0)">
                                         <i className='icon-user'></i>
-                                        <strong style={{marginLeft:'5px'}}>{this.state.userName}</strong>
+                                        <strong style={{marginLeft:'10px'}}>{this.state.userName}</strong>
                                     </a>
                                 </li>
 

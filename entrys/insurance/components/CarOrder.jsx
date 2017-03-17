@@ -43,6 +43,43 @@ var CarOrder=React.createClass({
         this.setState({currentContent:tab});
     },
 
+    checkBoxChange:function(){
+        var ack=this.refs.ack;
+        var isAgree=$(ack).find("input[name='isAgree']:checked");
+        var ackQuotation = this.refs.ackQuotation;
+        if(isAgree!==undefined && isAgree!==null){
+            $(ackQuotation).removeAttr("disabled");
+            $(ackQuotation).attr("style","");
+        } else{
+            $(ackQuotation).attr("disabled",true);
+            $(ackQuotation).attr("style","background:darkgrey");
+        }
+    },
+
+    ack:function() {
+        alert("123");
+        //var orderId=this.state.orderDetail.orderId;
+        //var url="/insurance/insuranceReactPageDataRequest";
+        //var params={
+        //    reactPageName:'insurancePersonalCenterCarOrderPage',
+        //    reactActionName:'ackInsuranceCarOrderState',
+        //    orderId:orderId
+        //};
+        //
+        //ProxyQ.queryHandle(
+        //    'post',
+        //    url,
+        //    params,
+        //    null,
+        //    function(ob){
+        //
+        //    }.bind(this),
+        //    function(xhr, status, err) {
+        //        console.error(this.props.url,status,err.toString());
+        //    }.bind(this)
+        //);
+    },
+
     initialData:function(){
         var url="/insurance/insuranceReactPageDataRequest.do";
         var params={
@@ -86,7 +123,7 @@ var CarOrder=React.createClass({
         var product_trs=[]; //产品信息（车险的、寿险）
         var carOrderList=null; //车险订单列表
         var data;
-        var payment;
+        var ack;
 
         var slideDetail=this.detailClick;
         var ins=this;  //用在map()函数里面，外面的this不能在里面用
@@ -130,8 +167,8 @@ var CarOrder=React.createClass({
                 var carInfo = orderDetail.carInfo;
                 var orderState = orderDetail.orderState;
 
-                if (orderState == 1 || orderState == "1") { //表示已报价
-                    payment = "支付"
+                if (orderState == 3 || orderState == "3") { //表示已报价,需要用户进行确认
+                    ack = true
                 }
 
                 detail_trs.push( //订单信息
@@ -335,14 +372,40 @@ var CarOrder=React.createClass({
                                 </div>
                             </div>
 
-                            <div className="nav-return">
-                                <hr style={{height:'2px',border:'none',borderTop:'2px dotted #185598'}}/>
-                                <a href="javascript:void(0);" onClick={this.return.bind(this,"carOrder")}>
-                                    <div className="retrun">
-                                        <span aria-hidden="true">返回</span>
+                            {ack?
+                                <div className="nav-return" ref="ack">
+                                    <hr style={{height:'2px',border:'none',borderTop:'2px dotted #185598'}}/>
+
+                                    <div className="clear">
                                     </div>
-                                </a>
-                            </div>
+                                    <div className="return-and-ack">
+                                        <div className="btn-return">
+                                            <span>
+                                                <input className="ret" type="button" value="返  回" onClick={this.return.bind(this,"carOrder")} />
+                                            </span>
+                                        </div>
+                                        <div className="btn-ack">
+                                            <span>
+                                                <input type="checkbox" name="isAgree" onClick={this.checkBoxChange} />
+                                            </span>
+                                            <span style={{margin:'0 50px 0 10px'}}>我同意xxxxxxxxxxxxx条款</span>
+                                            <span>
+                                                <input className="ack" ref="ackQuotation" type="button" value="确认报价" style={{background: 'darkgrey'}}  onClick={this.ack} />
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                :
+                                <div className="nav-return">
+                                    <hr style={{height:'2px',border:'none',borderTop:'2px dotted #185598'}}/>
+                                    <div className="btn-return">
+                                            <span>
+                                                <input className="ret" type="button" value="返  回" onClick={this.return.bind(this,"carOrder")} />
+                                            </span>
+                                    </div>
+                                </div>
+                            }
+
                         </div>);
                     break;
             }
