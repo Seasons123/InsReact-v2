@@ -45,10 +45,10 @@ var CarOrder=React.createClass({
 
     checkBoxChange:function(){
         var ack=this.refs.ack;
-        var isAgree=$(ack).find("input[name='isAgree']:checked");
+        var isAgree=$(ack).find("input[name='isAgree']:checked").val();
         var ackQuotation = this.refs.ackQuotation;
         if(isAgree!==undefined && isAgree!==null){
-            $(ackQuotation).removeAttr("disabled");
+            $(ackQuotation).attr("disabled",false);
             $(ackQuotation).attr("style","");
         } else{
             $(ackQuotation).attr("disabled",true);
@@ -56,7 +56,7 @@ var CarOrder=React.createClass({
         }
     },
 
-    ack:function() {
+    ackClick:function() {
         alert("123");
         //var orderId=this.state.orderDetail.orderId;
         //var url="/insurance/insuranceReactPageDataRequest";
@@ -390,7 +390,7 @@ var CarOrder=React.createClass({
                                             </span>
                                             <span style={{margin:'0 50px 0 10px'}}>我同意xxxxxxxxxxxxx条款</span>
                                             <span>
-                                                <input className="ack" ref="ackQuotation" type="button" value="确认报价" style={{background: 'darkgrey'}}  onClick={this.ack} />
+                                                <input className="ack" ref="ackQuotation" type="button" value="确认报价" disabled="disabled" style={{background: 'darkgrey'}} onClick={this.ackClick} />
                                             </span>
                                         </div>
                                     </div>
