@@ -44,40 +44,41 @@ var CarOrder=React.createClass({
     },
 
     checkBoxChange:function(){
-        var ack=this.refs.ack;
-        var isAgree=$(ack).find("input[name='isAgree']:checked").val();
-        var ackQuotation = this.refs.ackQuotation;
-        if(isAgree!==undefined && isAgree!==null){
-            $(ackQuotation).attr("disabled",false);
-            $(ackQuotation).attr("style","");
-        } else{
-            $(ackQuotation).attr("disabled",true);
-            $(ackQuotation).attr("style","background:darkgrey");
+        var a=null;
+        $("#isAgree input:checkbox:checked").each(function (index, domEle) {
+            a= $(domEle).val();
+        });
+        if(a!==undefined&&a!==null){
+           this.setState({checkBox:true});
+            $("#ackQuotation").attr("style","");
+
+        }else {
+            this.setState({checkBox:false});
+            $("#ackQuotation").attr("style","background:darkgrey");
         }
     },
 
-    ackClick:function() {
-        alert("123");
-        //var orderId=this.state.orderDetail.orderId;
-        //var url="/insurance/insuranceReactPageDataRequest";
-        //var params={
-        //    reactPageName:'insurancePersonalCenterCarOrderPage',
-        //    reactActionName:'ackInsuranceCarOrderState',
-        //    orderId:orderId
-        //};
-        //
-        //ProxyQ.queryHandle(
-        //    'post',
-        //    url,
-        //    params,
-        //    null,
-        //    function(ob){
-        //
-        //    }.bind(this),
-        //    function(xhr, status, err) {
-        //        console.error(this.props.url,status,err.toString());
-        //    }.bind(this)
-        //);
+    ack:function() {
+        var orderId=this.state.orderDetail.orderId;
+        var url="/insurance/insuranceReactPageDataRequest";
+        var params={
+           reactPageName:'insurancePersonalCenterCarOrderPage',
+           reactActionName:'ackInsuranceCarOrderState',
+           orderId:orderId
+        };
+
+        ProxyQ.queryHandle(
+           'post',
+           url,
+           params,
+           null,
+           function(ob){
+
+           }.bind(this),
+           function(xhr, status, err) {
+               console.error(this.props.url,status,err.toString());
+           }.bind(this)
+        );
     },
 
     initialData:function(){
@@ -107,7 +108,7 @@ var CarOrder=React.createClass({
     },
 
     getInitialState:function(){ //currentContent 用于右侧面板的显示
-        return ({currentContent:'carOrder', data:null,
+        return ({currentContent:'carOrder', data:null,checkBox:false,
             pageIndex:0, orderDetail:null, isChange:false});
     },
 
@@ -123,7 +124,7 @@ var CarOrder=React.createClass({
         var product_trs=[]; //产品信息（车险的、寿险）
         var carOrderList=null; //车险订单列表
         var data;
-        var ack;
+        var ack=null;
 
         var slideDetail=this.detailClick;
         var ins=this;  //用在map()函数里面，外面的this不能在里面用
@@ -168,7 +169,7 @@ var CarOrder=React.createClass({
                 var orderState = orderDetail.orderState;
 
                 if (orderState == 3 || orderState == "3") { //表示已报价,需要用户进行确认
-                    ack = true
+                    ack = true;
                 }
 
                 detail_trs.push( //订单信息
@@ -384,13 +385,13 @@ var CarOrder=React.createClass({
                                                 <input className="ret" type="button" value="返  回" onClick={this.return.bind(this,"carOrder")} />
                                             </span>
                                         </div>
-                                        <div className="btn-ack">
+                                        <div className="btn-ack" id="isAgree">
                                             <span>
-                                                <input type="checkbox" name="isAgree" onClick={this.checkBoxChange} />
+                                                <input type="checkbox"  onChange={this.checkBoxChange} />
                                             </span>
                                             <span style={{margin:'0 50px 0 10px'}}>我同意xxxxxxxxxxxxx条款</span>
                                             <span>
-                                                <input className="ack" ref="ackQuotation" type="button" value="确认报价" disabled="disabled" style={{background: 'darkgrey'}} onClick={this.ackClick} />
+                                                <input className="ack" id="ackQuotation" type="button" value="确认报价"  disabled={this.state.checkBox==true?false:true} style={{background: 'darkgrey'}}  onClick={this.ack} />
                                             </span>
                                         </div>
                                     </div>

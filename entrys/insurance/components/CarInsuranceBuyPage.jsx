@@ -409,7 +409,7 @@ var CarInsuranceBuyPage = React.createClass({
                                         1&nbsp;<span>选购车险产品</span></td>
                                     <td className="menuImg"> <img src="images/menuRight1.png"   /> </td>
                                     <td className="menuItems item_select">
-                                        2&nbsp;<span>完善/提交报价单</span></td>
+                                        2&nbsp;<span>完善报价单</span></td>
                                     <td className="menuImg"><img src="images/menuRight1.png"  /> </td>
                                     <td className="menuItems">
                                         3&nbsp;<span>投保确认</span></td>
@@ -437,10 +437,10 @@ var CarInsuranceBuyPage = React.createClass({
                         {this.state.jqx == 'y'?
                             <div>
                                 <div className="article" style={{padding: '15px 0px 2px 0px'}}>
-                                    <h3 className="font_15 text">填写您的交强险单号</h3>
+                                    <h3 className="font_15 text">填写您的交强险公司</h3>
                                 </div>
                                 <div className="jqxNum margin10">
-                                    <label className="sect_title">已购买的交强险单号：</label>
+                                    <label className="sect_title">已购买交强险的公司：</label>
                                     <label><input className="addHaveInsNum" type="text"/></label>
                                 </div>
                             </div>:null}
@@ -486,7 +486,7 @@ var CarInsuranceBuyPage = React.createClass({
                             </div>
                         </div>
                         <div style={{margin:'25px 0px 55px 410px'}} >
-                            <input onClick={this.updateOrderInfo} className="nextTo" value="下一步" />
+                            <input onClick={this.updateOrderInfo} className="nextTo" value="提交报价单" />
                         </div>
 
                     </div>
@@ -510,7 +510,7 @@ var CarInsuranceBuyPage = React.createClass({
 
                             <div className="modal-body">
                                 <div className="form-group" style={{position: 'relative'}}>
-                                    <div>{'车险计划已经提交，请等待客服人员报价后再个人中心处查看！'}</div>
+                                    <div>{'车险计划已经提交，请等待客服人员报价后在个人中心处查看！'}</div>
                                     <Link to={window.App.getAppRoute() + "/personalCenter"}>
                                         <input type='button' className="modalCloseBtn"  onClick={this.closeModal.bind(this,'successModal')} value="OK"/>
                                     </Link>

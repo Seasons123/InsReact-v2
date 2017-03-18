@@ -1,5 +1,6 @@
 import React from 'react';
 import {render} from 'react-dom';
+import {Link} from 'react-router';
 import '../../../css/insurance/components/commonTopSupnuevo.css';
 import '../../../css/insurance/components/navcontent.css';
 import '../../../css/insurance/components/pagination.css';
@@ -59,7 +60,20 @@ var LifeInsuranceBuyPage = React.createClass({
                 $('#attachInsFeeResult' + i).attr("placeholder", "")
                 $('#attachInsFeeCompute' + i).attr("value", "计算保费");
                 $('#baseAttachInsFee' + i).removeAttr("disabled");
-                this.state.attachInsIds=[];
+                var q=this.state.attachInsIds;
+                var c=[];
+                q.map(function (item,i) {
+                    var id=parseInt(item.substr(0,3));
+                    if(id==productId){
+                        q[i]=null;
+                    }
+                })
+                q.map(function(item,i){
+                    if(item!=null) {
+                        c.push(item);
+                    }
+                });
+                this.state.attachInsIds=c;
             } else {
                 var attachInsFee = $('#baseAttachInsFee' + i).val();
                 var a = attachInsFee / insuranceQuota;
@@ -88,7 +102,8 @@ var LifeInsuranceBuyPage = React.createClass({
                         console.error(this.props.url, status, err.toString());
                     }.bind(this)
                 );
-                this.state.attachInsIds.push(productId);
+                var b=productId.toString()+","+$('#baseAttachInsFee'+i).val().toString();
+                this.state.attachInsIds.push(b);
             }
         }else {
             alert("本产品最低保额为"+insuranceQuota+",请您输入其整数倍的数字进行投保！");
@@ -112,19 +127,8 @@ var LifeInsuranceBuyPage = React.createClass({
                     $('#attachInsFeeResult' + i).attr("placeholder", "");//重置附加险
                     $('#attachInsFeeCompute' + i).attr("value", "计算保费");
                     $('#baseAttachInsFee' + i).removeAttr("disabled");
-                    var q=this.state.attachInsIds;
-                    var c=[];
-                    q.map(function (item,i) {
-                        if(item==productId){
-                            q[i]=null;
-                        }
-                    })
-                    q.map(function(item,i){
-                        if(item!=null) {
-                            c.push(item);
-                        }
-                    });
-                    this.state.attachInsIds=c;
+                    this.state.attachInsIds=[];
+
                 }
                 $('#insFeeCompute').attr("value", "计算保费");
                 $('#Insurant').removeAttr("disabled");
@@ -193,20 +197,25 @@ var LifeInsuranceBuyPage = React.createClass({
 
             $('#attachInsFeeResult' + n).attr("placeholder", "");//重置附加险
             $('#attachInsFeeCompute' + n).attr("value", "计算保费");
+            if(this.state.attachInsIds!=null&&this.state.attachInsIds!=undefined&&this.state.attachInsIds.length!=0){
+                var q=this.state.attachInsIds;
+                var c=[];
+                q.map(function (item,i) {
+                    var b=parseInt(item.substr(0,3));
+                    if(b==id){
+                        q[i]=null;
+                    }
+                })
+                q.map(function(item,i){
+                    if(item!=null) {
+                        c.push(item);
+                    }
+                });
+                this.state.attachInsIds=c;
 
-            var q=this.state.attachInsIds;
-            var c=[];
-            q.map(function (item,i) {
-                if(item==id){
-                    q[i]=null;
-                }
-            })
-            q.map(function(item,i){
-                if(item!=null) {
-                    c.push(item);
-                }
-            });
-            this.state.attachInsIds=c;
+            }
+
+
         }
 
     },
@@ -223,15 +232,15 @@ var LifeInsuranceBuyPage = React.createClass({
                 alert("附加险保费未计算！")
             }else{
                 if(this.state.attachInsIds!=null) {
-                    var attachInsIds = null;
+                    var attachInsIds = "";
                     this.state.attachInsIds.map(function (item, i) {
-                        attachInsIds = item.toString() + ",";
+                        attachInsIds += item + ";";
                     })
                 }
                 var url = "/insurance/insuranceReactPageDataRequest.do";
                 var params = {
-                    reactPageName: 'insuranceLifeProductCenterPage',
-                    reactActionName: 'getMeasure',
+                    reactPageName: 'insurancePersonalCenterLifeOrderPage',
+                    reactActionName: 'createInsuranceLifeOrder',
                     productId: productId,
                     payYears: this.state.selectInsFeeType,
                     insurancederId: this.state.selectInsurant,
@@ -248,7 +257,10 @@ var LifeInsuranceBuyPage = React.createClass({
                     params,
                     null,
                     function (ob) {
-                        var a=ob
+                        if(ob.data=="success"){
+                            var successModal = this.refs['successModal'];
+                            $(successModal).modal('show');
+                        }
                     }.bind(this),
                     function (xhr, status, err) {
                         console.error(this.props.url, status, err.toString());
@@ -267,6 +279,8 @@ var LifeInsuranceBuyPage = React.createClass({
         var temporaryStore=SyncStore.getPageData();
         var insInfo=temporaryStore[0];
         var attachIns=temporaryStore[1];
+        SyncStore.setPageData(null);
+        SyncStore.setRouter(null);
         return {
             selectInsurant:0,
             selectBenefit:0,
@@ -279,6 +293,11 @@ var LifeInsuranceBuyPage = React.createClass({
             attachInsIds:[]
 
         }
+    },
+    closeModal:function(ob){ //保存跳转的页面信息
+        var Modal = this.refs[ob];
+        $(Modal).modal('hide');
+
     },
     render:function () {
 
@@ -365,10 +384,10 @@ var LifeInsuranceBuyPage = React.createClass({
                             <table className="menuTable" >
                                 <tr>
                                     <td style={{width:"45px", height:"32px"}}>&nbsp;</td>
-                                    <td className="menuItems item_select">
+                                    <td className="menuItems ">
                                         1&nbsp;<span>选择保险计划</span></td>
                                     <td className="menuImg"> <img src="images/menuRight1.png"   /> </td>
-                                    <td className="menuItems">
+                                    <td className="menuItems item_select">
                                         2&nbsp;<span>填写投保信息</span></td>
                                     <td className="menuImg"><img src="images/menuRight1.png"  /> </td>
                                     <td className="menuItems">
@@ -424,7 +443,7 @@ var LifeInsuranceBuyPage = React.createClass({
                                     <td className="plan_line" colSpan="4"></td>
                                 </tr>
                                 <tr className="plan_tr">
-                                    <td className="plan_td_1">保险期间：</td>
+                                    <td className="plan_td_1">保障期限：</td>
                                     <td width="5px"></td>
                                     <td className="plan_td_2" >
                                         {safeGuardPeriod}
@@ -544,12 +563,41 @@ var LifeInsuranceBuyPage = React.createClass({
                                 </tr>
                             </table>
                             <div style={{margin: '25px 0px 45px 365px'}} >
-                                <input className="nextTo" onClick={this.createLifeInsOrder.bind(this,productId)} value="下一步" />
+                                <input className="nextTo" onClick={this.createLifeInsOrder.bind(this,productId)} value="提交计划" />
                             </div>
                         </div>
                     </div>
                 </div>
                 <Footer/>
+
+
+                <div className="modal fade bs-example-modal-sm login-container"
+                     tabIndex="-1"
+                     role="dialog"
+                     aria-labelledby="myLargeModalLabel"
+                     aria-hidden="true"
+                     ref='successModal'
+                     data-backdrop="static"
+                     data-keyboard="false"
+                     style={{zIndex:1045}}
+                >
+                    <div className="modal-dialog modal-sm"
+                         style={{position: 'absolute', top: '30%', width: '50%', marginLeft: '25%'}}>
+                        <div className="modal-content"
+                             style={{position: 'relative', width: '100%', padding: '40px'}}>
+
+                            <div className="modal-body">
+                                <div className="form-group" style={{position: 'relative'}}>
+                                    <div>{'寿险计划已经提交，请等待客服人员报价后在个人中心处查看！'}</div>
+                                    <Link to={window.App.getAppRoute() + "/personalCenter"}>
+                                        <input type='button' className="modalCloseBtn"  onClick={this.closeModal.bind(this,'successModal')} value="OK"/>
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>)
     }
 });
