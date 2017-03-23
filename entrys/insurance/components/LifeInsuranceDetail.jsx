@@ -258,9 +258,15 @@ var LifeDetail = React.createClass({
                                     </div>
                                 </div>
                                 <div className="proBuyBtn">
-                                    <Link to={window.App.getAppRoute() + "/lifeInsuranceBuyPage"}>
-                                        <input className="proBtn" onClick={this.sendPageDate} value='我要投保'/>
-                                    </Link>
+                                    {SyncStore.getNote() ?
+                                        <Link to={window.App.getAppRoute() + "/lifeInsuranceBuyPage"}>
+                                            <input className="proBtn" onClick={this.sendPageDate} value='我要投保'/>
+                                        </Link> :
+                                        <Link to={window.App.getAppRoute() + "/login"}>
+                                            <input className="proBtn" onClick={this.sendPageDate} value='我要投保'/>
+                                        </Link>
+                                    }
+
                                 </div>
                             </div>
                             <div className="lyys">

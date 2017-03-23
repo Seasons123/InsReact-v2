@@ -367,11 +367,11 @@ var Consultation = React.createClass({
                                         </div>
                                     </div>
                                     <div className='row-50'>
-                                                <span style={{float:'left',marginLeft:'-90px',marginTop:'3px'}}>
+                                                <span style={{float:'left',marginLeft:'-75px',marginTop:'3px'}}>
                                                         <h2>起——至</h2>
                                                 </span>
 
-                                        <div style={{marginLeft:'-36px'}}>
+                                        <div style={{marginLeft:'-10px'}}>
                                                     <span >
                                                         <Calendar data={today} ctrlName={'consultation'}
                                                                   callbackParent={this.onChildChanged.bind(this,'endDate')}/>

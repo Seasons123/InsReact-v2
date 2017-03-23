@@ -2,10 +2,10 @@ import React from 'react';
 import {render} from 'react-dom';
 import '../../../css/insurance/components/personInfoBase.css';
 import '../../../css/insurance/components/personInfoLayout.css';
-
+import Calendar from '../../../components/basic/Calendar.jsx';
 import Upload from './Upload.jsx';
 var ProxyQ = require('../../../components/proxy/ProxyQ');
-
+var today=new Date().toLocaleDateString().replace("/", "-").replace("/", "-");
 var AddRelatedPersonInfo = React.createClass({
     getInitialState:function(){
         var customerId;
@@ -50,6 +50,8 @@ var AddRelatedPersonInfo = React.createClass({
         var relativePersonInfo = this.refs.relativePersonInfo;
         var relatedName=$(relativePersonInfo).find("input[name='relatedName']").val();
         var relative=$('#relative option:selected').val();
+        var relatedDate=$(relativePersonInfo).find("input[name='birthdayDate']").val();
+        var relativeSex = $('#relativeSex option:selected').val();
 
         if (relatedName == '') {
             this.showTips('请填写关联人的姓名~');
@@ -59,6 +61,10 @@ var AddRelatedPersonInfo = React.createClass({
             this.showTips('请上传关联人身份证正面照片~');
         } else if (this.state.backImg == undefined || this.state.backImg == null) {
             this.showTips('请上传关联人身份证反面照片~');
+        } else if (registerDate == "") {
+            this.showTips('请选择出生日期~');
+        } else if (relativeSex == "-1"||relativeSex == -1){
+            this.showTips('请选择性别~');
         } else {
 
             var url="/insurance/insuranceReactPageDataRequest.do";
@@ -68,6 +74,8 @@ var AddRelatedPersonInfo = React.createClass({
                 customerId:this.state.customerId,
                 relatedName:relatedName,
                 relType:relative,
+                relSex:relativeSex,
+                relatedDate:relatedDate,
 
                 fileData1:this.state.frontImg,
                 fileData2:this.state.backImg
@@ -125,6 +133,29 @@ var AddRelatedPersonInfo = React.createClass({
                                 </select>
                             </div>
                         </div>
+                    </div>
+                    <div className="clear">
+                    </div>
+                    <div style={{float: 'left', width: '100%', marginTop: '25px'}}>
+                        <div style={{float: 'left'}}>
+                            <label className="related_label" >性别</label>
+                            <div className="self_controls">
+                                <select style={{width: '300px', height: '35px'}} id="relativeSex">
+                                    <option value={-1}>请选择性别</option>
+                                    <option value={0}>男</option>
+                                    <option value={1}>女</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label className="related_label" style={{marginLeft: '55px'}}>出生日期</label>
+                            <div className="self_controls">
+                               <span>
+                                   <Calendar data={today} ctrlName='birthdayDate'/>
+                               </span>
+                            </div>
+                        </div>
+
                     </div>
 
                     <div className="clear">

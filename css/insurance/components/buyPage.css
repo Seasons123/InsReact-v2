@@ -220,6 +220,15 @@
     border-color: #d7e7fc;
     border-radius: 5px;
 }
+.insurancePlan .createNew_man,.createNew_car{
+    padding: 2px 5px 2px 5px;
+    margin-left: 29px;
+    background-color: #6495ed;
+    border-color: #6495ed;
+    border-radius: 2px;
+    color: aliceblue;
+    font-size: smaller;
+}
 .margin10{
     margin-top: 10px;
 }
