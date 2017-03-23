@@ -18,9 +18,9 @@ var Calendar = React.createClass({
                 <div className="input-append date" data-date={this.state.data} ref="datetimepicker"
                      data-date-format="yyyy-mm-dd">
                              <span className="add-on" >
-                                 <i className="icon-calendar" style={{backgroundColor:'#999',padding:'10px'}}></i>
+                                 <i className="icon-calendar" style={{backgroundColor:'#999',padding:'10.5px'}}></i>
                              </span>
-                    <input className="file" size="16"   type="text" name={this.props.ctrlName}  defaultValue={this.state.data} style={{padding:'5px 0px 5px 0px',width:'80px'}}/>
+                    <input className="file" size="16"   type="text" name={this.props.ctrlName}  defaultValue={this.state.data} style={{padding:'5px 0px 5px 0px',width:'90px'}}/>
                 </div>
             );
         }
