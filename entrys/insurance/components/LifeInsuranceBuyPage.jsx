@@ -518,7 +518,7 @@ var LifeInsuranceBuyPage = React.createClass({
                                     <td className="plan_td_3">&nbsp;
                                         <span style={{color: 'red'}}>*</span>
                                         <span id="insBirthday_err" style={{color: 'red', paddingLeft: '5px'}}></span>
-                                        <input id="insFeeCompute" onClick={this.insFeeCompute.bind(this,productId,this.state.value,insuranceQuota,)}  style={{padding: '2.5px 10px'}} type="button" name="user_compute" defaultValue={"计算保费"} />
+                                        <input id="insFeeCompute" onClick={this.insFeeCompute.bind(this,productId,this.state.value,insuranceQuota)}  style={{padding: '2.5px 10px'}} type="button" name="user_compute" defaultValue={"计算保费"} />
                                     </td>
                                 </tr>
                                 <tr>

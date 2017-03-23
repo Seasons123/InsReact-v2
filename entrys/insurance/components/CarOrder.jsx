@@ -58,13 +58,31 @@ var CarOrder=React.createClass({
         }
     },
 
+    checkBoxSelect:function(ob,evt){ //控制选项框只能选一个
+        var target=evt.target;
+        var priceId=$(target).attr("value");
+        var i=ob;
+        $("#priceList input:checkbox").each(function (index, domEle) {
+            //a= $(domEle).val();
+            if(index!=i){
+                $(domEle).attr("checked",false);
+            }
+        });
+
+        this.setState({choosePriceId:priceId});
+
+    },
+
     ack:function() {
         var orderId=this.state.orderDetail.orderId;
-        var url="/insurance/insuranceReactPageDataRequest";
+        var priceId=this.state.priceId;
+        var url="/insurance/insuranceReactPageDataRequest.do";
         var params={
-           reactPageName:'insurancePersonalCenterCarOrderPage',
-           reactActionName:'ackInsuranceCarOrderState',
-           orderId:orderId
+            reactPageName:'insurancePersonalCenterCarOrderPage',
+            reactActionName:'ackInsuranceCarOrderState',
+            orderId:orderId,
+            priceId:priceId
+
         };
 
         ProxyQ.queryHandle(
@@ -108,7 +126,7 @@ var CarOrder=React.createClass({
     },
 
     getInitialState:function(){ //currentContent 用于右侧面板的显示
-        return ({currentContent:'carOrder', data:null,checkBox:false,
+        return ({currentContent:'carOrder', data:null, checkBox:false, choosePriceId:null,
             pageIndex:0, orderDetail:null, isChange:false});
     },
 
@@ -118,15 +136,19 @@ var CarOrder=React.createClass({
         var orders=[];
         var trs=[];
         var detail_trs=[]; //订单信息
-        var insurer_trs=[]; //投保人信息（车险、寿险）
-        var insuranceder_trs=[]; //被保险人信息（车险、寿险）
+        var insurer_trs=[]; //投保人信息（车险）
+        var insuranceder_trs=[]; //被保险人信息（车险）
+        var benefiter_trs=[] //受益人信息（车险）
         var carInfo_trs=[]; //汽车详细（车险的）
-        var product_trs=[]; //产品信息（车险的、寿险）
+        var product_trs=[]; //产品信息（车险）
+        var price_trs=[]; //报价列表
         var carOrderList=null; //车险订单列表
+
         var data;
         var ack=null;
 
         var slideDetail=this.detailClick;
+        var checkBoxSelect=this.checkBoxSelect;
         var ins=this;  //用在map()函数里面，外面的this不能在里面用
         if(this.state.data!==undefined&&this.state.data!==null) {
             carOrderList = this.state.data;
@@ -163,10 +185,12 @@ var CarOrder=React.createClass({
             if (this.state.orderDetail !== undefined && this.state.orderDetail !== null) {
                 var orderDetail = this.state.orderDetail;
                 var product = orderDetail.product;
-                var insurer = orderDetail.insurer;
-                var insuranceder = orderDetail.insuranceder;
+                var insurer = orderDetail.insurer; //投保人
+                var insuranceder = orderDetail.insuranceder; //被保险人
+                var benefiter = orderDetail.benefiter; //受益人
                 var carInfo = orderDetail.carInfo;
                 var orderState = orderDetail.orderState;
+                var price = orderDetail.price;
 
                 if (orderState == 3 || orderState == "3") { //表示已报价,需要用户进行确认
                     ack = true;
@@ -231,6 +255,7 @@ var CarOrder=React.createClass({
                         );
                     });
                 }
+
                 if (insurer !== undefined && insurer !== null) {
                     insurer_trs.push( //投保人信息
                         <tr key={0}>
@@ -242,6 +267,7 @@ var CarOrder=React.createClass({
                         </tr>
                     );
                 }
+
                 if (insuranceder !== undefined && insuranceder !== null) {
                     insuranceder_trs.push( //被保险人信息
                         <tr key={0}>
@@ -253,6 +279,19 @@ var CarOrder=React.createClass({
                         </tr>
                     );
                 }
+
+                if (benefiter !== undefined && benefiter !== null) {
+                    benefiter_trs.push( //受益人信息
+                        <tr key={0}>
+                            <td>编号：{benefiter.perNum}</td>
+                            <td>姓名：{benefiter.perName}</td>
+                            <td>身份证号：{benefiter.perIdCard}</td>
+                            <td>地址：{benefiter.perAddress}</td>
+                            <td></td>
+                        </tr>
+                    );
+                }
+
                 if (carInfo !== undefined && carInfo !== null) {
                     carInfo_trs.push( //行驶证信息
                         <tr key={0}>
@@ -281,6 +320,31 @@ var CarOrder=React.createClass({
                             <td></td>
                         </tr>
                     );
+                }
+
+                if (price !== undefined && price !== null) {
+                    price.map(function (item, i) {
+                        price_trs.push( //报价列表
+                            <tr key={2*i+0}>
+                                <td><input type="checkbox" value={item.priceId} onChange={checkBoxSelect.bind(ins,i)} /></td>
+                                <td>保险公司：{item.companyName}</td>
+                                <td>商业险基准保费：{item.insuranceBusinessFee}</td>
+                                <td>商业险折扣：{item.businessDiscount}</td>
+                                <td>交强险基准保费：{item.insuranceCompulsoryFee}</td>
+                                <td>交强险折扣：{item.compulsoryDiscount}</td>
+                            </tr>
+                        );
+                        price_trs.push(
+                            <tr key={2*i+1}>
+                                <td></td>
+                                <td>车船税：{item.carTax}</td>
+                                <td>签单保费：{item.contractFee}</td>
+                                <td>佣金：{item.commission}</td>
+                                <td>积分：{item.score}</td>
+                                <td>不计免赔金额：{item.nonDeductibleInsurance}</td>
+                            </tr>
+                        );
+                    });
                 }
             }
 
@@ -369,6 +433,29 @@ var CarOrder=React.createClass({
                                         <tbody>
                                         {insuranceder_trs}
                                         </tbody>
+
+                                        <h4 style={{marginTop:'15px'}}><strong>受益人信息:</strong></h4>
+                                        <tbody>
+                                        {benefiter_trs}
+                                        </tbody>
+                                    </table>
+
+                                    <table className="table table-striped invoice-table">
+                                        <thead className="table-head">
+                                        <tr>
+                                            <th width="50"></th>
+                                            <th width="300"></th>
+                                            <th width="300"></th>
+                                            <th width="300"></th>
+                                            <th width="300"></th>
+                                            <th width="300"></th>
+                                        </tr>
+                                        </thead>
+
+                                        <tbody id="priceList">
+                                        <tr><td colSpan={6}><h4 style={{marginTop:'15px'}}><strong>报价列表:</strong></h4> </td></tr>
+                                            {price_trs}
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>
@@ -397,12 +484,17 @@ var CarOrder=React.createClass({
                                     </div>
                                 </div>
                                 :
-                                <div className="nav-return">
+                                <div className="nav-return" ref="ack">
                                     <hr style={{height:'2px',border:'none',borderTop:'2px dotted #185598'}}/>
-                                    <div className="btn-return">
+
+                                    <div className="clear">
+                                    </div>
+                                    <div className="return-and-ack">
+                                        <div className="only-btn-return">
                                             <span>
                                                 <input className="ret" type="button" value="返  回" onClick={this.return.bind(this,"carOrder")} />
                                             </span>
+                                        </div>
                                     </div>
                                 </div>
                             }
@@ -423,6 +515,3 @@ var CarOrder=React.createClass({
     }
 });
 module.exports=CarOrder;
-
-
-

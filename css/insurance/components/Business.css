@@ -306,7 +306,7 @@ a{
 .return-and-ack{
     width: 100%;
     height: 60px;
-    padding: 15px;
+    padding: 12px;
 }
 .menu ul li a.nav-text{
     cursor: pointer;
@@ -331,6 +331,21 @@ a.all a.income a.used{
     marginTop: 10px;
 }
 
+.only-btn-return{
+    width: 100%;
+}
+
+.return-and-ack .only-btn-return .ret{
+    width: 90px;
+    background: #4c93e1;
+    color: #FFFFFF;
+    padding: 8px;
+    border: none;
+    border-radius: 2px;
+    text-align: center;
+    cursor: pointer;
+}
+
 .return-and-ack .btn-return .ret{
     width: 90px;
     background: #4c93e1;
@@ -352,3 +367,7 @@ a.all a.income a.used{
     text-align: center;
     cursor: pointer;
 }
+input.priceList{
+    checked: true;
+}
+
