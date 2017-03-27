@@ -300,7 +300,7 @@ input[type=radio][disabled]:hover {
     border: 1px solid #eaeaea;
     border-color: #eaeaea;
     background: #eaeaea;
-    color: #666;
+    color: #ffffff;
     text-align: center;
     text-decoration: none;
     text-overflow: ellipsis;
@@ -442,19 +442,10 @@ input[type=radio][disabled]:hover {
     line-height: 18px;
 }
 
-.passport-txt.w-lg {
-    width: 170px;
-}
-
 .passport-txt.w-full {
     width: 100%;
 }
 
-.passport-icon {
-    display: inline-block;
-    background-repeat: no-repeat;
-    vertical-align: middle;
-}
 
 .f-icon {
     display: inline-block;
@@ -464,12 +455,6 @@ input[type=radio][disabled]:hover {
     text-rendering: auto;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-}
-
-.icon-refresh {
-    width: 18px;
-    height: 18px;
-    background-position: 0 -38px;
 }
 
 .icon-letter,.icon-phone {
@@ -726,19 +711,10 @@ input[type=radio][disabled]:hover {
     background-color: #35b558;
 }
 
-.clearfix:after,.passport-form .form-imgcode .form-cont:after,.passport-safely:after,.passport-sign:after,.passport-step:after {
+.clearfix:after,.passport-form .form-cont:after,.passport-safely:after,.passport-sign:after,.passport-step:after {
     clear: both;
     display: table;
     content: " ";
-}
-
-.passport-icon {
-    background-image: url(../../../build/images/fouricon.png);
-    background-size: 298px 120px;
-}
-
-body {
-    background: #f5f5f5 url(../../../build/images/rebc.gif);
 }
 
 .wrap {
@@ -797,6 +773,7 @@ body {
 .passport-sign .passport-goto {
     margin-bottom: 10px;
     padding-top: 50px;
+    padding-left: 70px;
     color: #000;
     font-size: 16px;
 }
@@ -927,25 +904,10 @@ body {
     background-color: #ff5c00;
 }
 
-.passport-form .form-imgcode .layout-inner {
+.passport-form .layout-inner {
     position: relative;
     float: left;
     width: 170px;
-}
-
-.passport-form .form-imgcode .imgcode {
-    float: right;
-}
-
-.passport-form .form-imgcode .imgcode img {
-    width: 100px;
-    height: 40px;
-    cursor: pointer;
-}
-
-.passport-form .form-imgcode .imgcode .passport-icon {
-    display: none;
-    cursor: pointer;
 }
 
 .passport-form .form-mcode .btn-getcode {
@@ -965,6 +927,7 @@ body {
     -moz-border-radius: 2px;
     border-radius: 2px;
     text-overflow: initial;
+    background-color: #ff8c00;
 }
 
 .passport-form .form-mcode .passport-note {
@@ -1044,10 +1007,6 @@ body {
     text-align: left;
     font-size: 16px;
     line-height: 52px;
-}
-
-.passport-forget .passport-into .passport-btn .passport-icon {
-    margin-right: 25px;
 }
 
 .passport-forget .passport-step {
@@ -1166,4 +1125,14 @@ body {
     .passport-sign .passport-third .links a {
         margin: 0 2px;
     }
+}
+
+.error {
+    background-color: #ff3300;
+}
+.middle {
+    background-color: gold;
+}
+.strong {
+    background-color: green;
 }

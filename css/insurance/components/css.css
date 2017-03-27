@@ -219,7 +219,7 @@ h1,h2,h3,h4,h5,h6 {
     font-size: 15px;
 }
 
-.link a.login-btn {
+.link i.login-btn {
     display: block;
     width: 54px;
     height: 26px;
@@ -232,7 +232,7 @@ h1,h2,h3,h4,h5,h6 {
 
 }
 
-.link a.login-btn:hover {
+.link i.login-btn:hover {
     background: #059bef;
     border: 1px #eee solid;
     border-radius: 2px;

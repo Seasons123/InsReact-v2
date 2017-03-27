@@ -216,13 +216,18 @@ var ServiceOrder=React.createClass({
                                 </div>
                             </div>
 
-                            <div className="nav-return">
-                                <hr style={{height:'2px',border:'none',borderTop:'2px dotted #185598'}} />
-                                <a href="javascript:void(0)" onClick={this.return.bind(this,"serviceOrder")}>
-                                    <div className="retrun">
-                                        <span aria-hidden="true">返回</span>
+                            <div className="nav-return" ref="ack">
+                                <hr style={{height:'2px',border:'none',borderTop:'2px dotted #185598'}}/>
+
+                                <div className="clear">
+                                </div>
+                                <div className="return-and-ack">
+                                    <div className="only-btn-return">
+                                            <span>
+                                                <input className="ret" type="button" value="返  回" onClick={this.return.bind(this,"serviceOrder")} />
+                                            </span>
                                     </div>
-                                </a>
+                                </div>
                             </div>
                         </div>);
                     break;
