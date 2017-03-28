@@ -387,7 +387,7 @@ var CarInsuranceBuyPage = React.createClass({
                                     {ath=="none" ? "无":"不计免赔"}
                                 </div>
                                 <div className="delete"  >
-                                    <div className="close" onClick={ref.closeItem.bind(this,i,item.productName)}> </div>
+                                    <div className="close" onClick={ref.closeItem.bind(null,i,item.productName)}> </div>
                                 </div>
                             </li>
                         </ul>
@@ -465,7 +465,7 @@ var CarInsuranceBuyPage = React.createClass({
                                 <label style={{color:'#0093de'}}>若没有您需要的车辆信息，请点击新增车辆！</label>
                                 <label >
                                     <form >
-                                        <input onClick={this.addNewCar} className="createNew_car" type="button" value="新增车辆"/>
+                                        <input onClick={this.addNewCar} className="createNew_car" type="button" defaultValue="新增车辆"/>
                                     </form>
                                 </label>
                             </div>
@@ -480,13 +480,13 @@ var CarInsuranceBuyPage = React.createClass({
                                 <label style={{color:'#0093de'}}>若没有您需要的人员信息，请点击新增人员！</label>
                                 <label >
                                     <form >
-                                        <input onClick={this.addNewMan} className="createNew_man" type="button" value="新增人员"/>
+                                        <input onClick={this.addNewMan} className="createNew_man" type="button" defaultValue="新增人员"/>
                                     </form>
                                 </label>
                             </div>
                         </div>
                         <div style={{margin:'25px 0px 55px 410px'}} >
-                            <input onClick={this.updateOrderInfo} className="nextTo" value="提交报价单" />
+                            <input onClick={this.updateOrderInfo} className="nextTo" defaultValue="提交报价单" />
                         </div>
 
                     </div>
@@ -512,7 +512,7 @@ var CarInsuranceBuyPage = React.createClass({
                                 <div className="form-group" style={{position: 'relative'}}>
                                     <div>{'车险计划已经提交，请等待客服人员报价后在个人中心处查看！'}</div>
                                     <Link to={window.App.getAppRoute() + "/personalCenter"}>
-                                        <input type='button' className="modalCloseBtn"  onClick={this.closeModal.bind(this,'successModal')} value="OK"/>
+                                        <input type='button' className="modalCloseBtn"  onClick={this.closeModal.bind(null,'successModal')} defaultValue="OK"/>
                                     </Link>
                                 </div>
                             </div>
@@ -534,7 +534,7 @@ var CarInsuranceBuyPage = React.createClass({
                          style={{position: 'absolute', top: '30%', width: '920px', marginLeft: '20%'}}>
                         <div className="modal-content"
                              style={{padding: '30px 0px 0px 0px', height: '530px'}}>
-                            <div className="close" onClick={this.closeModal.bind(this,'addNewManModal')}> </div>
+                            <div className="close" onClick={this.closeModal.bind(null,'addNewManModal')}> </div>
                             <div className="modal-body">
                                 <div className="form-group" style={{position: 'relative'}}>
                                     <div >
@@ -560,7 +560,7 @@ var CarInsuranceBuyPage = React.createClass({
                          style={{position: 'absolute', width: '900px',marginLeft: '20%', top: '15%'}}>
                         <div className="modal-content"
                              style={{padding: '50px 0px 0px 0px',height: '600px'}}>
-                            <div className="close" onClick={this.closeModal.bind(this,'addNewCarModal')}> </div>
+                            <div className="close" onClick={this.closeModal.bind(null,'addNewCarModal')}> </div>
                             <div className="modal-body">
 
                                 <div className="form-group" style={{position: 'relative'}}>

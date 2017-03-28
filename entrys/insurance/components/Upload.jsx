@@ -20,7 +20,7 @@ var Upload = React.createClass({
         if (this.props.ctrlName !== undefined && this.props.ctrlName !== null) {
             return (
                 <div>
-                    <input type="file" style={{display:"none"}} ref="file"/>
+                    <input type="file" style={{display:"none"}} ref="file" accept="image/jpeg"/>
                     <input type="hidden" name={this.props.ctrlName} ref="ctrl"/>
 
                     <div className="input-append">

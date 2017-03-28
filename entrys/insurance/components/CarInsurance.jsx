@@ -321,28 +321,28 @@ var CarInsurance = React.createClass({
                         trs.push(
                         <p className="carPro" key={i} value="0" ref={i}>
                             <label className="title">{item.productName}</label>
-                            <h3>简介:</h3>
+                            <span style={{paddingLeft:'3px',fontWeight:'800',fontSize: 'inherit'}}>简介:</span>
                             <textarea disabled="disabled" className="longtxt" value={item.description}></textarea>
                             <label className="checkLab" style={{height: '30px'}}>
                             </label>
-                            <h1 className="buyCar">
-                                <a id={"XG"+i} onClick={ref.changeBuyState.bind(this,i,item.productName)}>选购</a>
-                            </h1>
+                            <span className="buyCar">
+                                <a id={"XG"+i} onClick={ref.changeBuyState.bind(null,i,item.productName)}>选购</a>
+                            </span>
                         </p>
                     )
                     }else{
                         trs.push(
                         <p className="carPro" key={i} value="0" ref={i}>
                             <label className="title">{item.productName}</label>
-                            <h3>简介:</h3>
+                            <span style={{paddingLeft:'3px',fontWeight:'800',fontSize: 'inherit'}}>简介:</span>
                             <textarea disabled="disabled" className="longtxt" value={item.description}></textarea>
                             <label className="checkLab" >
                                 <input id="attach" type="checkbox"  defaultChecked={true}/>
                                 <span className="checkText">不计免赔</span>
                             </label>
-                            <h1 className="buyCar">
-                                <a id={"XG"+i} onClick={ref.changeBuyState.bind(this,i,item.productName)}>选购</a>
-                            </h1>
+                            <span className="buyCar">
+                                <a id={"XG"+i} onClick={ref.changeBuyState.bind(null,i,item.productName)}>选购</a>
+                            </span>
                         </p>
                         )
                     }

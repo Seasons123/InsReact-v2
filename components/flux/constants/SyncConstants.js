@@ -20,5 +20,7 @@ module.exports = keyMirror({
     TODO_ROUTER:null,
     GET_ROUTER:null,
     TODO_RESULT:null,
-    GET_RESULT:null
+    GET_RESULT:null,
+    TODO_LOGINNAME:null,
+    GET_LOGNNAME:null
 });

@@ -208,13 +208,14 @@ var ServiceOrder=React.createClass({
                                         </tr>
                                         </thead>
 
-                                        <h4 style={{marginTop:'15px'}}><strong>订单信息:</strong></h4>
+                                        <tbody><tr><td><h4 style={{marginTop:'15px'}}><strong>订单信息:</strong></h4></td></tr></tbody>
                                         <tbody>
                                         {detail_trs}
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
+
 
                             <div className="nav-return" ref="ack">
                                 <hr style={{height:'2px',border:'none',borderTop:'2px dotted #185598'}}/>
@@ -224,8 +225,9 @@ var ServiceOrder=React.createClass({
                                 <div className="return-and-ack">
                                     <div className="only-btn-return">
                                             <span>
-                                                <input className="ret" type="button" value="返  回" onClick={this.return.bind(this,"serviceOrder")} />
+                                                <input className="ret" type="button" value="返  回" onClick={this.return.bind(null,"serviceOrder")} />
                                             </span>
+
                                     </div>
                                 </div>
                             </div>

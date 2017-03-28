@@ -150,7 +150,7 @@ var PersonInfo=React.createClass({
                         </div>
                     </div>
                     <div className="toolBar">
-                        <a className="saveBtn btn_primary" href="javascript:;" onClick={this.doSaveSelfInfo.bind(this,this.state.customerId)}>保存</a>
+                        <a className="saveBtn btn_primary" href="javascript:;" onClick={this.doSaveSelfInfo.bind(null,this.state.customerId)}>保存</a>
                     </div>
                 </div>
         }else{

@@ -441,13 +441,14 @@ var LifeInsuranceBuyPage = React.createClass({
                     attach_item.push(
                         <div key={i}>
                                 <span >
-                                    <input type="checkbox" onChange={ref.showInsAddDetail.bind(this, i, item.productId)}
+                                    <input type="checkbox" onChange={ref.showInsAddDetail.bind(null, i, item.productId)}
                                            ref={'attach' + i} id={'attach' + i} disabled="disabled"/>
                                     附加：{item.productName}
                                 </span>
                             <span style={{color: 'blue', paddingLeft: '5px'}}>被保人年龄范围在28 天-55周岁之间方可附加本险种</span>
                             <div id={"addInsModal" + i} hidden="hidden">
                                 <table className="planContain insAdd">
+                                    <tbody>
                                     <tr>
                                         <td className="plan_line" colSpan="4"></td>
                                     </tr>
@@ -461,8 +462,8 @@ var LifeInsuranceBuyPage = React.createClass({
                                             <span >*</span>
                                             <span style={{color: 'red', paddingLeft: '5px'}}></span>
                                             <input id={"attachInsFeeCompute" + i} style={{padding: '2.5px 10px'}}
-                                                   type="button" value="计算保费"
-                                                   onClick={ref.computeAttachInsFee.bind(this, i, item.productId, item.insuranceQuota)}/>
+                                                   type="button" defaultValue="计算保费"
+                                                   onClick={ref.computeAttachInsFee.bind(null, i, item.productId, item.insuranceQuota)}/>
                                         </td>
                                     </tr>
                                     <tr>
@@ -488,6 +489,7 @@ var LifeInsuranceBuyPage = React.createClass({
                                     <tr>
                                         <td className="plan_line" colSpan="4"></td>
                                     </tr>
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
@@ -516,6 +518,7 @@ var LifeInsuranceBuyPage = React.createClass({
                             </div>
                             <div className="MenuItem_select">
                                 <table className="menuTable">
+                                    <tbody>
                                     <tr>
                                         <td style={{width: "45px", height: "32px"}}>&nbsp;</td>
                                         <td className="menuItems ">
@@ -530,6 +533,7 @@ var LifeInsuranceBuyPage = React.createClass({
                                         <td className="menuItems">
                                             4&nbsp;<span>支付并获得保单</span></td>
                                     </tr>
+                                    </tbody>
                                 </table>
                             </div>
                             <div className="insuranceName">
@@ -546,6 +550,7 @@ var LifeInsuranceBuyPage = React.createClass({
                                     <h3 className="font_15 text">填写您的保险计划</h3>
                                 </div>
                                 <table className="planContain">
+                                    <tbody>
                                     <tr>
                                         <td className="plan_line" colSpan="4"></td>
                                     </tr>
@@ -565,7 +570,7 @@ var LifeInsuranceBuyPage = React.createClass({
                                                   style={{fontSize: 'smaller'}}>若没有您需要的人员信息，请点击新增人员！</span>
                                             <label >
                                                 <form >
-                                                    <input onClick={this.addNewMan} className="createNew_man" id="createNewMan1" type="button" value="新增人员"/>
+                                                    <input onClick={this.addNewMan} className="createNew_man" id="createNewMan1" type="button" defaultValue="新增人员"/>
                                                 </form>
                                             </label></td>
                                     </tr>
@@ -588,7 +593,7 @@ var LifeInsuranceBuyPage = React.createClass({
                                                   style={{fontSize: 'smaller'}}>若没有您需要的人员信息，请点击新增人员！</span>
                                             <label >
                                                 <form >
-                                                    <input onClick={this.addNewMan} className="createNew_man" id="createNewMan2" type="button" value="新增人员"/>
+                                                    <input onClick={this.addNewMan} className="createNew_man" id="createNewMan2" type="button" defaultValue="新增人员"/>
                                                 </form>
                                             </label></td>
                                     </tr>
@@ -599,13 +604,13 @@ var LifeInsuranceBuyPage = React.createClass({
                                         <td className="plan_td_1">公司选择：</td>
                                         <td width="5px"></td>
                                         <td className="plan_td_2">
-                                                <select style={{width: '130px'}} id="childCompany1" onChange={this.getCompany.bind(this,"childCompany2")}>
+                                                <select style={{width: '130px'}} id="childCompany1" onChange={this.getCompany.bind(null,"childCompany2")}>
                                                     <option value={-1}>请选择！</option>
                                                     {crs}
                                                 </select>
                                         </td>
                                         <td className="plan_td_3">
-                                            <select style={{width: '130px'}} id="childCompany2" onChange={this.getCompany.bind(this,"childCompany3")}>
+                                            <select style={{width: '130px'}} id="childCompany2" onChange={this.getCompany.bind(null,"childCompany3")}>
                                                 <option value={-1}>请选择！</option>
                                             </select>
                                             <span style={{marginLeft:'22px'}}></span>
@@ -691,7 +696,7 @@ var LifeInsuranceBuyPage = React.createClass({
                                         <td className="plan_td_1">基本保险金额：</td>
                                         <td width="5px"></td>
                                         <td className="plan_td_2">
-                                            <input id="insBasicFee" onChange={this.onSaveInput.bind(this)} type="text"
+                                            <input id="insBasicFee" onChange={this.onSaveInput} type="text"
                                                    name="user_BasicFee"/>
                                         </td>
                                         <td className="plan_td_3">&nbsp;
@@ -699,7 +704,7 @@ var LifeInsuranceBuyPage = React.createClass({
                                             <span id="insBirthday_err"
                                                   style={{color: 'red', paddingLeft: '5px'}}></span>
                                             <input id="insFeeCompute"
-                                                   onClick={this.insFeeCompute.bind(this, productId, this.state.value, insuranceQuota)}
+                                                   onClick={this.insFeeCompute.bind(null, productId, this.state.value, insuranceQuota)}
                                                    style={{padding: '2.5px 10px'}} type="button" name="user_compute"
                                                    defaultValue={"计算保费"}/>
                                         </td>
@@ -718,7 +723,7 @@ var LifeInsuranceBuyPage = React.createClass({
                                     <tr>
                                         <td className="plan_line" colSpan="4"></td>
                                     </tr>
-
+                                    </tbody>
                                 </table>
                                 <div className="insWarn">
                                     本合同最低基本保险金额：0-49周岁（含）为5万元保额，50周岁-55周岁（含） 3万元保额。基本保险金额以万元为递增单位。
@@ -730,6 +735,7 @@ var LifeInsuranceBuyPage = React.createClass({
                                     {attach_item}
                                 </div>
                                 <table className="planContain" style={{marginTop: '40px'}}>
+                                    <tbody>
                                     <tr>
                                         <td className="plan_line" colSpan="4"></td>
                                     </tr>
@@ -745,10 +751,11 @@ var LifeInsuranceBuyPage = React.createClass({
                                     <tr>
                                         <td className="plan_line" colSpan="4"></td>
                                     </tr>
+                                    </tbody>
                                 </table>
                                 <div style={{margin: '25px 0px 45px 365px'}}>
-                                    <input className="nextTo" onClick={this.createLifeInsOrder.bind(this, productId)}
-                                           value="提交计划"/>
+                                    <input className="nextTo" onClick={this.createLifeInsOrder.bind(null, productId)}
+                                           defaultValue="提交计划"/>
                                 </div>
                             </div>
                         </div>
@@ -776,7 +783,7 @@ var LifeInsuranceBuyPage = React.createClass({
                                         <div>{'寿险计划已经提交，请等待客服人员报价后在个人中心处查看！'}</div>
                                         <Link to={window.App.getAppRoute() + "/personalCenter"}>
                                             <input type='button' className="modalCloseBtn"
-                                                   onClick={this.closeModal.bind(this, 'successModal')} value="OK"/>
+                                                   onClick={this.closeModal.bind(null, 'successModal')} value="OK"/>
                                         </Link>
                                     </div>
                                 </div>

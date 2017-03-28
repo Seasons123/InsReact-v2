@@ -366,17 +366,17 @@ var OrderCenterScore=React.createClass({
                 <div>
                     <div className="nav-collapse">
                         <ul className="nav-person-center" >
-                            <li className="all" onClick={this.scoreTabChange.bind(this,'all')} >
+                            <li className="all" onClick={this.scoreTabChange.bind(null,'all')} >
                                 <a className='all' ref='all' style={{color:'#288329', fontSize:'17px'}}>
                                     积分明细
                                 </a>
                             </li>
-                            <li className="income" onClick={this.scoreTabChange.bind(this,'income')} >
+                            <li className="income" onClick={this.scoreTabChange.bind(null,'income')} >
                                 <a className='income' ref='income' style={{color:'#0287ca', fontSize:'17px'}}>
                                     积分收入
                                 </a>
                             </li>
-                            <li className="used" onClick={this.scoreTabChange.bind(this,'used')} >
+                            <li className="used" onClick={this.scoreTabChange.bind(null,'used')} >
                                 <a className='used' ref='used' style={{color:'#0287ca', fontSize:'17px'}}>
                                     积分支出
                                 </a>
@@ -475,7 +475,7 @@ var OrderCenterScore=React.createClass({
                                     <div className="return-and-ack">
                                         <div className="only-btn-return">
                                             <span>
-                                                <input className="ret" type="button" value="返  回" onClick={this.return.bind(this,"score")} />
+                                                <input className="ret" type="button" value="返  回" onClick={this.return.bind(null,"score")} />
                                             </span>
                                         </div>
                                     </div>

@@ -43,6 +43,7 @@ var LifeDetail = React.createClass({
                     age:this.state.age,
                     sex:sex,
                     payYears:payYears,
+                    personId:-1,
                     attachPayYears:attachPayYears//暂时未用
                 };
                 ProxyQ.queryHandle(
@@ -260,10 +261,10 @@ var LifeDetail = React.createClass({
                                 <div className="proBuyBtn">
                                     {SyncStore.getNote() ?
                                         <Link to={window.App.getAppRoute() + "/lifeInsuranceBuyPage"}>
-                                            <input className="proBtn" onClick={this.sendPageDate} value='我要投保'/>
+                                            <input className="proBtn" onClick={this.sendPageDate} defaultValue='我要投保'/>
                                         </Link> :
                                         <Link to={window.App.getAppRoute() + "/login"}>
-                                            <input className="proBtn" onClick={this.sendPageDate} value='我要投保'/>
+                                            <input className="proBtn" onClick={this.sendPageDate} defaultValue='我要投保'/>
                                         </Link>
                                     }
 
@@ -276,7 +277,7 @@ var LifeDetail = React.createClass({
                                     <tbody>
                                     <tr>
                                         <td style={{height:"37px", width:"20%"}}>被保险人年龄：</td>
-                                        <td width="10%"><input id="insBirthday" defaultValue="" value={this.state.age} onChange={this.changeVal.bind(this,'age')}
+                                        <td width="10%"><input id="insBirthday"  onChange={this.changeVal.bind(null,'age')}
                                                                style={{width: '100px',borderRadius:'4px'}}/></td>
                                         <td style={{height:"37px", width:"10%"}}>性别：</td>
                                         <td style={{width:"10%"}}><select id="sex" name="ebizInsuredDto.sex"
@@ -305,11 +306,11 @@ var LifeDetail = React.createClass({
                                             <option value="5">20年</option>
                                         </select></td>
                                         <td style={{ height:"37px"}}>保额：</td>
-                                        <td><input id="amt" style={{width: '100px',borderRadius:'4px'}} defaultValue="" value={this.state.val} onChange={this.changeVal.bind(this,'val')}
+                                        <td><input id="amt" style={{width: '100px',borderRadius:'4px'}}  onChange={this.changeVal.bind(null,'val')}
                                                    name="title"/></td>
                                         <td  ></td>
                                         <td  >
-                                            <input className="search"  onClick={this.measure} value="利益测算"id="showGainDemo" />
+                                            <input className="search"  onClick={this.measure} defaultValue="利益测算"id="showGainDemo" />
                                             </td>
                                     </tr>
                                     </tbody>
@@ -379,11 +380,6 @@ var LifeDetail = React.createClass({
                     </div>
 
 
-                </div>
-                <div className="footer2">
-                    <div className="w1008  margin">
-                        <p>版权所有：山东泓信信息科技股份有限公司 企业邮箱：qichebaoxian@163.com 技术支持：山东大学</p>
-                    </div>
                 </div>
 
 

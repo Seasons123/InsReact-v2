@@ -107,7 +107,7 @@ var NewConsultation = React.createClass({
                                                 </div>
                                                 <div >
                                                     <textarea className="CreateNew-area-textArea"
-                                                              onChange={this.onSaveInput.bind(this)}></textarea>
+                                                              onChange={this.onSaveInput}></textarea>
                                                 </div>
                                                 <div >
                                                     <input type='button' className="CreateNew-btn"
