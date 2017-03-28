@@ -106,6 +106,10 @@ var Login=React.createClass({
 
     },
 
+    getJsonp:function(data){
+        this.setState({verifyCode:data});
+    },
+
     getVerifyCode:function(){
         var registerPage = this.refs['registerPage'];
         var phoneNum = $(registerPage).find("input[name='phoneNum']").val();
@@ -146,31 +150,41 @@ var Login=React.createClass({
         //});
 
 
-        var url='http://sms.cloud.hbsmservice.com:8080/sms_send2.do';
+        //$.getJSON("http://sms.cloud.hbsmservice.com:8080/sms_send2.do?callback=?",
+        //    {corp_id:'hy6550',
+        //        corp_pwd:'mm2289',
+        //        corp_service:1069003256550,
+        //        mobile:phoneNum,
+        //        msg_content:''+num,
+        //        corp_msg_id:'',
+        //        ext:''},
+        //    function(data){//此处返回的data已经是json对象//以下其他操作同第一种情况
+        //    $.each(data.root,function(idx,item){
+        //        if(idx==0){
+        //            return true;//同countinue，返回false同break
+        //        }
+        //        alert("name:"+item.name+",value:"+item.value);
+        //    });
+        //});
+
+
+
+        var url='http://sms.cloud.hbsmservice.com:8080/sms_send2.do?callback=?';
         $.ajax({
-            type    : 'POST',
+            type    : 'GET',
             url     : url,
-            data    : JSON.stringify(inputData),
+            data    : inputData,
             dataType: 'JSONP',
-            crossDomain: true,
-            headers: {
-                        //'Access-Control-Allow-Origin': 'http://localhost:3000',
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
+            cache   : false,
             ContentType: 'application/x-www-form-urlencoded',
-
+            jsonpCallback: 'getJsonp',
+            jsonp: 'callback',
             success : function (response) {
-                //加载遮罩
-                if (App.getLoadModel() == "true") {
-                    App.unload();
-                }
 
+                alert('验证码获取成功！');
                 this.setState({verifyCode: num});
             },
             error   : function (xhr, status, err) {
-                if (App.getLoadModel() == "true") {
-                    App.unload();
-                }
                 console.error("error=" + err);
                 var $modal=$("#root_modal");
                 var content;
