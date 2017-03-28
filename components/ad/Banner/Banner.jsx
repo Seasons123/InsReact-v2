@@ -109,11 +109,16 @@ export default class Banner extends Component {
   goPlay() {
     if(this.props.autoplay) {
       this.autoPlayFlag = setInterval(() => {
+
         this.turn(1);
+
       }, this.props.delay * 1000);
     }
   }
-  // 暂停自动轮播
+  componentWillUnmount(){
+      clearInterval(this.autoPlayFlag);
+  }
+    // 暂停自动轮播
   pausePlay() {
     clearInterval(this.autoPlayFlag);
   }

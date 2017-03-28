@@ -7,7 +7,7 @@ import MainPage from '../components/MainPage.jsx';
 import Login from '../modules/Login.jsx';
 import LifeInsurance from '../components/LifeInsurance.jsx';
 import CarInsurance from '../components/CarInsurance.jsx';
-import Consultation from '../components/Consultation.jsx';
+import Consultation from '../components/test.jsx';
 import NewConsultation from '../components/NewConsultation';
 import LifeInsuranceBuyPage from '../components/LifeInsuranceBuyPage';
 import PersonalCenter from '../components/PersonalCenter.jsx';

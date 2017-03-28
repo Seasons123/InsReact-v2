@@ -90,7 +90,8 @@ var MainPage=React.createClass({
                     <div className="margin w1008">
                         <div className="product">
                             <div className="product_B">
-                                <a href="javascript:void(0)">产品介绍 </a><span><a href="Product.">更多&gt;&gt; </a></span>
+                                <a href="javascript:void(0)">产品介绍 </a>
+                                <span><i href="Product.">更多&gt;&gt; </i></span>
                             </div>
 
                             <div className="product_img">
@@ -148,7 +149,7 @@ var MainPage=React.createClass({
                                 关于我们
                             </div>
                             <Link to={window.App.getAppRoute() + "/aboutUs"}>
-                                <span className="about-more"><a href="javascript:void(0)">more&gt;&gt;</a></span>
+                                <span className="about-more"><i href="javascript:void(0)">more&gt;&gt;</i></span>
                             </Link>
                             <div className="company_img">
                                 <img alt="" src={window.App.getResourceDeployPrefix()+"/images/company.jpg"}></img>
@@ -163,7 +164,7 @@ var MainPage=React.createClass({
                                 最新资讯
                             </div>
                             <Link to={window.App.getAppRoute() + "/news"}>
-                                <span className="news-more"><a href="javascript:void(0)">more&gt;&gt;</a></span>
+                                <span className="news-more"><i href="javascript:void(0)">more&gt;&gt;</i></span>
                             </Link>
                             <div className="news_L">
 

@@ -172,7 +172,7 @@ var AddRelatedCarInfo=React.createClass({
                     <div className="carInfo">
                         <div style={{float:'left'}}>
                             <label className="car_label">用车城市</label>
-                            <select style={{width:'200px',height:'35px'}} id="carCity" onClick={this.selectChanged.bind(this)}>
+                            <select style={{width:'200px',height:'35px'}} id="carCity" onClick={this.selectChanged}>
                                 {carCityList}
                             </select>
                         </div>
@@ -197,14 +197,14 @@ var AddRelatedCarInfo=React.createClass({
                             <div style={{float:'left'}}>
                                 <label className="car_label">是否车主</label>
                                 <div className="self_controls">
-                                    <input type="checkbox" name="isOwner" className="car_input" onClick={this.checkBoxChange.bind(this,'isOwner')}/>
+                                    <input type="checkbox" name="isOwner" className="car_input" onClick={this.checkBoxChange.bind(null,'isOwner')}/>
                                 </div>
                             </div>
 
                             <div>
                                 <label className="car_label" style={{width:'160px',marginLeft:'30px'}}>是否一年内过户的二手车</label>
                                 <div className="self_controls">
-                                    <input type="checkbox" name="isSecondHand" className="car_input" onClick={this.checkBoxChange.bind(this,'isSecondHand')}/>
+                                    <input type="checkbox" name="isSecondHand" className="car_input" onClick={this.checkBoxChange.bind(null,'isSecondHand')}/>
                                 </div>
                             </div>
                         </div>
@@ -277,7 +277,7 @@ var AddRelatedCarInfo=React.createClass({
                     </div>
 
                     <div className="toolBar">
-                        <a className="saveBtn btn_primary" href="javascript:void(0)" onClick={this.doSaveCarInfo.bind(this)}>保存</a>
+                        <a className="saveBtn btn_primary" href="javascript:void(0)" onClick={this.doSaveCarInfo}>保存</a>
                     </div>
                 </div>
             </div>

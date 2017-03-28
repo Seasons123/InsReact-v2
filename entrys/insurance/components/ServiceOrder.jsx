@@ -218,7 +218,7 @@ var ServiceOrder=React.createClass({
 
                             <div className="nav-return">
                                 <hr style={{height:'2px',border:'none',borderTop:'2px dotted #185598'}} />
-                                <a href="javascript:void(0)" onClick={this.return.bind(this,"serviceOrder")}>
+                                <a href="javascript:void(0)" onClick={this.return.bind(null,"serviceOrder")}>
                                     <div className="retrun">
                                         <span aria-hidden="true">返回</span>
                                     </div>

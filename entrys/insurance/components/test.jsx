@@ -13,7 +13,7 @@ import PageNavigator from '../modules/PageNavigator.jsx';
 var ProxyQ = require('../../../components/proxy/ProxyQ');
 var Page = require('../modules/Page');
 var SyncStore = require('../../../components/flux/stores/SyncStore');
-var info={};
+
 var today=new Date().toLocaleDateString().replace("/", "-").replace("/", "-");
 
 var Consultation = React.createClass({
@@ -24,121 +24,28 @@ var Consultation = React.createClass({
 
     },
     click:function(ob){ //保存跳转的页面信息
-           SyncStore.setRouter(ob);
+        SyncStore.setRouter(ob);
     },
-    validate:function(){
-        if(this.state.session!=true){
+    getAllQuestion:function(){
+        var url="/insurance/insuranceReactPageDataRequest.do";
+        var params={
+            reactPageName:'insurancePersonalCenterProblemPage',
+            reactActionName:'getProblemList'
+        };
+        ProxyQ.queryHandle(
+            'post',
+            url,
+            params,
+            null,
+            function(ob) {
+                this.setState({data:ob.data});
 
-            var loginModal = this.refs['loginModal'];
-            var username=$(loginModal).find("input[name='username']").val();
-            var password=$(loginModal).find("input[name='password']").val();
+            }.bind(this),
 
-            var url="/bsuims/bsMainFrameInit.do";
-            var params={
-                login_strLoginName: username,
-                login_strPassword: password
-            };
-
-            ProxyQ.queryHandle(
-                'post',
-                url,
-                params,
-                null,
-                function(res) {
-                    var re = res.re;
-                    if(re!==undefined && re!==null && (re ==1 || re =="1")){ //登陆成功
-                        this.setState({session: true});
-                        var loginModal = this.refs['loginModal'];
-                        $(loginModal).modal('hide');
-                        window.setTimeout(this.goToOthers('newQuestion'), 300);
-                        SyncStore.setNote();
-
-                    }
-                }.bind(this),
-                function(xhr, status, err) {
-                    console.error(this.props.url, status, err.toString());
-                }.bind(this)
-            );
-        }
-    },
-
-
-    paginationData:function (data,pageIndex) {
-        let capacity=data.length;
-        var slices=null;
-        Page.getInitialDataIndex(10,capacity,pageIndex,function(ob){
-                slices=data.slice(ob.begin,ob.end);
-            }
+            function(xhr, status, err) {
+                console.error(this.props.url, status, err.toString());
+            }.bind(this)
         );
-        return slices;
-    },
-    previousCb:function (index,isChange) { //向前跳页
-        this.setState({pageIndex:index,isChange:isChange});
-    },
-
-    pageCb:function(index,isChange) { //进入指定页的列表
-        this.setState({pageIndex:index,isChange:isChange});
-    },
-    nextCb:function(index,isChange){ //向后跳页,isChange为true
-        this.setState({pageIndex:index,isChange:isChange});
-    },
-
-    goToOthers:function(branch){
-        if (this.state.session != true) {
-            var loginModal = this.refs['loginModal'];
-            $(loginModal).modal('show');
-        } else {
-            this.setState({
-                nav: branch,
-            });
-        }
-    },
-
-    getInitialState: function() {
-        return {
-
-            checked: !!this.props.checked,
-            current: 'carOrder',
-            startData:null,
-            endDate:null,
-            pageIndex:0,
-            isChange:false,
-            value:null,
-            session:SyncStore.getNote(),
-            dataTg:1
-
-
-        }
-    },
-
-    initialData:function(){
-
-        window.setTimeout(function () {
-
-            this.setState({
-                data: info.data
-            })
-        }.bind(this), 300);
-
-    },
-    onSaveInput:function(event){
-
-        this.setState({value: event.target.value});
-
-    },
-    onChildChanged: function (type,date) {
-        switch (type){
-            case 'startDate':
-                this.setState({
-                    startData: date
-                });
-                break;
-            case 'endDate':
-                this.setState({
-                    endData: date
-                });
-                break;
-        }
     },
     getQuestionContent:function(item,title,personId,date,comments){
         var url="/insurance/insuranceReactPageDataRequest.do";
@@ -154,8 +61,8 @@ var Consultation = React.createClass({
             params,
             null,
             function(ob) {
-                info=ob;
-                if(info.data=="data is null"){
+                this.setState({content:ob.data});
+                if(ob.data=="data is null"){
                     alert("暂无解答！");
                 }else{
                     this.state.nav='consultationDetails';
@@ -174,18 +81,6 @@ var Consultation = React.createClass({
         this.state.date=date;
         this.state.comments=comments;
     },
-    setDataTg:function(){
-        this.state.dataTg=this.state.dataTg+1;
-        if(this.state.dataTg%2==0){
-            $('#lab5').attr('data-tg','只看自己');
-            this.getMyQuestion();
-        }else{
-            $('#lab5').attr('data-tg','全部');
-            this.getLimitQuestion();
-        }
-
-    },
-
     getMyQuestion:function(){
         var url="/insurance/insuranceReactPageDataRequest.do";
         var params={
@@ -198,9 +93,9 @@ var Consultation = React.createClass({
             params,
             null,
             function(ob) {
-                info=ob;
+                this.setState({data:ob.data});
                 this.state.nav=undefined;
-                this.initialData();
+
             }.bind(this),
 
             function(xhr, status, err) {
@@ -224,9 +119,9 @@ var Consultation = React.createClass({
             params,
             null,
             function(ob) {
-                info=ob;
+                this.setState({data:ob.data});
                 this.state.nav=undefined;
-                this.initialData();
+
 
             }.bind(this),
 
@@ -235,37 +130,78 @@ var Consultation = React.createClass({
             }.bind(this)
         );
     },
-    getAllQuestion:function(){
-        var url="/insurance/insuranceReactPageDataRequest.do";
-        var params={
-            reactPageName:'insurancePersonalCenterProblemPage',
-            reactActionName:'getProblemList'
-        };
-        ProxyQ.queryHandle(
-            'post',
-            url,
-            params,
-            null,
-            function(ob) {
-                info=ob;
-
-            }.bind(this),
-
-            function(xhr, status, err) {
-                console.error(this.props.url, status, err.toString());
-            }.bind(this)
+    paginationData:function (data,pageIndex) {
+        let capacity=data.length;
+        var slices=null;
+        Page.getInitialDataIndex(10,capacity,pageIndex,function(ob){
+                slices=data.slice(ob.begin,ob.end);
+            }
         );
+        return slices;
+    },
+    previousCb:function (index,isChange) { //向前跳页
+        this.setState({pageIndex:index,isChange:isChange});
     },
 
-    render: function () {
+    pageCb:function(index,isChange) { //进入指定页的列表
+        this.setState({pageIndex:index,isChange:isChange});
+    },
+    nextCb:function(index,isChange){ //向后跳页,isChange为true
+        this.setState({pageIndex:index,isChange:isChange});
+    },
+    onSaveInput:function(event){
+        this.setState({value: event.target.value});
+    },
+    onChildChanged: function (type,date) {
+        switch (type){
+            case 'startDate':
+                this.setState({
+                    startData: date
+                });
+                break;
+            case 'endDate':
+                this.setState({
+                    endData: date
+                });
+                break;
+        }
+    },
+    setDataTg:function(){
+        this.state.dataTg=this.state.dataTg+1;
+        if(this.state.dataTg%2==0){
+            $('#lab5').attr('data-tg','只看自己');
+            this.getMyQuestion();
+        }else{
+            $('#lab5').attr('data-tg','全部');
+            this.getLimitQuestion();
+        }
+
+    },
+    getInitialState: function() {
+        return {
+            checked: !!this.props.checked,
+            current: 'carOrder',
+            startData:null,
+            endDate:null,
+            pageIndex:0,
+            isChange:false,
+            value:null,
+            session:SyncStore.getNote(),
+            dataTg:1
+        }
+    },
+    initialData:function(){
+        this.getAllQuestion();
+    },
+    render:function () {
         var container=null;
         var html=this.state.nav;
         if(this.state.data!==undefined&&this.state.data!==null) {
-            if(this.state.nav!='consultationDetails'&&this.state.nav!='newQuestion') {
-                var test = this.state.data;
-                var data = this.paginationData(test, this.state.pageIndex);
+            if(this.state.nav!='consultationDetails') {
+                var tem = this.state.data;
+                var data = this.paginationData(tem, this.state.pageIndex);
                 var trs = [];
-                var ref = this;
+                var ref=this;
                 data.map(function (item, i) {
                     trs.push(
                         <ul className="question-detail-item-list" key={i} >
@@ -274,14 +210,14 @@ var Consultation = React.createClass({
                                     {item.title}
                                 </div>
                                 <div className="who">
-                                {item.perName}
+                                    {item.perName}
                                 </div>
                                 <div className="when">
                                     {item.createTime.month+1 + "月" + item.createTime.date + "日"
-                                + item.createTime.hours + ":" + item.createTime.minutes}
+                                    + item.createTime.hours + ":" + item.createTime.minutes}
                                 </div>
                                 <div className="details"  onClick={ref.getQuestionContent.bind(null,item.themeId,item.title,item.personId,item.createTime,item.readCount)}>
-                                <a > 详情 </a>
+                                    <a > 详情 </a>
                                 </div>
                             </li>
                         </ul>
@@ -311,13 +247,13 @@ var Consultation = React.createClass({
                                     nextCb={this.nextCb}
                                     isChange={this.state.isChange}
                                     paginate={Page}
-                                    />
+                                />
                             </div>
                         </div>
 
                     break;
                 case 'consultationDetails':
-                    container = <ConsultationDetails data={info} title={this.state.title} personId={this.state.personId} date={this.state.date} comments={this.state.comments} Branch={this.Branch}/>;
+                    container = <ConsultationDetails data={this.state.content} title={this.state.title} personId={this.state.personId} date={this.state.date} comments={this.state.comments} Branch={this.Branch}/>;
 
                     break;
             }
@@ -325,8 +261,7 @@ var Consultation = React.createClass({
 
             this.initialData();
         }
-        let  navbar;
-        if(this.state.nav!='newQuestion') {
+        var  navbar;
             navbar =
                 <div className='questionSearchContainer'>
                     <div className='search-area '>
@@ -336,7 +271,7 @@ var Consultation = React.createClass({
                                             <span >
                                                  <input className='search-term-question' type="text"
                                                         placeholder="在此输入您的问题进行搜索！"
-                                                        onChange={this.onSaveInput.bind(null)}/>
+                                                        onChange={this.onSaveInput}/>
                                             </span>
                                 </div>
                                 <div className='time'>
@@ -385,8 +320,7 @@ var Consultation = React.createClass({
                         </form>
                     </div>
                 </div>;
-        }
-            return(
+        return(
             <div>
                 <div className="w1008 margin mar_20 ">
                     <div className="pro_L " style={{float:'left'}}>
@@ -394,37 +328,35 @@ var Consultation = React.createClass({
                     </div>
                     <div className="pro_R fr bg" style={{width:'1035px'}}>
                         <div className="pro_bg">
-                            <span className="fr pad_L">您的位置： <a >主页</a> &gt; 人寿保险 &gt; <a
-                                href="#">理财保险</a></span>
+                            <span className="fr pad_L">您的位置： <a >主页</a> &gt; 问题咨询 &gt;</span>
                         </div>
                         <div className="article">
                             <div className="visual">
                                 <h3 className="font_15 text">问题搜索</h3>
-                    <div className='questionSearchContainer'>
-                        {navbar}
-                        <div className="question-area" onLoad={this.getAllQuestion()}>
-
-                            {html == undefined ?
-                                <div>
-                                    <h3 className="font_15 text">问题列表</h3>
-                                    {SyncStore.getNote() ?
-                                        <div className="tglLabel">
+                                <div className='questionSearchContainer'>
+                                    {navbar}
+                                    <div className="question-area" >
+                                        {html == undefined ?
+                                            <div>
+                                                <h3 className="font_15 text">问题列表</h3>
+                                                {SyncStore.getNote() ?
+                                                    <div className="tglLabel">
                                         <span className='tg-list-item'>
                                             <input className='tgl tgl-flip' id='cb5' type='checkbox'/>
                                             <label id='lab5' style={{marginLeft: '842px'}} onClick={this.setDataTg} className='tgl-btn' data-tg='全部'data-tg-off='全部' data-tg-on='只看自己' htmlFor='cb5'></label>
                                         </span>
-                                    </div>:null}
+                                                    </div>:null}
+                                            </div>
+                                            :
+                                            <h3 className="font_15 text">问题详情</h3>
+                                        }
+                                        {container}
+                                    </div>
                                 </div>
-                                :
-                                <h3 className="font_15 text">问题详情</h3>
-                            }
-                            {container}
-                        </div>
-                    </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
             </div>
         );
     }

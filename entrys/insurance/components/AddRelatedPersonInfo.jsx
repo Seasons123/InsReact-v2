@@ -165,7 +165,7 @@ var AddRelatedPersonInfo = React.createClass({
                             <label className="related_label">身份证正面:</label>
                             <div style={{marginTop: '5px'}}>
                                 <Upload ctrlName={'test'}
-                                        callbackParent={this.displayUploadImg.bind(this, "frontImg")}/>
+                                        callbackParent={this.displayUploadImg.bind(null, "frontImg")}/>
                             </div>
 
                             {this.state.frontImg ?
@@ -178,7 +178,7 @@ var AddRelatedPersonInfo = React.createClass({
                         <div style={{float: 'left', width: '50%'}}>
                             <label className="related_label" style={{marginLeft: '12px'}}>身份证反面:</label>
                             <div style={{marginTop: '5px'}}>
-                                <Upload ctrlName={'test'} callbackParent={this.displayUploadImg.bind(this, "backImg")}/>
+                                <Upload ctrlName={'test'} callbackParent={this.displayUploadImg.bind(null, "backImg")}/>
                             </div>
 
                             {this.state.backImg ?

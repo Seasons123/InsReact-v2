@@ -47,6 +47,16 @@ var SyncActions = {
             type:SyncConstants.GET_RESULT
         });
     },
+    setLoginName:function () {
+        AppDispatcher.dispatch({
+            type:SyncConstants.TODO_LOGINNAME
+        });
+    },
+    getLoginName:function () {
+        AppDispatcher.dispatch({
+            type:SyncConstants.GET_LOGNNAME
+        });
+    },
 
 
     create: function (ob) {

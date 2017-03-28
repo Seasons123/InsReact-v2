@@ -1,5 +1,6 @@
 import React from 'react';
 import {render} from 'react-dom';
+import {Link} from 'react-router';
 import '../../../css/insurance/components/commonTopSupnuevo.css';
 import '../../../css/insurance/components/navcontent.css';
 import '../../../css/insurance/components/pagination.css';
@@ -10,7 +11,7 @@ import Upload from '../../../entrys/insurance/components/Upload';
 var SyncStore = require('../../../components/flux/stores/SyncStore');
 var ProxyQ = require('../../../components/proxy/ProxyQ');
 
-var TestConsultationDetails = React.createClass({
+var ConsultationDetails = React.createClass({
     Branch:function(url) {
 
         //if (this.state.session != true) {
@@ -29,6 +30,7 @@ var TestConsultationDetails = React.createClass({
         //}
 
     },
+
     onChildChanged: function (date) {
         this.setState({
             img: date
@@ -79,7 +81,7 @@ var TestConsultationDetails = React.createClass({
         var params={
             reactPageName:'insurancePersonalCenterProblemPage',
             reactActionName:'saveOrUpdateProblemContent',
-            themeId:this.state.data.data[0].themeId,
+            themeId:this.state.data[0].themeId,
             content:this.state.content,
             attachId:this.state.attachId,
 
@@ -140,28 +142,26 @@ var TestConsultationDetails = React.createClass({
                             <label >继续提问:<span>*</span> </label>
                         </div>
                         <div >
-                            <textarea  className="quizArea" onChange={this.onSaveInput.bind(this)}></textarea>
+                            <textarea  className="quizArea" onChange={this.onSaveInput}></textarea>
                         </div>
                         <div >
                             <label>上传图片: <span>*</span> </label>
                         </div>
                     <div>
-                        <Upload ctrlName={'test'} callbackParent={this.onChildChanged.bind(this)}/>
+                        <Upload ctrlName={'test'} callbackParent={this.onChildChanged}/>
                     </div>
                         {this.state.img ?
                             <div className="thumb-box" >
                                 <img    className="quizImg" src={this.state.img}/>
                             </div> : null}
                         <div >
-                            <input type="button" className="quizBtn" onClick={this.uploadAllQuestionContents}  value="Send Message" />
+                            <input type="button" className="quizBtn" onClick={this.uploadAllQuestionContents}  value="提交" />
                         </div>
                 </div>
             )
         }
-        else{
 
-        }
-        var contents=this.state.data.data;
+        var contents=this.state.data;
         var trs=[];
         contents.map(function (item, i) {
             if(item.contentType==1){
@@ -197,7 +197,7 @@ var TestConsultationDetails = React.createClass({
                     <article className="questionDetailTitle clearfix">
                         <h1 className="questionTheme">问题主题：{this.state.title}</h1>
                         <div className="questionFootnote clearfix">
-                            <button className="backQuestionList" onClick={this.Branch.bind(this,undefined)}>返回问题列表</button>
+                            <button className="backQuestionList" onClick={this.Branch.bind(null,undefined)}>返回问题列表</button>
                             <span className="icon-comment" >{this.state.comments+'  '}Comments</span>
                             <span className="icon-calendar">{this.state.date.month+1+'月'+this.state.date.date+'日'}</span>
                         </div>
@@ -212,8 +212,33 @@ var TestConsultationDetails = React.createClass({
                     <hr className="consultationHR" style={{marginTop:'25px'}}/>
                     {lrs}
                 </div>
+
+                <div className="modal fade bs-example-modal-sm login-container"
+                     tabIndex="-1"
+                     role="dialog"
+                     aria-labelledby="myLargeModalLabel"
+                     aria-hidden="true"
+                     ref='successModal'
+                     data-backdrop="static"
+                     data-keyboard="false"
+                     style={{zIndex:1045}}
+                >
+                    <div className="modal-dialog modal-sm"
+                         style={{position: 'absolute', top: '30%', width: '50%', marginLeft: '25%'}}>
+                        <div className="modal-content"
+                             style={{position: 'relative', width: '100%', padding: '40px'}}>
+
+                            <div className="modal-body">
+                                <div className="form-group" style={{position: 'relative'}}>
+                                    <div>{'提问已经提交，请耐心等待客服人员解答！'}</div>
+                                    <input type='button' className="modalCloseBtn"  onClick={this.Branch.bind(null,undefined)} defaultValue="OK"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         )
     }
 });
-module.exports = TestConsultationDetails;
+module.exports = ConsultationDetails;

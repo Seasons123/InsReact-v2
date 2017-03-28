@@ -3,6 +3,7 @@ var EventEmitter = require('events').EventEmitter;
 var SyncConstants = require('../constants/SyncConstants');
 var assign = require('object-assign');
 
+
 var CHANGE_EVENT = 'change';
 
 var PRONOUNCE_EVENT='pronounce';
@@ -22,6 +23,8 @@ var _devote=false;
 var _mustdone={};
 
 var _note=false;//登录状态
+
+var _loginName={};//登录名
 
 var _pageData={};//页面数据
 
@@ -131,7 +134,12 @@ var SyncStore = assign({}, EventEmitter.prototype, {
     setResult:function(){
         _result=true;
     },
-
+    getLoginName:function(){
+        return _loginName;
+    },
+    setLoginName:function(loginName){
+        _loginName=loginName;
+    },
     getAll: function () {
         return _todos;
     },
@@ -245,6 +253,12 @@ AppDispatcher.register(function (action) {
             break;
         case SyncConstants.GET_RESULT:
             SyncStore.getResult();
+            break;
+        case SyncConstants.TODO_LOGINNAME:
+            SyncStore.setLoginName();
+            break;
+        case SyncConstants.GET_LOGNNAME:
+            SyncStore.getLoginName();
             break;
         case SyncConstants.TODO_CREATE:
             sync = action.sync;

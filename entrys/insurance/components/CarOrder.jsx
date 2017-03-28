@@ -469,7 +469,7 @@ var CarOrder=React.createClass({
                                     <div className="return-and-ack">
                                         <div className="btn-return">
                                             <span>
-                                                <input className="ret" type="button" value="返  回" onClick={this.return.bind(this,"carOrder")} />
+                                                <input className="ret" type="button" value="返  回" onClick={this.return.bind(null,"carOrder")} />
                                             </span>
                                         </div>
                                         <div className="btn-ack" id="isAgree">
@@ -492,7 +492,7 @@ var CarOrder=React.createClass({
                                     <div className="return-and-ack">
                                         <div className="only-btn-return">
                                             <span>
-                                                <input className="ret" type="button" value="返  回" onClick={this.return.bind(this,"carOrder")} />
+                                                <input className="ret" type="button" value="返  回" onClick={this.return.bind(null,"carOrder")} />
                                             </span>
                                         </div>
                                     </div>

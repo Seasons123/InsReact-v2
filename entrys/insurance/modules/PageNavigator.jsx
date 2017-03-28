@@ -153,10 +153,10 @@ var Navigator=React.createClass({
             for(var i=this.state.pageBegin;i<=this.state.pageEnd;i++)
             {
                 if(i==this.state.pageIndex+1){
-                    lis.push(<li key={i} style={{marginLeft:'8px',fontSize:'16PX'}}><a onClick={this.pageCb.bind(this,i-1)} style={{color:'#000000'}}>{i}</a></li>);
+                    lis.push(<li key={i} style={{marginLeft:'8px',fontSize:'16PX'}}><a onClick={this.pageCb.bind(null,i-1)} style={{color:'#000000'}}>{i}</a></li>);
                 }
                 else{
-                    lis.push(<li key={i} style={{marginLeft:'8px',fontSize:'16PX'}}><a onClick={this.pageCb.bind(this,i-1)}>{i}</a></li>);
+                    lis.push(<li key={i} style={{marginLeft:'8px',fontSize:'16PX'}}><a onClick={this.pageCb.bind(null,i-1)}>{i}</a></li>);
                 }
             }
             lis.push(<li key={-2} style={{marginLeft:'8px',fontSize:'16PX'}}><a onClick={this.nextCb}>&raquo;</a></li>);

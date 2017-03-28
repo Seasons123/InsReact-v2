@@ -164,25 +164,25 @@ var PersonalCenter=React.createClass({
                         <h3 className="font_15">个人订单</h3>
                         <ul>
                             <li onClick={this.tabChange.bind(this,'carOrder')}>
-                                <a className="nav-text" onClick={this.switchNav.bind(this,"carInsurance")}>车险</a>
+                                <a className="nav-text" onClick={this.switchNav.bind(null,"carInsurance")}>车险</a>
                                 <span aria-hidden="true" className="span-icon">
                                     <i className="icon-arrow-right" ref="carInsurance"></i>
                                 </span>
                             </li>
                             <li onClick={this.tabChange.bind(this,'lifeOrder')}>
-                                <a className="nav-text" onClick={this.switchNav.bind(this,"lifeInsurance")}>寿险</a>
+                                <a className="nav-text" onClick={this.switchNav.bind(null,"lifeInsurance")}>寿险</a>
                                 <span aria-hidden="true" className="span-icon">
                                     <i className="" ref="lifeInsurance"></i>
                                 </span>
                             </li>
                             <li onClick={this.tabChange.bind(this,'serviceOrder')}>
-                                <a className="nav-text" onClick={this.switchNav.bind(this,"service")}>服务</a>
+                                <a className="nav-text" onClick={this.switchNav.bind(null,"service")}>服务</a>
                                 <span aria-hidden="true" className="span-icon">
                                     <i className="" ref="service"></i>
                                 </span>
                             </li>
                             <li onClick={this.tabChange.bind(this,'score')}>
-                                <a className="nav-text" onClick={this.switchNav.bind(this,"score")}>积分</a>
+                                <a className="nav-text" onClick={this.switchNav.bind(null,"score")}>积分</a>
                                 <span aria-hidden="true" className="span-icon">
                                     <i className="" ref="score"></i>
                                 </span>
@@ -194,19 +194,19 @@ var PersonalCenter=React.createClass({
                         <h3 className="font_15">个人信息</h3>
                         <ul>
                             <li onClick={this.tabChange.bind(this,'baseInfo')}>
-                                <a className="nav-text" onClick={this.switchNav.bind(this,"baseInfo")}>基本信息</a>
+                                <a className="nav-text" onClick={this.switchNav.bind(null,"baseInfo")}>基本信息</a>
                                 <span aria-hidden="true" className="span-icon">
                                     <i className="" ref="baseInfo"></i>
                                 </span>
                             </li>
                             <li onClick={this.tabChange.bind(this,'relatedInfo')}>
-                                <a className="nav-text" onClick={this.switchNav.bind(this,"relatedInfo")}>关联人员</a>
+                                <a className="nav-text" onClick={this.switchNav.bind(null,"relatedInfo")}>关联人员</a>
                                 <span aria-hidden="true" className="span-icon">
                                     <i className="" ref="relatedPerson"></i>
                                 </span>
                             </li>
                             <li onClick={this.tabChange.bind(this,'carInfo')}>
-                                <a className="nav-text" onClick={this.switchNav.bind(this,"carInfo")}>车辆信息</a>
+                                <a className="nav-text" onClick={this.switchNav.bind(null,"carInfo")}>车辆信息</a>
                                 <span aria-hidden="true" className="span-icon">
                                     <i className="" ref="carInfo"></i>
                                 </span>

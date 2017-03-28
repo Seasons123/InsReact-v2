@@ -147,15 +147,7 @@ var LifeInsurance = React.createClass({
         var selected=$('#lifeInsuranceType option:selected').val();
         this.state.selectLifeInsuranceType=selected;
     },
-    slidePage:function(type){
-        if(type=='right'){
-            var detail=this.refs.slider;
-            $(detail).animate({left:'-100%'});
-        }else{
-            var detail=this.refs.slider;
-            $(detail).animate({left:'0'}); //使页面划回到最左边
-        }
-    },
+
     onSaveInput:function(event){
 
         this.setState({value: event.target.value});
@@ -273,12 +265,12 @@ var LifeInsurance = React.createClass({
                 lrs.push(
                     <div className="pro_detail_list" key={i}>
                     <h1>
-                        <a href="#" target="_blank">{item.productName}</a>
+                        <a target="_blank">{item.productName}</a>
                     </h1>
 
                     <div className="left">
                     <div className="imgs">
-                        <a href="#" target="_blank">
+                        <a target="_blank">
                             <img src="images/lifeInsurance/financial1.jpg" width="170px"
                                  height="100px"/>
                         </a>
@@ -320,7 +312,7 @@ var LifeInsurance = React.createClass({
                     <div className="pointline"></div>
                     <div className="btm_btn">
                     <div className="detail_btn">
-                        <a onClick={ref.goToOthers.bind(this,'detail',item.productId,item.productName,item.productStar,item.briefly,item.insuranceQuota)} title="了解详细" target="_blank"></a>
+                        <a onClick={ref.goToOthers.bind(null,'detail',item.productId,item.productName,item.productStar,item.briefly,item.insuranceQuota)} title="了解详细" target="_blank"></a>
                     </div>
                     </div>
                     </div>
@@ -342,12 +334,11 @@ var LifeInsurance = React.createClass({
                         <div className="w1008 margin mar_20" onLoad={this.getCompanies()}>
                             <div className="pro_L " style={{float:'left'}}>
                                 <form id="formForward" >
-                                    <input type="hidden" name="f" value="gift" id="f"/>
                                     <div className="menu ">
                                         <h3 className="font_15">快速筛选</h3>
                                         <div id="inputStarLevel" >
                                         <h3 className="font_15">推荐星级</h3>
-                                        <ul onClick={this.getInfoBySlide.bind(this,'inputStarLevel')}>
+                                        <ul onClick={this.getInfoBySlide.bind(null,'inputStarLevel')}>
                                             <li>
                                                 <label>
                                                     <input type="checkbox" value="5"/>
@@ -397,7 +388,7 @@ var LifeInsurance = React.createClass({
                                             </div>
                                         <div id="inputCompany" >
                                         <h3 className="font_15">推荐公司</h3>
-                                        <ul onClick={this.getInfoBySlide.bind(this,'inputCompany')}>
+                                        <ul onClick={this.getInfoBySlide.bind(null,'inputCompany')}>
                                             <li>
                                                 <label>
                                                     <input id="price1" type="checkbox"  value="8"/>
@@ -414,7 +405,7 @@ var LifeInsurance = React.createClass({
                                             </div>
                                         <div id="inputCompanyType" >
                                         <h3 className="font_15">公司类型</h3>
-                                        <ul onClick={this.getInfoBySlide.bind(this,'inputCompanyType')}>
+                                        <ul onClick={this.getInfoBySlide.bind(null,'inputCompanyType')}>
                                             <li>
                                                 <label>
                                                     <input id="price1" type="checkbox"  value="8"/>
@@ -437,7 +428,7 @@ var LifeInsurance = React.createClass({
                                             </div>
                                         <div id="inputIncrement" >
                                         <h3 className="font_15">有无增值服务</h3>
-                                        <ul onClick={this.getInfoBySlide.bind(this,'inputIncrement')}>
+                                        <ul onClick={this.getInfoBySlide.bind(null,'inputIncrement')}>
                                             <li>
                                                 <label>
                                                     <input type="radio" name="hideRegionId"  value="all"/>
@@ -481,10 +472,8 @@ var LifeInsurance = React.createClass({
                             </div>
                             <div className="pro_R fr bg">
                                 <div className="pro_bg">
-                            <span className="fr pad_L">您的位置： <a href="home.jsp">主页</a> &gt; 人寿保险 &gt; <a
-                                href="#">理财保险</a></span>
+                            <span className="fr pad_L">您的位置： <a href="home.jsp">主页</a> &gt; 人寿保险 &gt;</span>
                                 </div>
-
                                 <div className="article">
                                     <div className="visual">
                                         <h3 className="font_15 text">产品搜索</h3>
@@ -494,7 +483,7 @@ var LifeInsurance = React.createClass({
                                                     <h3 className="searchTitle">产品名:</h3>
                                                     <div>
                                                         <form>
-                                                            <input onChange={this.onSaveInput.bind(this)} className="searchInput" type="text"/>
+                                                            <input onChange={this.onSaveInput} className="searchInput" type="text"/>
                                                         </form>
                                                     </div>
                                                 </li>
@@ -523,7 +512,7 @@ var LifeInsurance = React.createClass({
                                                 <li className="searchContain searchContain_sea">
                                                     <div >
                                                         <form>
-                                                            <input className="search" onClick={this.getLimitInsurancesList} value="查询" />
+                                                            <input className="search" onClick={this.getLimitInsurancesList} defaultValue="查询" />
                                                         </form>
                                                     </div>
                                                 </li>

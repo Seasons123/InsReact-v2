@@ -5,7 +5,9 @@ import React from 'react';
 import {render} from 'react-dom';
 
 var Mpage=React.createClass({
+
     render:function(){
+
         return(
             <div>
                 <div className="clear">
