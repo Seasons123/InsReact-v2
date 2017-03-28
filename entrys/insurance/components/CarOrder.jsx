@@ -11,6 +11,23 @@ var Page = require('../modules/Page');
 var SyncStore = require('../../../components/flux/stores/SyncStore')
 
 var CarOrder=React.createClass({
+    //显示提示框，目前三个参数(txt：要显示的文本；time：自动关闭的时间（不设置的话默认1500毫秒）；status：默认0为错误提示，1为正确提示；)
+    showTips:function(txt,time,status) {
+        var htmlCon = '';
+        if(txt != ''){
+            if(status != 0 && status != undefined){
+                htmlCon = '<div class="tipsBox" style="width:220px;padding:10px;background-color:#4AAF33;border-radius:4px;-webkit-border-radius: 4px;-moz-border-radius: 4px;color:#fff;box-shadow:0 0 3px #ddd inset;-webkit-box-shadow: 0 0 3px #ddd inset;text-align:center;position:fixed;top:25%;left:50%;z-index:999999;margin-left:-120px;">'+txt+'</div>';
+            }else{
+                htmlCon = '<div class="tipsBox" style="width:220px;padding:10px;background-color:#D84C31;border-radius:4px;-webkit-border-radius: 4px;-moz-border-radius: 4px;color:#fff;box-shadow:0 0 3px #ddd inset;-webkit-box-shadow: 0 0 3px #ddd inset;text-align:center;position:fixed;top:25%;left:50%;z-index:999999;margin-left:-120px;">'+txt+'</div>';
+            }
+            $('body').prepend(htmlCon);
+            if(time == '' || time == undefined){
+                time = 1500;
+            }
+            setTimeout(function(){ $('.tipsBox').remove(); },time);
+        }
+    },
+
     paginationData:function (data,pageIndex) {
         var capacity=data.length;
         var slices=null;
@@ -75,7 +92,11 @@ var CarOrder=React.createClass({
 
     ack:function() {
         var orderId=this.state.orderDetail.orderId;
-        var priceId=this.state.priceId;
+        var priceId=this.state.choosePriceId;
+        if(priceId==undefined || priceId==null){
+            this.showTips('请选择报价单~');
+            return;
+        }
         var url="/insurance/insuranceReactPageDataRequest.do";
         var params={
             reactPageName:'insurancePersonalCenterCarOrderPage',
@@ -409,54 +430,59 @@ var CarOrder=React.createClass({
                                         </tr>
                                         </thead>
 
-                                        <h4 style={{marginTop:'15px'}}><strong>订单信息:</strong></h4>
+                                        <tbody><tr><td><h4 style={{marginTop:'15px'}}><strong>订单信息:</strong></h4></td></tr></tbody>
                                         <tbody>
                                         {detail_trs}
                                         </tbody>
 
-                                        <h4 style={{marginTop:'15px'}}><strong>行驶证信息:</strong></h4>
+                                        <tbody><tr><td><h4 style={{marginTop:'15px'}}><strong>行驶证信息:</strong></h4></td></tr></tbody>
                                         <tbody>
                                         {carInfo_trs}
                                         </tbody>
 
-                                        <h4 style={{marginTop:'15px'}}><strong>产品信息:</strong></h4>
+                                        <tbody><tr><td><h4 style={{marginTop:'15px'}}><strong>产品信息:</strong></h4></td></tr></tbody>
                                         <tbody>
                                         {product_trs}
                                         </tbody>
 
-                                        <h4 style={{marginTop:'15px'}}><strong>投保人信息:</strong></h4>
+                                        <tbody><tr><td><h4 style={{marginTop:'15px'}}><strong>投保人信息:</strong></h4></td></tr></tbody>
                                         <tbody>
                                         {insurer_trs}
                                         </tbody>
 
-                                        <h4 style={{marginTop:'15px'}}><strong>被保险人信息:</strong></h4>
+                                        <tbody><tr><td><h4 style={{marginTop:'15px'}}><strong>被保险人信息:</strong></h4></td></tr></tbody>
                                         <tbody>
                                         {insuranceder_trs}
                                         </tbody>
 
-                                        <h4 style={{marginTop:'15px'}}><strong>受益人信息:</strong></h4>
+                                        <tbody><tr><td><h4 style={{marginTop:'15px'}}><strong>受益人信息:</strong></h4></td></tr></tbody>
                                         <tbody>
                                         {benefiter_trs}
                                         </tbody>
                                     </table>
 
-                                    <table className="table table-striped invoice-table">
-                                        <thead className="table-head">
-                                        <tr>
-                                            <th width="50"></th>
-                                            <th width="300"></th>
-                                            <th width="300"></th>
-                                            <th width="300"></th>
-                                            <th width="300"></th>
-                                            <th width="300"></th>
-                                        </tr>
-                                        </thead>
 
-                                        <tbody id="priceList">
-                                        <tr><td colSpan={6}><h4 style={{marginTop:'15px'}}><strong>报价列表:</strong></h4> </td></tr>
+                                    {ack?
+                                        <table className="table table-striped invoice-table">
+                                            <thead className="table-head">
+                                            <tr>
+                                                <th width="50"></th>
+                                                <th width="300"></th>
+                                                <th width="300"></th>
+                                                <th width="300"></th>
+                                                <th width="300"></th>
+                                                <th width="300"></th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody id="priceList">
+                                            <tr><td colSpan={6}><h4 style={{marginTop:'15px'}}><strong>报价列表:</strong></h4> </td></tr>
                                             {price_trs}
-                                        </tbody>
-                                    </table>
+                                            </tbody>
+                                        </table>
+                                        :
+                                        null}
+
                                 </div>
                             </div>
 

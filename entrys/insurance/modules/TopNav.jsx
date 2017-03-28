@@ -75,7 +75,9 @@ var TopNav=React.createClass({
                              :
                                 <li className="plogin">
                                     <Link to={window.App.getAppRoute() + "/login"}>
+
                                         <i className="login-btn" onClick={this.click.bind(null,"/mainPage")}>登录</i>
+
                                     </Link>
                                 </li>
                             }

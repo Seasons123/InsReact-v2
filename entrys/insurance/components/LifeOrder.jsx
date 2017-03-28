@@ -294,33 +294,33 @@ var LifeOrder=React.createClass({
                                         </tr>
                                         </thead>
 
-                                        <h4 style={{marginTop:'15px'}}><strong>订单信息:</strong></h4>
+                                        <tbody><tr><td><h4 style={{marginTop:'15px'}}><strong>订单信息:</strong></h4></td></tr></tbody>
                                         <tbody>
                                         {detail_trs}
                                         </tbody>
 
-                                        <h4 style={{marginTop:'15px'}}><strong>计划书:</strong></h4>
+                                        <tbody><tr><td><h4 style={{marginTop:'15px'}}><strong>计划书:</strong></h4></td></tr></tbody>
                                         <tbody>
                                         {plan_trs}
                                         </tbody>
 
 
-                                        <h4 style={{marginTop:'15px'}}><strong>产品信息:</strong></h4>
+                                        <tbody><tr><td><h4 style={{marginTop:'15px'}}><strong>产品信息:</strong></h4></td></tr></tbody>
                                         <tbody>
                                         {product_trs}
                                         </tbody>
 
-                                        <h4 style={{marginTop:'15px'}}><strong>投保人信息:</strong></h4>
+                                        <tbody><tr><td><h4 style={{marginTop:'15px'}}><strong>投保人信息:</strong></h4></td></tr></tbody>
                                         <tbody>
                                         {insurer_trs}
                                         </tbody>
 
-                                        <h4 style={{marginTop:'15px'}}><strong>被保险人信息:</strong></h4>
+                                        <tbody><tr><td><h4 style={{marginTop:'15px'}}><strong>被保险人信息:</strong></h4></td></tr></tbody>
                                         <tbody>
                                         {insuranceder_trs}
                                         </tbody>
 
-                                        <h4 style={{marginTop:'15px'}}><strong>受益人信息:</strong></h4>
+                                        <tbody><tr><td><h4 style={{marginTop:'15px'}}><strong>受益人信息:</strong></h4></td></tr></tbody>
                                         <tbody>
                                         {benefiter_trs}
                                         </tbody>
@@ -328,13 +328,19 @@ var LifeOrder=React.createClass({
                                 </div>
                             </div>
 
-                            <div className="nav-return">
-                                <hr style={{height:'2px',border:'none',borderTop:'2px dotted #185598'}} />
-                                <a href="javascript:void(0)" onClick={this.return.bind(null,"lifeOrder")}>
-                                    <div className="retrun">
-                                        <span aria-hidden="true">返回</span>
+                            <div className="nav-return" ref="ack">
+                                <hr style={{height:'2px',border:'none',borderTop:'2px dotted #185598'}}/>
+
+                                <div className="clear">
+                                </div>
+                                <div className="return-and-ack">
+                                    <div className="only-btn-return">
+                                            <span>
+                                                <input className="ret" type="button" value="返  回" onClick={this.return.bind(null,"lifeOrder")} />
+                                            </span>
+
                                     </div>
-                                </a>
+                                </div>
                             </div>
                         </div>);
                     break;

@@ -56,21 +56,170 @@ var Login=React.createClass({
         }
     },
 
+    viewSwitch:function(ob){
+        var view=ob;
+        this.setState({view:view});
+    },
+
+    checkPasswordStatus:function(){
+        var registerPage = this.refs['registerPage'];
+        var value = $(registerPage).find("input[name='password']").val();
+        var len = value.length;
+        var element = this.refs['safely'];
+
+        var regxs = [];
+        regxs.push(/[^a-zA-Z0-9_]/g);
+        regxs.push(/[a-zA-Z]/g);
+        regxs.push(/[0-9]/g);
+
+        var sec = 0;
+        if (len >= 6) { // 至少六个字符
+            for (var i = 0; i < regxs.length; i++) {
+                if (value.match(regxs[i])) {
+                    sec++;
+                }
+            }
+        } else{
+            sec = 0;
+        }
+        var result = (sec / regxs.length) * 100;
+        if(result == 0){
+            $(element).removeClass('safely-general');
+            $(element).removeClass('safely-safe');
+            $(element).removeClass('safely-danger');
+        }else if(result > 0 && result <= 50){
+            $(element).removeClass('safely-general');
+            $(element).removeClass('safely-safe');
+            $(element).addClass('safely-danger');
+        }else if (result > 50 && result < 100) {
+            $(element).removeClass('safely-danger');
+            $(element).removeClass('safely-safe');
+            $(element).addClass('safely-general');
+        } else if (result == 100) {
+            $(element).removeClass('safely-danger');
+            $(element).removeClass('safely-general');
+            $(element).addClass('safely-safe');
+        }
+    },
+
+    register:function(){
+        var registerPage = this.refs['registerPage'];
+        var userName = $(registerPage).find("input[name='userName']").val();
+        var password = $(registerPage).find("input[name='password']").val();
+        var ackPassword = $(registerPage).find("input[name='ackPassword']").val();
+        var email = $(registerPage).find("input[name='email']").val();
+        var phoneNum = $(registerPage).find("input[name='phoneNum']").val();
+        var verifyCode = $(registerPage).find("input[name='verifyCode']").val();
+
+    },
+
+    getVerifyCode:function(){
+        var registerPage = this.refs['registerPage'];
+        var phoneNum = $(registerPage).find("input[name='phoneNum']").val();
+        var num = '';
+        for(var i=0;i<4;i++){
+            num+=Math.floor(Math.random()*10);
+        }
+
+        alert('mobile====='+phoneNum);
+
+        var inputData = {
+            corp_id:'hy6550',
+            corp_pwd:'mm2289',
+            corp_service:1069003256550,
+            mobile:phoneNum,
+            msg_content:''+num,
+            corp_msg_id:'',
+            ext:''
+        };
+
+
+        //request({
+        //    url:'http://sms.cloud.hbsmservice.com:8080/sms_send2.do',
+        //    method:'POST',
+        //    data:JSON.stringify(inputData),
+        //    headers: {
+        //        'Content-Type': 'application/x-www-form-urlencoded'
+        //    },
+        //    ContentType: 'application/x-www-form-urlencoded',
+        //},function(err,response,body){
+        //    if(err)
+        //    {
+        //        alert('get securityCode='+err.errMsg);
+        //        res.json({re:-1, data:err.errMsg});
+        //    }
+        //    else
+        //        res.json({re: 1, data: num});
+        //});
+
+
+        var url='http://sms.cloud.hbsmservice.com:8080/sms_send2.do';
+        $.ajax({
+            type    : 'POST',
+            url     : url,
+            data    : JSON.stringify(inputData),
+            dataType: 'JSONP',
+            crossDomain: true,
+            headers: {
+                        //'Access-Control-Allow-Origin': 'http://localhost:3000',
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+            ContentType: 'application/x-www-form-urlencoded',
+
+            success : function (response) {
+                //加载遮罩
+                if (App.getLoadModel() == "true") {
+                    App.unload();
+                }
+
+                this.setState({verifyCode: num});
+            },
+            error   : function (xhr, status, err) {
+                if (App.getLoadModel() == "true") {
+                    App.unload();
+                }
+                console.error("error=" + err);
+                var $modal=$("#root_modal");
+                var content;
+                var errType;
+                if(xhr.status==404||xhr.status=="404") {
+                    content="错误描述:        "+xhr.responseText;
+                    errType="";
+                    switch(xhr.statusText)
+                    {
+                        case "Not Found":
+                            errType="发生错误:"+"path not found";
+                            break;
+                        default:
+                            break;
+                    }
+                } else if (xhr.status == 502 || xhr.status == "502") {
+                    content = "错误描述:        " + xhr.responseText;
+                    errType = "发生错误:" + "无效的服务器指向";
+
+                } else {}
+                $modal.find(".modal-body").text(content);
+                $modal.find(".modal-title").text(errType);
+                $modal.modal('show');
+            }
+        });
+    },
+
     getInitialState:function(){
         var path = SyncStore.getRouter();
         SyncStore.setRouter(null);
-        return ({path:path});
+        return ({view:'login', path:path, verifyCode: null});
     },
 
     render:function(){
-        return(
-            <div className="passport-wrapper" ref="loginPage">
-                <header id="header" className="passport-header">
-                    <div id="logo"><a><img src="images/loginLogo.png" /></a></div>
-                </header>
-                <div id="container">
-                    <div className="passport-sign">
-                        <div className="main-form main-form-sign">
+        var mainContent;
+        var view=this.state.view;
+
+        switch(view){
+            case 'login':
+                mainContent=
+                    <div ref="loginPage">
+                        <div className="main-form">
                             <div className="passport-tab" id="login-tabs">
                                 <div className="tabs">
                                     <ul>
@@ -83,19 +232,19 @@ var Login=React.createClass({
                                         <div className="passport-form passport-form-sign" id="login-form">
                                             <div className="form-item">
                                                 <div className="form-cont">
-                                                    <input type="text" name="username" className="passport-txt xl w-full" tabIndex="1" placeholder="手机号" autoComplete="off"/>
+                                                    <input type="text" name="username" className="passport-txt xl w-full" tabIndex="1" placeholder="用户名/手机号" autoComplete="off"/>
                                                 </div>
                                             </div>
 
                                             <div className="form-item">
                                                 <div className="form-cont">
-                                                    <input type="password" name="password" className="passport-txt xl w-full" tabIndex="2" placeholder="密码" autoComplete="off"/>
+                                                    <input type="password" name="password" className="passport-txt xl w-full" tabIndex="2" placeholder="请输入密码" autoComplete="off"/>
                                                 </div>
                                             </div>
 
                                             <div className="form-item form-sevenday">
                                                 <div className="form-cont clearfix">
-                                                    <label><input type="checkbox" className="passport-sevenday"/>记住密码</label>
+                                                    <label><input type="checkbox" className="passport-sevenday" tabIndex="2"/>记住密码</label>
                                                     <a href="#" className="forget-link">忘记密码</a>
                                                 </div>
                                             </div>
@@ -109,7 +258,6 @@ var Login=React.createClass({
 
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
@@ -117,7 +265,9 @@ var Login=React.createClass({
                         </div>
 
                         <div className="aside">
-                            <div className="passport-goto">没有账号? <a tabIndex="5">新用户注册</a></div>
+                            <div className="passport-goto">没有账号?
+                                <a tabIndex="6" onClick={this.viewSwitch.bind(this,'register')}>新用户注册</a>
+                            </div>
                             <div className="sendgift"></div>
                             <div className="passport-third">
                                 <header className="hd">
@@ -126,10 +276,103 @@ var Login=React.createClass({
                                     </div>
                                 </header>
                                 <div className="links">
-                                    <img src="images/loginCar.jpg" />
+                                    <img src={window.App.getResourceDeployPrefix()+"/images/loginCar.jpg"} />
                                 </div>
                             </div>
                         </div>
+
+                    </div>
+                break;
+            case 'register':
+                mainContent=
+                    <div ref="registerPage">
+                        <div className="main-form">
+                            <div className="passport-tab" id="login-tabs">
+                                <div className="tabs">
+                                    <ul>
+                                        <li className="active">新用户注册</li>
+                                    </ul>
+                                </div>
+
+                                <div className="passport-form passport-form-sign" id="register-form">
+                                    <div className="form-item">
+                                        <div className="form-cont">
+                                            <input type="text" name="userName" className="passport-txt xl w-full" tabIndex="1" autoComplete="off" placeholder="请输入用户名"/>
+                                        </div>
+                                    </div>
+                                    <div className="form-item">
+                                        <div className="form-cont">
+                                            <input type="password" name="password" className="passport-txt xl w-full" tabIndex="2" autoComplete="off" onKeyUp={this.checkPasswordStatus} placeholder="请输入密码"/>
+                                            <ul className="passport-safely" ref="safely">
+                                                <li className="danger">弱</li>
+                                                <li className="general">中</li>
+                                                <li className="safe">高</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div className="form-item">
+                                        <div className="form-cont">
+                                            <input type="text" name="ackPassword" className="passport-txt xl w-full" tabIndex="1" autoComplete="off" placeholder="请再次输入密码"/>
+                                        </div>
+                                    </div>
+                                    <div className="form-item">
+                                        <div className="form-cont">
+                                            <input type="text" name="email" className="passport-txt xl w-full" tabIndex="1" autoComplete="off" placeholder="请输入邮箱地址，本项选填"/>
+                                        </div>
+                                    </div>
+
+                                    <div className="form-item form-mcode mb-25">
+                                        <div className="form-cont">
+                                            <input type="text" name="phoneNum" className="passport-txt xl w-full" tabIndex="4" autoComplete="off" placeholder="请输入手机号"/>
+                                            <div className="btn-getcode">
+                                                <button type="button" className="passport-btn js-getcode" onClick={this.getVerifyCode}>发送验证码</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="form-item">
+                                        <div className="form-cont">
+                                            <input type="text" name="verifyCode" className="passport-txt xl w-full" tabIndex="1" autoComplete="off" placeholder="请输入验证码"/>
+                                        </div>
+                                    </div>
+                                    <div className="form-item">
+                                        <div className="form-cont">
+                                            <button type="button" name="register" id="register" className="passport-btn passport-btn-def xl w-full" tabIndex="5" onClick={this.register}>注册</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="aside">
+                            <div className="passport-goto mg-b100">已有帐号
+                                <a tabIndex="6" onClick={this.viewSwitch.bind(this,'login')}>直接登录</a></div>
+                            <div className="passport-third">
+                                <header className="hd">
+                                    <div className="layout-inner">
+                                        <h3>汽车保险</h3>
+                                    </div>
+                                </header>
+                                <div className="links">
+                                    <img src={window.App.getResourceDeployPrefix()+"/images/loginCar.jpg"} />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                break;
+        }
+
+
+        return(
+            <div className="passport-wrapper">
+                <header id="header" className="passport-header">
+                    <div id="logo"><a><img src="images/loginLogo.png" /></a></div>
+                </header>
+                <div id="container">
+                    <div className="passport-sign">
+
+                        {mainContent}
+
                     </div>
                 </div>
             </div>
