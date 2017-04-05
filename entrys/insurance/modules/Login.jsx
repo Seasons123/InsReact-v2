@@ -146,30 +146,30 @@ var Login=React.createClass({
         } else if(verifyCode!==this.state.verifyCode) {
             this.showTips('验证码不正确~');
         } else{
-            //var url="/insurance/insuranceReactPageDataRequest.do";
-            //var params={
-            //    reactPageName:'insurancePersonalCenterPersonInfo',
-            //    reactActionName:'addInsuranceRelatedCarInfo',
-            //    customerId:this.state.customerId,
-            //    userName:userName,
-            //    password:password,
-            //    email:email,
-            //    phoneNum:phoneNum,
-            //};
-            //
-            //ProxyQ.queryHandle(
-            //    'post',
-            //    url,
-            //    params,
-            //    null,
-            //    function(ob) {
-            //        var re = ob.re;
-            //
-            //    }.bind(this),
-            //    function(xhr, status, err) {
-            //        console.error(this.props.url, status, err.toString());
-            //    }.bind(this)
-            //);
+            var url="/insurance/insuranceReactPageDataRequest.do";
+            var params={
+                reactPageName:'insurancePersonalCenterPersonInfo',
+                reactActionName:'customerRegister',
+                customerId:this.state.customerId,
+                userName:userName,
+                password:password,
+                email:email,
+                phoneNum:phoneNum,
+            };
+
+            ProxyQ.queryHandle(
+                'post',
+                url,
+                params,
+                null,
+                function(ob) {
+                    var re = ob.re;
+
+                }.bind(this),
+                function(xhr, status, err) {
+                    console.error(this.props.url, status, err.toString());
+                }.bind(this)
+            );
         }
     },
 
@@ -190,9 +190,9 @@ var Login=React.createClass({
         var J_second = $(registerPage).find('#J_second');
         var J_resetCode = $(registerPage).find('#J_resetCode');
         J_getCode.hide();
-        J_second.html('30');
+        J_second.html('60');
         J_resetCode.show();
-        var second = 30;
+        var second = 60;
         var timer = null;
         var ins = this;
         timer = setInterval(function () {
@@ -259,8 +259,7 @@ var Login=React.createClass({
                 } else if(xhr.status==404||xhr.status=="404") {
                         content="错误描述:        "+xhr.responseText;
                         errType="";
-                        switch(xhr.statusText)
-                        {
+                        switch(xhr.statusText) {
                             case "Not Found":
                                 errType="发生错误:"+"path not found";
                                 break;
@@ -270,7 +269,6 @@ var Login=React.createClass({
                 } else if (xhr.status == 502 || xhr.status == "502") {
                         content = "错误描述:        " + xhr.responseText;
                         errType = "发生错误:" + "无效的服务器指向";
-
                 }
                 $modal.find(".modal-body").text(content);
                 $modal.find(".modal-title").text(errType);
@@ -402,7 +400,7 @@ var Login=React.createClass({
                                                 <button type="button" className="passport-btn js-getcode" id="J_getCode" onClick={this.getVerifyCode}>发送验证码</button>
                                             </div>
                                             <div className="btn-getcode">
-                                                <button type="button" className="passport-btn js-getcode" id="J_resetCode" style={{display:'none'}}><span id="J_second">30</span>秒后重发</button>
+                                                <button type="button" className="passport-btn js-getcode" id="J_resetCode" style={{display:'none'}}><span id="J_second">60</span>秒后重发</button>
                                             </div>
                                         </div>
                                     </div>
