@@ -78,9 +78,11 @@ var CarInsuranceBuyPage = React.createClass({
             null,
             function(ob) {
 
-                   this.state.myRelatives=ob.relative;
-                    this.state.myCars=ob.car;
+                   // this.state.myRelatives=ob.relative;
+                   //  this.state.myCars=ob.car;
 
+                this.setState({myRelatives:ob.relative});
+                this.setState({myCars:ob.car});
 
             }.bind(this),
 
@@ -291,12 +293,14 @@ var CarInsuranceBuyPage = React.createClass({
         var addNewCarModal = this.refs['addNewCarModal'];
         $(addNewCarModal).modal('show');
     },
-    onChildChanged: function (date) {
-        this.setState({
-            img: date
-        });
+    flush:function (a) {
+            var addInfoSuccessModal = this.refs['addInfoSuccessModal'];
+            $(addInfoSuccessModal).modal('show');
+            this.closeModal(a);
+            this.initialData();
 
     },
+
     render: function () {
         var container=null;
         if(this.state.mainPage ==undefined){
@@ -538,7 +542,7 @@ var CarInsuranceBuyPage = React.createClass({
                             <div className="modal-body">
                                 <div className="form-group" style={{position: 'relative'}}>
                                     <div >
-                                        <AddRelatedPersonInfo customerId={this.state.customerId} flush={this.initialData}/>
+                                        <AddRelatedPersonInfo customerId={this.state.customerId} flush={this.flush}/>
                                     </div>
 
                                 </div>
@@ -565,7 +569,7 @@ var CarInsuranceBuyPage = React.createClass({
 
                                 <div className="form-group" style={{position: 'relative'}}>
                                     <div >
-                                        <AddRelatedCarInfo customerId={this.state.customerId} flush={this.initialData}/>
+                                        <AddRelatedCarInfo customerId={this.state.customerId} flush={this.flush}/>
                                     </div>
 
                                 </div>
@@ -573,6 +577,30 @@ var CarInsuranceBuyPage = React.createClass({
                         </div>
                     </div>
                 </div>
+                <div className="modal fade bs-example-modal-sm login-container"
+                     tabIndex="-1"
+                     role="dialog"
+                     aria-labelledby="myLargeModalLabel"
+                     aria-hidden="true"
+                     ref='addInfoSuccessModal'
+                     data-backdrop="static"
+                     data-keyboard="false"
+                     style={{zIndex:1045}}
+                >
+                    <div className="modal-dialog modal-sm"
+                         style={{position: 'absolute', top: '30%', width: '50%', marginLeft: '25%'}}>
+                        <div className="modal-content"
+                             style={{position: 'relative', width: '100%', padding: '40px'}}>
+                            <div className="modal-body">
+                                <div className="form-group" style={{position: 'relative'}}>
+                                    <div>{'信息已经提交，请选择以继续您的订单！'}</div>
+                                    <input type='button' className="modalCloseBtn"  onClick={this.closeModal.bind(null,'addInfoSuccessModal')} defaultValue="OK"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
 
             </div>
         }else {

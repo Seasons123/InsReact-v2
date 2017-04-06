@@ -4,7 +4,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import {Link} from 'react-router';
-
+import config from '../../../config.json';
 import '../../../css/insurance/components/passport.css';
 
 var ProxyQ = require('../../../components/proxy/ProxyQ');
@@ -12,57 +12,60 @@ var SyncStore = require('../../../components/flux/stores/SyncStore');
 var flag=0;
 var Login=React.createClass({
 
-    //显示提示框，目前三个参数(txt：要显示的文本；time：自动关闭的时间（不设置的话默认1500毫秒）；status：默认0为错误提示，1为正确提示；)
-    showTips:function(txt,time,status) {
-        var htmlCon = '';
-        if(txt != ''){
-            if(status != 0 && status != undefined){
-                htmlCon = '<div class="tipsBox" style="width:220px;padding:10px;background-color:#4AAF33;border-radius:4px;-webkit-border-radius: 4px;-moz-border-radius: 4px;color:#fff;box-shadow:0 0 3px #ddd inset;-webkit-box-shadow: 0 0 3px #ddd inset;text-align:center;position:fixed;top:25%;left:50%;z-index:999999;margin-left:-120px;">'+txt+'</div>';
-            }else{
-                htmlCon = '<div class="tipsBox" style="width:220px;padding:10px;background-color:#D84C31;border-radius:4px;-webkit-border-radius: 4px;-moz-border-radius: 4px;color:#fff;box-shadow:0 0 3px #ddd inset;-webkit-box-shadow: 0 0 3px #ddd inset;text-align:center;position:fixed;top:25%;left:50%;z-index:999999;margin-left:-120px;">'+txt+'</div>';
-            }
-            $('body').prepend(htmlCon);
-            if(time == '' || time == undefined){
-                time = 1500;
-            }
-            setTimeout(function(){ $('.tipsBox').remove(); },time);
-        }
-    },
 
     login:function(){
+
         if(flag==0) {
             var loginPage = this.refs['loginPage'];
             var username = $(loginPage).find("input[name='username']").val();
             var password = $(loginPage).find("input[name='password']").val();
 
-            var url = "/bsuims/bsMainFrameInit.do";
-            var params = {
-                login_strLoginName: username,
-                login_strPassword: password
-            };
+            var validate = $(loginPage).find("input[name='verify']").val();
+            this.loginSetCookie(username,password);
+            if (username == ''||username==null) {
+                alert('请填写用户名！');
+            } else if(password ==''||password == null){
+                alert('请填写密码！');
+            } else if(validate == ''||validate == null){
+                alert('请填写验证码！');
+            } else {
+                var url = "/bsuims/bsMainFrameInit.do";
+                var params = {
+                    login_strLoginName: username,
+                    login_strPassword: password,
+                    login_validate: validate
+                };
 
-            ProxyQ.queryHandle(
-                'post',
-                url,
-                params,
-                null,
-                function (res) {
-                    var re = res.re;
-                    var realName = res.realName;
-                    if (re !== undefined && re !== null && (re == 1 || re == "1")) { //登陆成功
-                        SyncStore.setNote(); //设置全局登录状态为true
-                        SyncStore.setResult(true);
-                        SyncStore.setLoginName(realName);
+                ProxyQ.queryHandle(
+                    'post',
+                    url,
+                    params,
+                    null,
+                    function (res) {
+                        var re = res.re;
+                        var realName = res.realName;
+                        if (re !== undefined && re !== null && (re == 1 || re == "1")) { //登陆成功
+                            SyncStore.setNote(); //设置全局登录状态为true
+                            SyncStore.setResult(true);
+                            SyncStore.setLoginName(realName);
 
-                        console.log("登陆成功！");
-                        flag = 1;
-                        document.getElementById("goToOther").click();
-                    }
-                }.bind(this),
-                function (xhr, status, err) {
-                    console.error(this.props.url, status, err.toString());
-                }.bind(this)
-            );
+                            console.log("登陆成功！");
+                            flag = 1;
+                            document.getElementById("goToOther").click();
+
+
+                            //var exp = new Date();
+                            //exp.setTime(exp.getTime() + 1000 * 60 * 60 * 2); //这里表示保存2小时
+                            //document.cookie = "username=" + username + ";expires=" + exp.toGMTString();
+                            //document.cookie = "password=" + password + ";expires=" + exp.toGMTString();
+                        }
+                    }.bind(this),
+                    function (xhr, status, err) {
+                        console.error(this.props.url, status, err.toString());
+                    }.bind(this)
+                );
+            }
+
         }
     },
 
@@ -331,10 +334,93 @@ var Login=React.createClass({
         }
     },
 
+    loginSetCookie:function(username,password){
+        var userValue = username;
+        //alert(userValue);
+        var exp = new Date();
+        exp.setTime(exp.getTime() + (30*24*60*60*1000));
+        window.document.cookie = "username=" + escape (userValue) + "; expires=" + exp.toGMTString()+";path=/";
+
+        var auto = document.getElementById("login_autoLoginCheckbox").checked;
+
+        if(auto)
+        {
+            var password = password;
+            window.document.cookie = "password="+escape(password)+"; expires=" + exp.toGMTString()+";path=/";
+            window.document.cookie = "autocheck=true; expires="+ exp.toGMTString()+";path=/";
+        }else{
+            window.document.cookie = "password=; expires=" + exp.toGMTString()+";path=/";
+            window.document.cookie = "autocheck=false; expires="+ exp.toGMTString()+";path=/";
+        }
+
+    },
+
+    loginAutoLogin:function (){
+        this.loginGetCookie("login_strLoginName","username");
+        this.loginGetCookie("login_strPassword","password");
+        this.loginCheckAuto();
+    },
+
+    loginCheckAuto:function (){
+        var checkValue = this.loginGetCookieValue("autocheck");
+        if(checkValue=="true")
+            document.all("login_autoLoginCheckbox").checked = checkValue;
+    },
+
+    loginGetCookieValue:function (name){
+        var arg = name + "="; // 要查找的对象
+        var arglength = arg.length;
+        var cookielength = window.document.cookie.length;
+        var i = 0;
+        while (i < cookielength)
+        {
+            var j = i + arglength;
+            if (window.document.cookie.substring(i, j) == arg) {
+                return this.loginGetCookieVal (j);
+            }
+            i = window.document.cookie.indexOf(" ", i) + 1;
+            if (i == 0)
+                break;
+        }
+        return null;
+    },
+
+    loginGetCookie:function(showText, name){
+        var arg = name + "="; // 要查找的对象
+        var arglength = arg.length;
+        var cookielength = window.document.cookie.length;
+        var i = 0;
+        while (i < cookielength)
+        {
+            var j = i + arglength;
+            if (window.document.cookie.substring(i, j) == arg) {
+                var a=this.loginGetCookieVal (j)
+                document.getElementById(showText).value = a;
+                return true;
+            }
+            i = window.document.cookie.indexOf(" ", i) + 1;
+            if (i == 0)
+                break;
+        }
+           return true;
+    },
+    loginGetCookieVal:function  (offset) {
+         var endstr = window.document.cookie.indexOf (";", offset);
+         if (endstr == -1)
+             endstr = window.document.cookie.length;
+         return unescape(window.document.cookie.substring(offset, endstr));
+     },
+
     getInitialState:function(){
+        flag=0;
         var path = SyncStore.getRouter();
         SyncStore.setRouter(null);
         return ({view:'login', path:path, verifyCode: null});
+    },
+
+    repaintImage:function (){
+        var img = $("#validateImage");
+        img.attr('src',"/insurancems/validatecode.jpg?rnd=" + Math.random());// 防止浏览器缓存的问题
     },
 
     render:function(){
@@ -344,7 +430,7 @@ var Login=React.createClass({
         switch(view){
             case 'login':
                 mainContent=
-                    <div ref="loginPage">
+                    <div ref="loginPage"  onLoad={this.loginAutoLogin}>
                         <div className="main-form">
                             <div className="passport-tab" id="login-tabs">
                                 <div className="tabs">
@@ -358,22 +444,36 @@ var Login=React.createClass({
                                         <div className="passport-form passport-form-sign" id="login-form">
                                             <div className="form-item">
                                                 <div className="form-cont">
-                                                    <input type="text" name="username" className="passport-txt xl w-full" tabIndex="1" placeholder="用户名/手机号" autoComplete="off"/>
+                                                    <input type="text" name="username" id="login_strLoginName" className="passport-txt xl w-full" tabIndex="1" placeholder="用户名/手机号" autoComplete="off"/>
                                                 </div>
                                             </div>
 
                                             <div className="form-item">
                                                 <div className="form-cont">
-                                                    <input type="password" name="password" className="passport-txt xl w-full" tabIndex="2" placeholder="请输入密码" autoComplete="off"/>
+                                                    <input type="password" name="password" id="login_strPassword" className="passport-txt xl w-full" tabIndex="2" placeholder="请输入密码" autoComplete="off"/>
                                                 </div>
                                             </div>
+                                            <table id="tableVerify" className="form-item">
+                                                <tbody>
+                                                    <tr >
+                                                        <td><span className="info">验证码:  &nbsp;</span></td>
+                                                        <td><input type="text" name="verify" id="verify" className="passport-txt xl w-full" /></td>
+                                                        <td><img style={{paddingLeft:'10px'}} id="validateImage" src="/insurancems/validatecode.jpg"/></td>
+                                                        <td><img style={{paddingLeft:'5px'}} onClick={this.repaintImage} src="../images/refresh1.png" ></img></td>
+                                                        <td><span id="verifyMsg" className="errorMessage"></span></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
 
                                             <div className="form-item form-sevenday">
                                                 <div className="form-cont clearfix">
-                                                    <label><input type="checkbox" className="passport-sevenday" tabIndex="2"/>记住密码</label>
+                                                    <label><input type="checkbox" id="login_autoLoginCheckbox" className="passport-sevenday" tabIndex="2" />记住密码</label>
                                                     <a className="forget-link" onClick={this.viewSwitch.bind(this,'forget')}>忘记密码</a>
                                                 </div>
                                             </div>
+
+
+
                                             <div className="form-item">
                                                 <div className="form-cont">
 
@@ -381,7 +481,6 @@ var Login=React.createClass({
                                                             <a style={{color:'#ffffff'}}>登录</a>
                                                             <Link to={window.App.getAppRoute() + this.state.path} id="goToOther"></Link>
                                                         </button>
-
                                                 </div>
                                             </div>
                                         </div>
@@ -580,7 +679,12 @@ var Login=React.createClass({
                 </div>
             </div>
         )
-    }
+    },
+
+    componentDidMount:function () {
+        this.repaintImage();
+    },
+
 });
 module.exports=Login;
 

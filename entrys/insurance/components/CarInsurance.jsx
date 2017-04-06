@@ -362,8 +362,7 @@ var CarInsurance = React.createClass({
                             </div>
                             <div className="pro_R fr bg" style={{width:'1035px'}}>
                                 <div className="pro_bg">
-                            <span className="fr pad_L">您的位置： <a href="home.jsp">主页</a> &gt; 人寿保险 &gt; <a
-                                href="#">理财保险</a></span>
+                            <span className="fr pad_L">您的位置： <a href="home.jsp">主页</a> &gt; 汽车保险 &gt;</span>
                                 </div>
 
                                 <div className="article">

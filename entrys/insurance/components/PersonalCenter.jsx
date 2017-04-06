@@ -218,7 +218,7 @@ var PersonalCenter=React.createClass({
 
                 <div className="pro_R fr bg" style={{width:"890px"}}>
                     <div className="pro_bg">
-                        <span className="fr pad_L">您的位置： <a>主页</a> &gt; 个人中心 &gt; <a>订单</a></span>
+                        <span className="fr pad_L">您的位置： <a>主页</a> &gt; 个人中心 &gt;</span>
                     </div>
 
                     <div>

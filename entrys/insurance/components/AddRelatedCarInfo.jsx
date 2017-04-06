@@ -134,7 +134,7 @@ var AddRelatedCarInfo=React.createClass({
                     var re = ob.re;
                     if(re!==undefined && re!==null && (re ==2 || re =="2")) { //添加信息成功
                         if(this.props.flush!==undefined && this.props.flush!==null){
-                            this.props.flush;
+                            this.props.flush('addNewCarModal');
                         }
                     }
                 }.bind(this),

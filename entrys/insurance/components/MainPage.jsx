@@ -91,11 +91,20 @@ var MainPage=React.createClass({
                         <div className="product">
                             <div className="product_B">
                                 <a href="javascript:void(0)">产品介绍 </a>
-                                <span><i href="Product.">更多&gt;&gt; </i></span>
                             </div>
-
                             <div className="product_img">
-                                <img src={window.App.getResourceDeployPrefix()+"/images/uploads/project/201508041122361838_09058640.jpg"} style={{width:'183px', height:'129px'}}></img>
+                                <img src={window.App.getResourceDeployPrefix()+"/images/uploads/project/201508041122115824_21534582.jpg"} style={{width:'485px', height:'129px'}}></img>
+                                <div className="product_bg">
+                                </div>
+                                <div className="product_font">
+                                    <a href="javascript:void(0)"> 寿险产品</a>
+                                </div>
+                                <div className="clear">
+                                </div>
+
+                            </div>
+                            <div className="product_img">
+                                <img src={window.App.getResourceDeployPrefix()+"/images/uploads/project/201508041122361838_09058640.jpg"} style={{width:'485px', height:'129px'}}></img>
                                 <div className="product_bg">
                                 </div>
                                 <div className="product_font">
@@ -105,46 +114,11 @@ var MainPage=React.createClass({
                                 </div>
 
                             </div>
-
-                            <div className="product_img">
-                                <img src={window.App.getResourceDeployPrefix()+"/images/uploads/project/201508041122115824_21534582.jpg"} style={{width:'183px', height:'129px'}}></img>
-                                <div className="product_bg">
-                                </div>
-                                <div className="product_font">
-                                    <a href="javascript:void(0)"> 财产险产品</a>
-                                </div>
-                                <div className="clear">
-                                </div>
-
-                            </div>
-
-                            <div className="product_img">
-                                <img src={window.App.getResourceDeployPrefix()+"/images/uploads/project/201508041121433098_40696128.jpg"} style={{width:'183px', height:'129px'}}></img>
-                                <div className="product_bg">
-                                </div>
-                                <div className="product_font">
-                                    <a href="javascript:void(0)">人身保险产品</a>
-                                </div>
-                                <div className="clear">
-                                </div>
-
-                            </div>
-
-                            <div className="product_img">
-                                <img src={window.App.getResourceDeployPrefix()+"/images/uploads/project/201508041122464354_46422271.jpg"} style={{width:'183px', height:'129px'}}></img>
-                                <div className="product_bg">
-                                </div>
-                                <div className="product_font">
-                                    <a href="javascript:void(0)">  理财类保险产品</a>
-                                </div>
-                                <div className="clear">
-                                </div>
-                            </div>
                         </div>
                     </div>
 
                     <div className="margin w1008">
-                        <div className="company mar_20">
+                        <div className="company mar_10">
                             <div className="company_B">
                                 关于我们
                             </div>
@@ -179,7 +153,7 @@ var MainPage=React.createClass({
                             </div>
                         </div>
 
-                        <div className="service fr mar_20">
+                        <div className="service fr mar_10">
                             <div className="clear">
                             </div>
                             <div className="contact">
@@ -204,14 +178,7 @@ var MainPage=React.createClass({
 
                     <div className="clear">
                     </div>
-                    <div className="footer" style={{position:'relative',bottom:'0'}}>
-                        <div className="margin">
-                            <p>版权所有：山东泓信信息科技股份有限公司&nbsp;&nbsp;&nbsp;&nbsp;
-                                企业邮箱：jhb2017@qq.com&nbsp;&nbsp;&nbsp;&nbsp;
-                                技术支持：山东大学
-                            </p>
-                        </div>
-                    </div>
+                    <Footer />
                 </div>
         } else{
             this.initialData();

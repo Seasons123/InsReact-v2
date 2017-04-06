@@ -30,7 +30,7 @@ var Calendar = React.createClass({
     },
     componentDidMount: function () {
         var $datetimepicker = $(this.refs.datetimepicker);
-        $datetimepicker.datetimepicker('setStartDate', '2016-01-01');
+        $datetimepicker.datetimepicker('setStartDate', '1900-01-01');
         var ref=this;
         $datetimepicker.datetimepicker('').on('changeDate', function (ev) {
             $datetimepicker.children(".file")[0].value = ev.date;
