@@ -7,6 +7,7 @@ import Upload from './Upload.jsx';
 var ProxyQ = require('../../../components/proxy/ProxyQ');
 var today=new Date().toLocaleDateString().replace("/", "-").replace("/", "-");
 var AddRelatedPersonInfo = React.createClass({
+
     getInitialState:function(){
         var customerId;
         if(this.props.customerId!==undefined && this.props.customerId!==null){
@@ -61,7 +62,7 @@ var AddRelatedPersonInfo = React.createClass({
             this.showTips('请上传关联人身份证正面照片~');
         } else if (this.state.backImg == undefined || this.state.backImg == null) {
             this.showTips('请上传关联人身份证反面照片~');
-        } else if (registerDate == "") {
+        } else if (relatedDate == "") {
             this.showTips('请选择出生日期~');
         } else if (relativeSex == "-1"||relativeSex == -1){
             this.showTips('请选择性别~');
@@ -92,9 +93,9 @@ var AddRelatedPersonInfo = React.createClass({
                     //     this.initialData();
                     // }
                     var re = ob.re;
-                    if(re!==undefined && re!==null && (re ==2 || re =="2")) { //添加信息成功
+                    if(re!==undefined && re!==null && (re ==1 || re =="1")) { //添加信息成功
                         if(this.props.flush!==undefined && this.props.flush!==null){
-                            this.props.flush;
+                            this.props.flush('addNewManModal');
                         }
                     }
                 }.bind(this),
@@ -169,8 +170,8 @@ var AddRelatedPersonInfo = React.createClass({
                             </div>
 
                             {this.state.frontImg ?
-                                <div className="thumb-box" style={{height: '260px', width: '444px'}}>
-                                    <img style={{width: '300px', height: '200px', marginTop: '15px'}}
+                                <div className="thumb-box" style={{height: '220px', width: '444px'}}>
+                                    <img style={{width: '385px',height: '200px',marginTop: '15px',marginLeft: '15px'}}
                                          src={this.state.frontImg}/>
                                 </div> : null}
                         </div>
@@ -182,8 +183,8 @@ var AddRelatedPersonInfo = React.createClass({
                             </div>
 
                             {this.state.backImg ?
-                                <div className="thumb-box" style={{height: '260px', width: '444px'}}>
-                                    <img style={{width: '300px', height: '200px', marginTop: '15px'}}
+                                <div className="thumb-box" style={{height: '220px', width: '444px'}}>
+                                    <img style={{width: '385px',height: '200px',marginTop: '15px',marginLeft: '27px'}}
                                          src={this.state.backImg}/>
                                 </div> : null}
                         </div>
@@ -191,7 +192,7 @@ var AddRelatedPersonInfo = React.createClass({
 
                     <div className="save_control" style={{
                         float: 'left',
-                        marginLeft: '45%',
+                        marginLeft: '44%',
                         marginTop: '20px',
                         marginBottom: '20px',
                         width: '100%'

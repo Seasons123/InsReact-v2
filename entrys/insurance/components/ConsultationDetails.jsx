@@ -14,20 +14,14 @@ var ProxyQ = require('../../../components/proxy/ProxyQ');
 var ConsultationDetails = React.createClass({
     Branch:function(url) {
 
-        //if (this.state.session != true) {
-        //    var loginModal = this.refs['loginModal'];
-        //    $(loginModal).modal('show');
-        //} else {
         if(this.props.Branch!==undefined&&this.props.Branch!==null)
 
         {
             var successModal = this.refs['successModal'];
             $(successModal).modal('hide');
             this.props.Branch(url);
-            //var state = store.get('loginState');
 
         }
-        //}
 
     },
 

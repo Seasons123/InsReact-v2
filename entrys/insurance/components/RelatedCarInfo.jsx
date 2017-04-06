@@ -49,7 +49,17 @@ var RelatedCarInfo=React.createClass({
             isOwner:null, isSecond:null
         });
     },
+    flush:function (a) {
+        var addInfoSuccessModal = this.refs['addInfoSuccessModal'];
+        $(addInfoSuccessModal).modal('show');
+        this.closeModal(a);
+        this.initialData();
+    },
+    closeModal:function(ob){ //保存跳转的页面信息
+        var Modal = this.refs[ob];
+        $(Modal).modal('hide');
 
+    },
     render:function(){
         var mainContent;
         var data;
@@ -102,7 +112,32 @@ var RelatedCarInfo=React.createClass({
                         </table>
                     </div>
 
-                    <AddRelatedCarInfo customerId={this.state.customerId} flush={this.initialData}/>
+                    <AddRelatedCarInfo customerId={this.state.customerId} flush={this.flush}/>
+
+                    <div className="modal fade bs-example-modal-sm login-container"
+                         tabIndex="-1"
+                         role="dialog"
+                         aria-labelledby="myLargeModalLabel"
+                         aria-hidden="true"
+                         ref='addInfoSuccessModal'
+                         data-backdrop="static"
+                         data-keyboard="false"
+                         style={{zIndex:1045}}
+                    >
+                        <div className="modal-dialog modal-sm"
+                             style={{position: 'absolute', top: '30%', width: '50%', marginLeft: '25%'}}>
+                            <div className="modal-content"
+                                 style={{position: 'relative', width: '100%'}}>
+                                <div className="modal-body">
+                                    <div className="form-group" style={{position: 'relative'}}>
+                                        <div>{'添加成功！'}</div>
+                                        <input type='button' className="modalCloseBtn"  onClick={this.closeModal.bind(null,'addInfoSuccessModal')} defaultValue="OK"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
         }else{
             //初始化内容详情

@@ -7,13 +7,14 @@ import {Link} from 'react-router';
 
 var ProxyQ = require('../../../components/proxy/ProxyQ');
 var SyncStore = require('../../../components/flux/stores/SyncStore');
-
+var flag=0;
 var TopNav=React.createClass({
     click:function(ob){ //保存跳转的页面信息
         SyncStore.setRouter(ob);
     },
 
     getInitialState:function(){
+        flag=0;
         var note=SyncStore.getNote();
         var userName=SyncStore.getLoginName();
         return({loginState:note, userName:userName})
@@ -52,6 +53,33 @@ var TopNav=React.createClass({
             );
         }
     },
+    exit:function () {
+        if(flag==0) {
+            var url = "/insurance/insuranceServiceHobbyLogout.do";
+            var params = {};
+
+            ProxyQ.queryHandle(
+                'post',
+                url,
+                params,
+                null,
+                function (res) {
+                    var a = res;
+                    SyncStore.initNote();
+                    SyncStore.setLoginName({});
+                    console.log("退出成功！");
+                    flag = 1;
+                    document.getElementById("goToOther").click();
+                    // this.componentWillReceiveProps();
+
+                }.bind(this),
+                function (xhr, status, err) {
+                    console.error(this.props.url, status, err.toString());
+                }.bind(this)
+            );
+
+        }
+    },
 
     render:function(){
         return(
@@ -66,10 +94,15 @@ var TopNav=React.createClass({
                             <li className="tell">咨询热线： <i>0531-81188593</i></li>
                             {this.state.loginState ?
                                 <li className="plogin">
-                                    <a className="user" href="javascript:void(0)">
+                                    <i  className="user" onClick={this.exit} style={{float:'right',width:'20px',cursor:'pointer',textDecoration:'underline'}} >
+                                        <i className='icon-off'></i>
+                                        <Link to={window.App.getAppRoute() + "/mainPage"} id="goToOther"></Link>
+                                    </i>
+                                    <a className="user" style={{float:'right',width:'95px'}} href="javascript:void(0)">
                                         <i className='icon-user'></i>
                                         <strong style={{marginLeft:'10px'}}>{this.state.userName}</strong>
                                     </a>
+
                                 </li>
 
                              :

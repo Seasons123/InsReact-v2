@@ -116,6 +116,9 @@ var SyncStore = assign({}, EventEmitter.prototype, {
     setNote:function(){
       _note=true;
     },
+    initNote:function () {
+      _note=false;
+    },
     getPageData:function () {
         return _pageData;
     },
@@ -235,6 +238,9 @@ AppDispatcher.register(function (action) {
             break;
         case SyncConstants.GET_LOG:
             SyncStore.getNote();
+            break;
+        case SyncConstants.INIT_LOG:
+            SyncStore.initNote();
             break;
         case SyncConstants.TODO_PAGEDATA:
             SyncStore.setPageData();

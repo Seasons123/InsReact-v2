@@ -92,7 +92,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 /*top*/
 .top {
-    height: 110px;
+    height: 95px;
 }
 .topHomePage {
     height: 90px;
@@ -105,7 +105,7 @@ h1,h2,h3,h4,h5,h6 {
 .top .tell {
     width: 356px;
     /* background: url(../images/bg_05.png) no-repeat 0px 20px; */
-    height: 110px;
+    height: 90px;
     color: #323232;
     text-align: center;
     line-height: 120px;
@@ -218,6 +218,16 @@ h1,h2,h3,h4,h5,h6 {
     color: #000000;
     font-size: 15px;
 }
+.link i.user {
+    display: block;
+    width: 145px;
+    height: 26px;
+    text-align: center;
+    line-height: 26px;
+    transition: all .2s;
+    color: #000000;
+    font-size: 15px;
+}
 
 .link i.login-btn {
     display: block;
@@ -240,7 +250,7 @@ h1,h2,h3,h4,h5,h6 {
     text-decoration: none;
 }
 .plogin{
-    padding-top:50px;
+    padding-top:45px;
 }
 .other-login {
     font-size: 14px;
@@ -1174,7 +1184,7 @@ a:hover,.limitCnt p a:hover.loginLink,#footer a.ftsite:hover {
 /*产品中心*/
 .product, .partner {
     border: 1px solid #b1cee8;
-    margin-top: 20px;
+    margin-top: 10px;
     overflow: hidden;
 }
 
@@ -1202,13 +1212,13 @@ a:hover,.limitCnt p a:hover.loginLink,#footer a.ftsite:hover {
 }
 
 .product_img {
-    width: 183px;
+    width: 485px;
     margin: 9px;
     float: left;
 }
 
 .product_img img {
-    width: 183px;
+    width: 470px;
     height: 129px;
 }
 
@@ -1221,7 +1231,7 @@ a:hover,.limitCnt p a:hover.loginLink,#footer a.ftsite:hover {
     opacity: .8;
     /*其他，透明度50%*/
     margin-top: -25px;
-    width: 183px;
+    width: 485px;
     height: 25px;
 }
 
@@ -1254,6 +1264,9 @@ a:hover,.limitCnt p a:hover.loginLink,#footer a.ftsite:hover {
 .mar_20 {
     margin-top: 20px;
 }
+.mar_10{
+    margin-top: 10px;
+}
 
 .overflow {
     overflow: hidden;
@@ -1264,7 +1277,7 @@ a:hover,.limitCnt p a:hover.loginLink,#footer a.ftsite:hover {
     width: 340px;
     position: relative;
     float: left;
-    height: 255px;
+    height: 261px;
 }
 
 .company_B, .news_B {
@@ -1300,7 +1313,7 @@ a:hover,.limitCnt p a:hover.loginLink,#footer a.ftsite:hover {
 }
 
 .mar_L {
-    margin: 20px 15px 0px 15px;
+    margin: 10px 15px 0px 15px;
 }
 
 .news_B {

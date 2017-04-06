@@ -123,6 +123,17 @@ var LifeInsuranceBuyPage = React.createClass({
         var selected=$('#businessIns option:selected').val();
         this.state.selectBusinessIns=selected;
     },
+    getSelectLegalBenefit:function () {
+       if($('#legalBenefit').get(0).checked==true){
+           $('#benefit').attr("disabled", "disabled");
+           $('#createNewMan2').attr("disabled","disabled");
+           this.state.selectLegalBenefit=1;
+       }else {
+           $('#benefit').removeAttr( "disabled");
+           $('#createNewMan2').removeAttr("disabled");
+           this.state.selectLegalBenefit=0;
+       }
+    },
     computeAttachInsFee:function (i,productId,insuranceQuota) {
 
             if ($('#baseAttachInsFee' + i).val() % insuranceQuota == 0 &&
@@ -234,6 +245,8 @@ var LifeInsuranceBuyPage = React.createClass({
                     $('#insFeeType').removeAttr("disabled");
                     $('#insBasicFee').removeAttr("disabled");
                     $('#benefit').removeAttr("disabled");
+                    $('#legalBenefit').removeAttr("disabled");
+                    $('#legalBenefit').attr("checked",false);
                     $('#societyIns').removeAttr("disabled");
                     $('#businessIns').removeAttr("disabled");
                     $('#childCompany1').removeAttr("disabled");
@@ -252,6 +265,7 @@ var LifeInsuranceBuyPage = React.createClass({
                     $('#insFeeType').attr("disabled", "disabled");
                     $('#insBasicFee').attr("disabled", "disabled");
                     $('#benefit').attr("disabled", "disabled");
+                    $('#legalBenefit').attr("disabled","disabled");
                     $('#societyIns').attr("disabled", "disabled");
                     $('#businessIns').attr("disabled", "disabled");
                     $('#childCompany1').attr("disabled", "disabled");
@@ -358,7 +372,8 @@ var LifeInsuranceBuyPage = React.createClass({
                     societyIns:this.state.selectSocietyIns,
                     benefiterId:this.state.selectBenefit,
                     attachInsIds:attachInsIds,
-                    childCompany:this.state.selectCompany
+                    childCompany:this.state.selectCompany,
+                    legalBenefit:this.state.selectLegalBenefit
 
                 };
                 ProxyQ.queryHandle(
@@ -410,7 +425,7 @@ var LifeInsuranceBuyPage = React.createClass({
                 attachInsIds: [],
                 companyId:insInfo.insuranceLifeProduct.companyId,
                 selectCompany:null,
-
+                selectLegalBenefit:null
             }
         }
     },
@@ -579,6 +594,19 @@ var LifeInsuranceBuyPage = React.createClass({
                                     </tr>
                                     <tr className="plan_tr">
                                         <td className="plan_td_1">受益人：</td>
+                                        <td width="5px"></td>
+                                        <td className="plan_td_2">
+                                            <span><input type="checkbox" id="legalBenefit" onChange={this.getSelectLegalBenefit}/>选用法定受益人</span>
+                                        </td>
+                                        <td className="plan_td_3">&nbsp;
+                                            <span style={{color: 'red'}}>*</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="plan_line" colSpan="4"></td>
+                                    </tr>
+                                    <tr className="plan_tr">
+                                        <td className="plan_td_1"></td>
                                         <td width="5px"></td>
                                         <td className="plan_td_2">
                                             <select style={{width: '130px'}} onChange={this.getSelectBenefit}

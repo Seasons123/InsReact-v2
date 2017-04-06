@@ -23,7 +23,7 @@ var NewConsultation = React.createClass({
         var url="/insurance/insuranceReactPageDataRequest.do";
         var params={
             reactPageName:'insurancePersonalCenterProblemPage',
-            reactActionName:'saveOrUpdateInsuranceProblem',
+                reactActionName:'saveOrUpdateInsuranceProblem',
             theme:this.state.theme
         };
         ProxyQ.queryHandle(
@@ -35,8 +35,6 @@ var NewConsultation = React.createClass({
                 if(ob.data=='success'){
                     var successModal = this.refs['successModal'];
                     $(successModal).modal('show');
-                }else{
-
                 }
 
             }.bind(this),

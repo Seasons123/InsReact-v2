@@ -62,14 +62,8 @@ var Consultation = React.createClass({
             null,
             function(ob) {
                 this.setState({content:ob.data});
-                if(ob.data=="data is null"){
-                    alert("暂无解答！");
-                }else{
-                    this.state.nav='consultationDetails';
-                    this.initialData();
-                }
-
-
+                this.state.nav='consultationDetails';
+                this.initialData();
             }.bind(this),
 
             function(xhr, status, err) {
@@ -121,7 +115,6 @@ var Consultation = React.createClass({
             function(ob) {
                 this.setState({data:ob.data});
                 this.state.nav=undefined;
-
 
             }.bind(this),
 

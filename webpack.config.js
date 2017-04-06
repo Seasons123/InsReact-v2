@@ -1,32 +1,37 @@
 var path = require('path');
 var webpack = require('webpack');
+
 module.exports = {
     devtool: 'source-map',
     entry: [
         path.resolve(__dirname, './entrys/insurance/index.js')
-    ],
-    output: {
-        path: path.resolve(__dirname, 'build'),
-        filename: 'bundle.js'
-    },
-    resolve: {
-        extensions: ['', '.js', '.jsx']
-    },
-    devServer: {
-        contentBase: "./build",
-        colors: true,
-        historyApiFallback: true,
-        inline: true,
-        port:3000,
-        hot:true,
 
-        proxy:{
-            '/insurancems/*':{
-                target: 'http://localhost:8080/',
-                secure: false
+    ],
+
+
+    output: {
+            path: path.resolve(__dirname, 'build'),
+            filename: 'bundle.js'
+        },
+        resolve: {
+            extensions: ['', '.js', '.jsx']
+        },
+        devServer: {
+            contentBase: "./build",
+            stats:{colors: true},
+            historyApiFallback: true,
+            inline: true,
+            port:3000,
+            hot:true,
+
+            proxy:{
+                '/insurancems/*':{
+                    target: 'http://localhost:8080/',
+                    secure: false,
+                    changeOrigin: true
+                }
             }
-        }
-    },
+        },
     plugins: [
         new webpack.HotModuleReplacementPlugin()
     ],module: {

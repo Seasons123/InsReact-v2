@@ -17,11 +17,17 @@ var SyncActions = {
             type:SyncConstants.GET_LOG
         });
     },
+    initNote:function () {
+      AppDispatcher.dispatch({
+        type:SyncConstants.INIT_LOG
+      });
+    },
     setState:function () {
         AppDispatcher.dispatch({
             type:SyncConstants.TODO_PAGEDATA
         });
     },
+
     getState:function () {
         AppDispatcher.dispatch({
             type:SyncConstants.GET_PAGEDATA
