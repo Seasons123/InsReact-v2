@@ -12,6 +12,22 @@ var SyncStore = require('../../../components/flux/stores/SyncStore');
 var flag=0;
 var Login=React.createClass({
 
+    //显示提示框，目前三个参数(txt：要显示的文本；time：自动关闭的时间（不设置的话默认1500毫秒）；status：默认0为错误提示，1为正确提示；)
+    showTips:function(txt,time,status) {
+        var htmlCon = '';
+        if(txt != ''){
+            if(status != 0 && status != undefined){
+                htmlCon = '<div class="tipsBox" style="width:220px;padding:10px;background-color:#4AAF33;border-radius:4px;-webkit-border-radius: 4px;-moz-border-radius: 4px;color:#fff;box-shadow:0 0 3px #ddd inset;-webkit-box-shadow: 0 0 3px #ddd inset;text-align:center;position:fixed;top:25%;left:50%;z-index:999999;margin-left:-120px;">'+txt+'</div>';
+            }else{
+                htmlCon = '<div class="tipsBox" style="width:220px;padding:10px;background-color:#D84C31;border-radius:4px;-webkit-border-radius: 4px;-moz-border-radius: 4px;color:#fff;box-shadow:0 0 3px #ddd inset;-webkit-box-shadow: 0 0 3px #ddd inset;text-align:center;position:fixed;top:25%;left:50%;z-index:999999;margin-left:-120px;">'+txt+'</div>';
+            }
+            $('body').prepend(htmlCon);
+            if(time == '' || time == undefined){
+                time = 1500;
+            }
+            setTimeout(function(){ $('.tipsBox').remove(); },time);
+        }
+    },
 
     login:function(){
 
@@ -52,12 +68,6 @@ var Login=React.createClass({
                             console.log("登陆成功！");
                             flag = 1;
                             document.getElementById("goToOther").click();
-
-
-                            //var exp = new Date();
-                            //exp.setTime(exp.getTime() + 1000 * 60 * 60 * 2); //这里表示保存2小时
-                            //document.cookie = "username=" + username + ";expires=" + exp.toGMTString();
-                            //document.cookie = "password=" + password + ";expires=" + exp.toGMTString();
                         }
                     }.bind(this),
                     function (xhr, status, err) {
@@ -206,17 +216,17 @@ var Login=React.createClass({
                 clearInterval(timer);
                 J_getCode.show();
                 J_resetCode.hide();
-                //ins.setState({verifyCode:null}); //把验证码设置失效
+                ins.setState({verifyCode:null}); //把验证码设置失效
             }
         }, 1000);
     },
 
     getVerifyCode:function(){
-        var registerPage = this.refs['registerPage'];
-        var phoneNum = $(registerPage).find("input[name='phoneNum']").val();
+        var refsPage = this.refs['login-register-forget'];
+        var phoneNum = $(refsPage).find("input[name='phoneNum']").val();
         var reg = /^1[34578]\d{9}$/;
         if(!(reg.test(phoneNum))){
-            this.showTips("手机号码有误，请重新填写");
+            this.showTips("手机号码有误，请重新填写~");
             return false;
         }
         var num = '';
@@ -297,6 +307,8 @@ var Login=React.createClass({
             this.showTips('密码至少为6位~');
         } else if (ackPassword == "") {
             this.showTips('请再次输入密码~');
+        } else if (password != ackPassword) {
+            this.showTips('两次输入密码不一致~');
         } else if (phoneNum == "") {
             this.showTips('请填写手机号~');
         } else if(!(phoneReg.test(phoneNum))){
