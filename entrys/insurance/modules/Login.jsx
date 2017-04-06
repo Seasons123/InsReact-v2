@@ -12,12 +12,14 @@ var SyncStore = require('../../../components/flux/stores/SyncStore');
 var flag=0;
 var Login=React.createClass({
 
+
     login:function(){
 
         if(flag==0) {
             var loginPage = this.refs['loginPage'];
             var username = $(loginPage).find("input[name='username']").val();
             var password = $(loginPage).find("input[name='password']").val();
+
             var validate = $(loginPage).find("input[name='verify']").val();
             this.loginSetCookie(username,password);
             if (username == ''||username==null) {
@@ -63,6 +65,7 @@ var Login=React.createClass({
                     }.bind(this)
                 );
             }
+
         }
     },
 
@@ -120,20 +123,109 @@ var Login=React.createClass({
         var email = $(registerPage).find("input[name='email']").val();
         var phoneNum = $(registerPage).find("input[name='phoneNum']").val();
         var verifyCode = $(registerPage).find("input[name='verifyCode']").val();
+        var phoneReg = /^1[34578]\d{9}$/;
+        var emailReg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
 
+        if (userName == "") {
+            this.showTips('请填写用户名~');
+        } else if (password == "") {
+            this.showTips('请填写密码~');
+        } else if (password.length<6) {
+            this.showTips('密码至少为6位~');
+        } else if (ackPassword == "") {
+            this.showTips('请再次输入密码~');
+        } else if (email == "") {
+            this.showTips('请填写邮箱~');
+        } else if(!(emailReg.test(email))){
+            this.showTips("邮箱填写有误，请重新填写~");
+        } else if (phoneNum == "") {
+            this.showTips('请填写手机号~');
+        } else if(!(phoneReg.test(phoneNum))){
+            this.showTips("手机号码有误，请重新填写~");
+        } else if (verifyCode == "") {
+            this.showTips('请填写验证码~');
+        } else if(this.state.verifyCode == null || this.state.verifyCode == undefined) {
+            this.showTips('验证码失效，请重新获取~');
+        } else if(verifyCode!==this.state.verifyCode) {
+            this.showTips('验证码不正确~');
+        } else{
+            var url="/insurance/insuranceReactPageDataRequest.do";
+            var params={
+                reactPageName:'insurancePersonalCenterPersonInfo',
+                reactActionName:'customerRegister',
+                customerId:this.state.customerId,
+                userName:userName,
+                password:password,
+                email:email,
+                phoneNum:phoneNum,
+            };
+
+            ProxyQ.queryHandle(
+                'post',
+                url,
+                params,
+                null,
+                function(ob) {
+                    var re = ob.re;
+
+                }.bind(this),
+                function(xhr, status, err) {
+                    console.error(this.props.url, status, err.toString());
+                }.bind(this)
+            );
+        }
+    },
+
+    ackPassword:function(){ //检查两次密码输入是否一致
+        var registerPage = this.refs['registerPage'];
+        var password = $(registerPage).find("input[name='password']").val();
+        var ackPassword = $(registerPage).find("input[name='ackPassword']").val();
+        if(password==ackPassword){
+            return;
+        }else{
+            this.showTips("两次输入密码不一致！");
+        }
+    },
+
+    verifyCodeTimeOut:function(){  //获取验证码倒计时
+        var registerPage = this.refs['registerPage'];
+        var J_getCode = $(registerPage).find('#J_getCode');
+        var J_second = $(registerPage).find('#J_second');
+        var J_resetCode = $(registerPage).find('#J_resetCode');
+        J_getCode.hide();
+        J_second.html('60');
+        J_resetCode.show();
+        var second = 60;
+        var timer = null;
+        var ins = this;
+        timer = setInterval(function () {
+            second -= 1;
+            if (second > 0) {
+                J_second.html(second);
+            } else {
+                clearInterval(timer);
+                J_getCode.show();
+                J_resetCode.hide();
+                ins.setState({verifyCode:null}); //把验证码设置失效
+            }
+        }, 1000);
     },
 
     getVerifyCode:function(){
         var registerPage = this.refs['registerPage'];
         var phoneNum = $(registerPage).find("input[name='phoneNum']").val();
+        var reg = /^1[34578]\d{9}$/;
+        if(!(reg.test(phoneNum))){
+            this.showTips("手机号码有误，请重新填写");
+            return false;
+        }
         var num = '';
         for(var i=0;i<4;i++){
             num+=Math.floor(Math.random()*10);
         }
+        this.setState({verifyCode:num});
 
-        alert('mobile====='+phoneNum);
-
-        var inputData = {
+        var params = {
             corp_id:'hy6550',
             corp_pwd:'mm2289',
             corp_service:1069003256550,
@@ -143,71 +235,44 @@ var Login=React.createClass({
             ext:''
         };
 
-
-        //request({
-        //    url:'http://sms.cloud.hbsmservice.com:8080/sms_send2.do',
-        //    method:'POST',
-        //    data:JSON.stringify(inputData),
-        //    headers: {
-        //        'Content-Type': 'application/x-www-form-urlencoded'
-        //    },
-        //    ContentType: 'application/x-www-form-urlencoded',
-        //},function(err,response,body){
-        //    if(err)
-        //    {
-        //        alert('get securityCode='+err.errMsg);
-        //        res.json({re:-1, data:err.errMsg});
-        //    }
-        //    else
-        //        res.json({re: 1, data: num});
-        //});
-
-
+        var ins=this; //保存this
         var url='http://sms.cloud.hbsmservice.com:8080/sms_send2.do';
         $.ajax({
             type    : 'POST',
             url     : url,
-            data    : JSON.stringify(inputData),
+            data    : params,
             dataType: 'JSONP',
             crossDomain: true,
-            headers: {
-                        //'Access-Control-Allow-Origin': 'http://localhost:3000',
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-            ContentType: 'application/x-www-form-urlencoded',
-
+            cache   : false,
+            ContentType: 'application/json',
+            //jsonpCallback: '?',
+            //jsonp: 'callback',
             success : function (response) {
-                //加载遮罩
-                if (App.getLoadModel() == "true") {
-                    App.unload();
-                }
-
-                this.setState({verifyCode: num});
+                ins.showTips("验证码发送成功！");
+                ins.verifyCodeTimeOut();
             },
             error   : function (xhr, status, err) {
-                if (App.getLoadModel() == "true") {
-                    App.unload();
-                }
-                console.error("error=" + err);
                 var $modal=$("#root_modal");
                 var content;
-                var errType;
-                if(xhr.status==404||xhr.status=="404") {
-                    content="错误描述:        "+xhr.responseText;
-                    errType="";
-                    switch(xhr.statusText)
-                    {
-                        case "Not Found":
-                            errType="发生错误:"+"path not found";
-                            break;
-                        default:
-                            break;
-                    }
+                var errType="";
+                if(xhr.status==200 || xhr.status=="200") {
+                    ins.showTips("验证码发送成功！");
+                    ins.verifyCodeTimeOut();
+                    return;
+                } else if(xhr.status==404||xhr.status=="404") {
+                        content="错误描述:        "+xhr.responseText;
+                        errType="";
+                        switch(xhr.statusText) {
+                            case "Not Found":
+                                errType="发生错误:"+"path not found";
+                                break;
+                            default:
+                                break;
+                        }
                 } else if (xhr.status == 502 || xhr.status == "502") {
-                    content = "错误描述:        " + xhr.responseText;
-                    errType = "发生错误:" + "无效的服务器指向";
-
-                } else {}
+                        content = "错误描述:        " + xhr.responseText;
+                        errType = "发生错误:" + "无效的服务器指向";
+                }
                 $modal.find(".modal-body").text(content);
                 $modal.find(".modal-title").text(errType);
                 $modal.modal('show');
@@ -413,7 +478,7 @@ var Login=React.createClass({
                                     </div>
                                     <div className="form-item">
                                         <div className="form-cont">
-                                            <input type="text" name="ackPassword" className="passport-txt xl w-full" tabIndex="1" autoComplete="off" placeholder="请再次输入密码"/>
+                                            <input type="password" name="ackPassword" className="passport-txt xl w-full" tabIndex="1" autoComplete="off" onBlur={this.ackPassword} placeholder="请再次输入密码"/>
                                         </div>
                                     </div>
                                     <div className="form-item">
@@ -424,9 +489,12 @@ var Login=React.createClass({
 
                                     <div className="form-item form-mcode mb-25">
                                         <div className="form-cont">
-                                            <input type="text" name="phoneNum" className="passport-txt xl w-full" tabIndex="4" autoComplete="off" placeholder="请输入手机号"/>
+                                            <input type="text" name="phoneNum" className="passport-txt xl w-full" tabIndex="4" maxLength="11" autoComplete="off" placeholder="请输入手机号"/>
                                             <div className="btn-getcode">
-                                                <button type="button" className="passport-btn js-getcode" onClick={this.getVerifyCode}>发送验证码</button>
+                                                <button type="button" className="passport-btn js-getcode" id="J_getCode" onClick={this.getVerifyCode}>发送验证码</button>
+                                            </div>
+                                            <div className="btn-getcode">
+                                                <button type="button" className="passport-btn js-getcode" id="J_resetCode" style={{display:'none'}}><span id="J_second">60</span>秒后重发</button>
                                             </div>
                                         </div>
                                     </div>
