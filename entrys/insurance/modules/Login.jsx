@@ -72,8 +72,8 @@ var Login=React.createClass({
     },
 
     checkPasswordStatus:function(){
-        var registerPage = this.refs['registerPage'];
-        var value = $(registerPage).find("input[name='password']").val();
+        var refsPage = this.refs['login-register-forget'];
+        var value = $(refsPage).find("input[name='password']").val();
         var len = value.length;
         var element = this.refs['safely'];
 
@@ -150,13 +150,11 @@ var Login=React.createClass({
             var params={
                 reactPageName:'insurancePersonalCenterPersonInfo',
                 reactActionName:'customerRegister',
-                customerId:this.state.customerId,
                 userName:userName,
                 password:password,
                 email:email,
                 phoneNum:phoneNum,
             };
-
             ProxyQ.queryHandle(
                 'post',
                 url,
@@ -164,7 +162,9 @@ var Login=React.createClass({
                 null,
                 function(ob) {
                     var re = ob.re;
-
+                    if(re != undefined && re != null ){
+                        this.setState({view: 'login'})
+                    }
                 }.bind(this),
                 function(xhr, status, err) {
                     console.error(this.props.url, status, err.toString());
@@ -174,9 +174,9 @@ var Login=React.createClass({
     },
 
     ackPassword:function(){ //检查两次密码输入是否一致
-        var registerPage = this.refs['registerPage'];
-        var password = $(registerPage).find("input[name='password']").val();
-        var ackPassword = $(registerPage).find("input[name='ackPassword']").val();
+        var refsPage = this.refs['login-register-forget'];
+        var password = $(refsPage).find("input[name='password']").val();
+        var ackPassword = $(refsPage).find("input[name='ackPassword']").val();
         if(password==ackPassword){
             return;
         }else{
@@ -185,14 +185,14 @@ var Login=React.createClass({
     },
 
     verifyCodeTimeOut:function(){  //获取验证码倒计时
-        var registerPage = this.refs['registerPage'];
-        var J_getCode = $(registerPage).find('#J_getCode');
-        var J_second = $(registerPage).find('#J_second');
-        var J_resetCode = $(registerPage).find('#J_resetCode');
+        var refsPage = this.refs['login-register-forget'];
+        var J_getCode = $(refsPage).find('#J_getCode');
+        var J_second = $(refsPage).find('#J_second');
+        var J_resetCode = $(refsPage).find('#J_resetCode');
         J_getCode.hide();
         J_second.html('60');
         J_resetCode.show();
-        var second = 60;
+        var second = 60; //验证码有效时间60秒
         var timer = null;
         var ins = this;
         timer = setInterval(function () {
@@ -203,7 +203,7 @@ var Login=React.createClass({
                 clearInterval(timer);
                 J_getCode.show();
                 J_resetCode.hide();
-                ins.setState({verifyCode:null}); //把验证码设置失效
+                //ins.setState({verifyCode:null}); //把验证码设置失效
             }
         }, 1000);
     },
@@ -277,6 +277,60 @@ var Login=React.createClass({
         });
     },
 
+    submit:function(){ //修改密码提交按钮
+        var forgetPage = this.refs['forgetPage'];
+        var userName = $(forgetPage).find("input[name='userName']").val();
+        var password = $(forgetPage).find("input[name='password']").val();
+        var ackPassword = $(forgetPage).find("input[name='ackPassword']").val();
+        var phoneNum = $(forgetPage).find("input[name='phoneNum']").val();
+        var verifyCode = $(forgetPage).find("input[name='verifyCode']").val();
+        var phoneReg = /^1[34578]\d{9}$/;
+
+        if (userName == "") {
+            this.showTips('请填写用户名~');
+        } else if (password == "") {
+            this.showTips('请填写密码~');
+        } else if (password.length<6) {
+            this.showTips('密码至少为6位~');
+        } else if (ackPassword == "") {
+            this.showTips('请再次输入密码~');
+        } else if (phoneNum == "") {
+            this.showTips('请填写手机号~');
+        } else if(!(phoneReg.test(phoneNum))){
+            this.showTips("手机号码有误，请重新填写~");
+        } else if (verifyCode == "") {
+            this.showTips('请填写验证码~');
+        } else if(this.state.verifyCode == null || this.state.verifyCode == undefined) {
+            this.showTips('验证码失效，请重新获取~');
+        } else if(verifyCode!==this.state.verifyCode) {
+            this.showTips('验证码不正确~');
+        } else{
+            var url="/insurance/insuranceReactPageDataRequest.do";
+            var params={
+                reactPageName:'insurancePersonalCenterPersonInfo',
+                reactActionName:'customerPasswordModify',
+                userName:userName,
+                password:password,
+                phoneNum:phoneNum,
+            };
+            ProxyQ.queryHandle(
+                'post',
+                url,
+                params,
+                null,
+                function(ob) {
+                    var re = ob.re;
+                    if(re != undefined && re != null ){
+                        this.setState({view: 'login'})
+                    }
+                }.bind(this),
+                function(xhr, status, err) {
+                    console.error(this.props.url, status, err.toString());
+                }.bind(this)
+            );
+        }
+    },
+
     getInitialState:function(){
         var path = SyncStore.getRouter();
         SyncStore.setRouter(null);
@@ -317,7 +371,7 @@ var Login=React.createClass({
                                             <div className="form-item form-sevenday">
                                                 <div className="form-cont clearfix">
                                                     <label><input type="checkbox" className="passport-sevenday" tabIndex="2"/>记住密码</label>
-                                                    <a href="#" className="forget-link">忘记密码</a>
+                                                    <a className="forget-link" onClick={this.viewSwitch.bind(this,'forget')}>忘记密码</a>
                                                 </div>
                                             </div>
                                             <div className="form-item">
@@ -384,18 +438,18 @@ var Login=React.createClass({
                                     </div>
                                     <div className="form-item">
                                         <div className="form-cont">
-                                            <input type="password" name="ackPassword" className="passport-txt xl w-full" tabIndex="1" autoComplete="off" onBlur={this.ackPassword} placeholder="请再次输入密码"/>
+                                            <input type="password" name="ackPassword" className="passport-txt xl w-full" tabIndex="3" autoComplete="off" onBlur={this.ackPassword} placeholder="请再次输入密码"/>
                                         </div>
                                     </div>
                                     <div className="form-item">
                                         <div className="form-cont">
-                                            <input type="text" name="email" className="passport-txt xl w-full" tabIndex="1" autoComplete="off" placeholder="请输入邮箱地址，本项选填"/>
+                                            <input type="text" name="email" className="passport-txt xl w-full" tabIndex="4" autoComplete="off" placeholder="请输入邮箱地址，本项选填"/>
                                         </div>
                                     </div>
 
                                     <div className="form-item form-mcode mb-25">
                                         <div className="form-cont">
-                                            <input type="text" name="phoneNum" className="passport-txt xl w-full" tabIndex="4" maxLength="11" autoComplete="off" placeholder="请输入手机号"/>
+                                            <input type="text" name="phoneNum" className="passport-txt xl w-full" tabIndex="5" maxLength="11" autoComplete="off" placeholder="请输入手机号"/>
                                             <div className="btn-getcode">
                                                 <button type="button" className="passport-btn js-getcode" id="J_getCode" onClick={this.getVerifyCode}>发送验证码</button>
                                             </div>
@@ -407,12 +461,12 @@ var Login=React.createClass({
 
                                     <div className="form-item">
                                         <div className="form-cont">
-                                            <input type="text" name="verifyCode" className="passport-txt xl w-full" tabIndex="1" autoComplete="off" placeholder="请输入验证码"/>
+                                            <input type="text" name="verifyCode" className="passport-txt xl w-full" tabIndex="6" autoComplete="off" placeholder="请输入验证码"/>
                                         </div>
                                     </div>
                                     <div className="form-item">
                                         <div className="form-cont">
-                                            <button type="button" name="register" id="register" className="passport-btn passport-btn-def xl w-full" tabIndex="5" onClick={this.register}>注册</button>
+                                            <button type="button" name="register" id="register" className="passport-btn passport-btn-def xl w-full" tabIndex="7" onClick={this.register}>注册</button>
                                         </div>
                                     </div>
                                 </div>
@@ -435,6 +489,80 @@ var Login=React.createClass({
                         </div>
                     </div>
                 break;
+            case 'forget':
+                mainContent=
+                    <div ref="forgetPage">
+                        <div className="main-form">
+                            <div className="passport-tab" id="login-tabs">
+                                <div className="tabs">
+                                    <ul>
+                                        <li className="active">密码重置</li>
+                                    </ul>
+                                </div>
+
+                                <div className="passport-form passport-form-sign" id="register-form">
+                                    <div className="form-item">
+                                        <div className="form-cont">
+                                            <input type="text" name="userName" className="passport-txt xl w-full" tabIndex="1" autoComplete="off" placeholder="请输入用户名"/>
+                                        </div>
+                                    </div>
+                                    <div className="form-item">
+                                        <div className="form-cont">
+                                            <input type="password" name="password" className="passport-txt xl w-full" tabIndex="2" autoComplete="off" onKeyUp={this.checkPasswordStatus} placeholder="请输入新密码"/>
+                                            <ul className="passport-safely" ref="safely">
+                                                <li className="danger">弱</li>
+                                                <li className="general">中</li>
+                                                <li className="safe">高</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div className="form-item">
+                                        <div className="form-cont">
+                                            <input type="password" name="ackPassword" className="passport-txt xl w-full" tabIndex="3" autoComplete="off" onBlur={this.ackPassword} placeholder="请再次输入新密码"/>
+                                        </div>
+                                    </div>
+                                    <div className="form-item form-mcode mb-25">
+                                        <div className="form-cont">
+                                            <input type="text" name="phoneNum" className="passport-txt xl w-full" tabIndex="4" maxLength="11" autoComplete="off" placeholder="请输入手机号"/>
+                                            <div className="btn-getcode">
+                                                <button type="button" className="passport-btn js-getcode" id="J_getCode" onClick={this.getVerifyCode}>发送验证码</button>
+                                            </div>
+                                            <div className="btn-getcode">
+                                                <button type="button" className="passport-btn js-getcode" id="J_resetCode" style={{display:'none'}}><span id="J_second">60</span>秒后重发</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="form-item">
+                                        <div className="form-cont">
+                                            <input type="text" name="verifyCode" className="passport-txt xl w-full" tabIndex="5" autoComplete="off" placeholder="请输入验证码"/>
+                                        </div>
+                                    </div>
+                                    <div className="form-item">
+                                        <div className="form-cont">
+                                            <button type="button" name="forget" id="forget" className="passport-btn passport-btn-def xl w-full" tabIndex="6" onClick={this.submit}>提交</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="aside">
+                            <div className="passport-goto mg-b100">密码已找回
+                                <a tabIndex="6" onClick={this.viewSwitch.bind(this,'login')}>直接登录</a></div>
+                            <div className="passport-third">
+                                <header className="hd">
+                                    <div className="layout-inner">
+                                        <h3>汽车保险</h3>
+                                    </div>
+                                </header>
+                                <div className="links">
+                                    <img src={window.App.getResourceDeployPrefix()+"/images/loginCar.jpg"} />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                break;
         }
 
 
@@ -443,7 +571,7 @@ var Login=React.createClass({
                 <header id="header" className="passport-header">
                     <div id="logo"><a><img src="images/loginLogo.png" /></a></div>
                 </header>
-                <div id="container">
+                <div id="container" ref='login-register-forget'>
                     <div className="passport-sign">
 
                         {mainContent}
