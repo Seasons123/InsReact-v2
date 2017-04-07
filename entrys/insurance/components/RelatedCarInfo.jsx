@@ -26,10 +26,10 @@ var RelatedCarInfo=React.createClass({
             params,
             null,
             function(ob) {
-                var re = ob.re;
-                if(re!==undefined && re!==null && (re ==2 || re =="2")) { //登录信息为空
-                    return;
-                }
+                //var re = ob.re;
+                //if(re!==undefined && re!==null && (re ==2 || re =="2")) { //登录信息为空
+                //    return;
+                //}
                 var data=ob.data;
                 var customerId=ob.customerId;
                 this.setState({
