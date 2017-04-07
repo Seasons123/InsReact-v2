@@ -35,7 +35,7 @@ var Navigator=React.createClass({
         var threshold = this.state.threshold;
         var pageCategory = this.state.pageCategory;
         var pageIndex = null;
-        var pageBegin = nul
+        var pageBegin = null;
         var pageIntegral= null;
         if(pageEnd!==undefined && pageEnd!==null && capacity!==undefined && capacity!==null
             && threshold!==undefined && threshold!==null && pageCategory!==undefined && pageCategory!==null){

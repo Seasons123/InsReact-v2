@@ -106,6 +106,14 @@ var CarInsuranceBuyPage = React.createClass({
             null,
             function(ob) {
                 this.state.insInfo=ob.data;
+                if(this.state.typeNum==0) {
+                    var ref = this;
+                    this.state.insInfo.map(function (item, i) {//保险类型项
+                        if (item.insuranceType != null && item.insuranceType.length != 0) {
+                            ref.state.typeNum = ref.state.typeNum + 1;
+                        }
+                    });
+                }
             }.bind(this),
 
             function(xhr, status, err) {
@@ -136,8 +144,11 @@ var CarInsuranceBuyPage = React.createClass({
     },
     getSelectCompany:function(){
         var selected=$('#carCompany').val();
-        var select=selected.toString();
-        this.state.selectCarCompany=select;
+        if(selected!=null&&selected!=""){
+            var select=selected.toString();
+            this.state.selectCarCompany=select;
+        }
+
     },
     getSelectCar:function(){
         var selected=$('#myCar option:selected').val();
@@ -182,13 +193,20 @@ var CarInsuranceBuyPage = React.createClass({
                     }
                 });
                 c.map(function(item,i){
-                    for(var z=0;z<ref.state.insuranceType.length;z++){
-                        if(ref.state.insuranceType[z][0]==item[0]){
-                            c[i][2]=ref.state.insuranceType[z][1];
-                        }else{
-                            c[i][2]='none';
+                    if(ref.state.insuranceType.length==0){
+                        c[i][2]='none';
+                    }else {
+                        for (var z = 0; z < ref.state.insuranceType.length; z++) {
+                            if (ref.state.insuranceType[z][0] == item[0]) {
+                                c[i][2] = ref.state.insuranceType[z][1];
+                            }
                         }
                     }
+                });
+                c.map(function (item,i) {
+                   if(item[2]==null){
+                       c[i][2]='none';
+                   }
                 });
                 this.state.update=c;
                 var b= c.join("-");
@@ -352,7 +370,7 @@ var CarInsuranceBuyPage = React.createClass({
             var ref=this;
             data.map(function (item, i) {//保险类型项
                 if(item.insuranceType!=null&&item.insuranceType.length!=0){
-                    ref.state.typeNum=ref.state.typeNum+1;
+                    // ref.state.typeNum=ref.state.typeNum+1;
                     var strs=item.insuranceType.split(",");
                     var nrs =[];
                     var name=item.productName;

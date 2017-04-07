@@ -97,7 +97,9 @@ var MainPage=React.createClass({
                                 <div className="product_bg">
                                 </div>
                                 <div className="product_font">
-                                    <a href="javascript:void(0)"> 寿险产品</a>
+                                    <Link to={window.App.getAppRoute() + "/lifeInsurance"}>
+                                         <i href="javascript:void(0)"> 寿险产品</i>
+                                    </Link>
                                 </div>
                                 <div className="clear">
                                 </div>
@@ -108,7 +110,9 @@ var MainPage=React.createClass({
                                 <div className="product_bg">
                                 </div>
                                 <div className="product_font">
-                                    <a href="javascript:void(0)" id="585"> 车险产品</a>
+                                    <Link to={window.App.getAppRoute() + "/carInsurance"}>
+                                        <i href="javascript:void(0)"> 车险产品</i>
+                                    </Link>
                                 </div>
                                 <div className="clear">
                                 </div>
