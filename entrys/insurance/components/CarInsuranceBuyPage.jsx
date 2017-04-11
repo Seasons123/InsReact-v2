@@ -589,7 +589,6 @@ var CarInsuranceBuyPage = React.createClass({
                                     <div >
                                         <AddRelatedCarInfo customerId={this.state.customerId} flush={this.flush}/>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
