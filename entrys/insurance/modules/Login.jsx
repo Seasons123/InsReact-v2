@@ -144,9 +144,7 @@ var Login=React.createClass({
             this.showTips('密码至少为6位~');
         } else if (ackPassword == "") {
             this.showTips('请再次输入密码~');
-        } else if (email == "") {
-            this.showTips('请填写邮箱~');
-        } else if(!(emailReg.test(email))){
+        } else if(email != "" && !(emailReg.test(email))){
             this.showTips("邮箱填写有误，请重新填写~");
         } else if (phoneNum == "") {
             this.showTips('请填写手机号~');
