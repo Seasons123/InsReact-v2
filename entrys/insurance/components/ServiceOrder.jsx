@@ -116,36 +116,40 @@ var ServiceOrder=React.createClass({
                     <tr key={0}>
                         <td>订单编号：{orderDetail.orderNum}</td>
                         <td>订单状态：{orderDetail.orderStateStr}</td>
-                        <td>服务类型：{orderDetail.serviceType}</td>
-                        <td>服务项目：{orderDetail.subServiceTypeNames}</td>
                         <td>预约时间：{orderDetail.estimateTime}</td>
+                        <td>申请时间：{orderDetail.applyTime}</td>
                     </tr>
                 );
                 detail_trs.push(
                     <tr key={1}>
+                        <td>车牌号：{orderDetail.carNum}</td>
+                        <td>服务类型：{orderDetail.serviceType}</td>
+                        <td>服务项目：{orderDetail.subServiceTypeNames}</td>
                         <td>服务地点：{orderDetail.servicePlace}</td>
-                        <td>申请时间：{orderDetail.applyTime}</td>
-                        <td>接单时间：{orderDetail.takeOrderDate}</td>
-                        <td>服务人员编号：{orderDetail.servicePersonNum}</td>
-                        <td>服务人员姓名：{orderDetail.servicePersonName}</td>
                     </tr>
                 );
                 detail_trs.push(
                     <tr key={2}>
+                        <td>服务人员编号：{orderDetail.servicePersonNum}</td>
+                        <td>服务人员姓名：{orderDetail.servicePersonName}</td>
                         <td>客户编号：{orderDetail.customerNum}</td>
                         <td>客户姓名：{orderDetail.customerName}</td>
-                        <td>订单完成时间：{orderDetail.orderFinishDate}</td>
-                        <td>服务费用：{orderDetail.fee}</td>
-                        <td>结算时间：{orderDetail.feeDate}</td>
                     </tr>
                 );
                 detail_trs.push(
                     <tr key={3}>
-                        <td>备注：{orderDetail.remark}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>接单时间：{orderDetail.takeOrderDate}</td>
+                        <td>完成时间：{orderDetail.orderFinishDate}</td>
+                        <td>结算时间：{orderDetail.feeDate}</td>
+                        <td>服务费用：{orderDetail.fee}</td>
+                    </tr>
+                );
+                detail_trs.push(
+                    <tr key={4}>
+                        <td>改派时间：{orderDetail.reassignDate}</td>
+                        <td>是否送车：{orderDetail.isAgent}</td>
+                        <td>评价等级：{orderDetail.evaluate}</td>
+                        <td>建议：{orderDetail.proposal}</td>
                     </tr>
                 );
             }
@@ -157,7 +161,7 @@ var ServiceOrder=React.createClass({
                             <div className="slider" ref="slider" style={{width:'100%',position:'relative'}}>
                                 <div className="widget-container fluid-height">
                                     <div className="widget-content padded clearfix">
-                                        <table className="table table-striped invoice-table">
+                                        <table className="table table-striped invoice-table" style={{textAlign:'center'}}>
                                             <thead className="table-head">
                                             <tr>
                                                 <th width="330">订单编号</th>
@@ -200,7 +204,6 @@ var ServiceOrder=React.createClass({
                                     <table className="table table-striped invoice-table">
                                         <thead className="table-head">
                                         <tr>
-                                            <th width="300"></th>
                                             <th width="300"></th>
                                             <th width="300"></th>
                                             <th width="300"></th>

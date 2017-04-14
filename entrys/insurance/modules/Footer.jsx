@@ -9,7 +9,7 @@ var Mpage=React.createClass({
     render:function(){
 
         return(
-            <div>
+            <div style={{marginTop:'50px'}}>
                 <div className="clear">
                 </div>
                 <div className="footer" style={{height: '35px'}}>

@@ -145,10 +145,10 @@ var TopNav=React.createClass({
                             </li>
                             <li className="nav_menu-item">
                                 {this.state.loginState ?
-                                    <Link to={window.App.getAppRoute() + "personalCenter"}>
+                                    <Link to={window.App.getAppRoute() + "/personalCenter"}>
                                         <i>个人中心</i>
                                     </Link> :
-                                    <Link to={window.App.getAppRoute() + "login"}>
+                                    <Link to={window.App.getAppRoute() + "/login"}>
                                         <i onClick={this.click.bind(null,"/personalCenter")}>个人中心</i>
                                     </Link>
                                 }
