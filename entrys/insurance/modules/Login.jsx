@@ -465,10 +465,10 @@ var Login=React.createClass({
                                             <table id="tableVerify" className="form-item">
                                                 <tbody>
                                                     <tr >
-                                                        <td><span className="info">验证码:  &nbsp;</span></td>
+                                                        <td>验证码: </td>
                                                         <td><input type="text" name="verify" id="verify" className="passport-txt xl w-full" /></td>
                                                         <td><img style={{paddingLeft:'10px'}} id="validateImage" src="/validatecode.jpg"/></td>
-                                                        <td><img style={{paddingLeft:'5px'}} onClick={this.repaintImage} src="../images/refresh1.png" ></img></td>
+                                                        <td><img style={{paddingLeft:'5px'}} onClick={this.repaintImage} src={window.App.getResourceDeployPrefix()+"/images/refresh1.png"} ></img></td>
                                                         <td><span id="verifyMsg" className="errorMessage"></span></td>
                                                     </tr>
                                                 </tbody>
@@ -677,7 +677,7 @@ var Login=React.createClass({
         return(
             <div className="passport-wrapper">
                 <header id="header" className="passport-header">
-                    <div id="logo"><a><img src="images/loginLogo.png" /></a></div>
+                    <div id="logo"><a><img src={window.App.getResourceDeployPrefix()+"/images/loginLogo.png"} /></a></div>
                 </header>
                 <div id="container" ref='login-register-forget'>
                     <div className="passport-sign">

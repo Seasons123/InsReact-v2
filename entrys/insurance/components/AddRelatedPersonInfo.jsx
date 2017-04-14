@@ -88,10 +88,6 @@ var AddRelatedPersonInfo = React.createClass({
                 params,
                 null,
                 function(ob) {
-                    // var re = ob.re;
-                    // if(re!==undefined && re!==null && (re ==2 || re =="2")) { //登录信息为空
-                    //     this.initialData();
-                    // }
                     var re = ob.re;
                     if(re!==undefined && re!==null && (re ==1 || re =="1")) { //添加信息成功
                         if(this.props.flush!==undefined && this.props.flush!==null){

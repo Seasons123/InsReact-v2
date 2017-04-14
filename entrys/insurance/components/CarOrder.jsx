@@ -97,6 +97,12 @@ var CarOrder=React.createClass({
             this.showTips('请选择报价单~');
             return;
         }
+
+        var msg = "您真的确定该报价吗？\n\n请再次确认！";
+        if (confirm(msg)==false){
+            return;
+        }
+
         var url="/insurance/insuranceReactPageDataRequest.do";
         var params={
             reactPageName:'insurancePersonalCenterCarOrderPage',
@@ -194,9 +200,6 @@ var CarOrder=React.createClass({
                             {order.orderStateStr}
                         </td>
                         <td>
-                            {order.companyName}
-                        </td>
-                        <td>
                             {order.insuranceFeeTotal}
                         </td>
                     </tr>
@@ -210,10 +213,10 @@ var CarOrder=React.createClass({
                 var insuranceder = orderDetail.insuranceder; //被保险人
                 var benefiter = orderDetail.benefiter; //受益人
                 var carInfo = orderDetail.carInfo;
-                var orderState = orderDetail.orderState;
-                var price = orderDetail.price;
+                var priceFlag = orderDetail.priceFlag;
+                var price = orderDetail.price; //报价列表里
 
-                if (orderState == 3 || orderState == "3") { //表示已报价,需要用户进行确认
+                if (priceFlag == 1 || priceFlag == "1") { //表示已报价,需要用户进行确认
                     ack = true;
                 }
 
@@ -222,22 +225,27 @@ var CarOrder=React.createClass({
                         <td>订单号：{orderDetail.orderNum}</td>
                         <td>保单号：{orderDetail.insuranceNum}</td>
                         <td>订单状态：{orderDetail.orderStateStr}</td>
-                        <td>申请时间：{orderDetail.applyTime}</td>
-                        <td>缴费时间：{orderDetail.feeDate}</td>
+                        <td>客户：{orderDetail.customerName}</td>
                     </tr>
                 );
                 detail_trs.push(
                     <tr key={1}>
-                        <td>订单时间：{orderDetail.orderDate}</td>
-                        <td>保险公司：{orderDetail.companyName}</td>
-                        <td>投保人perId：{orderDetail.insurerId}</td>
-                        <td>被保险人perId：{orderDetail.insurancederId}</td>
-                        <td>受益人perId：{orderDetail.benefiterId}</td>
+                        <td>申请时间：{orderDetail.applyTime}</td>
+                        <td>缴费时间：{orderDetail.feeDate}</td>
+                        <td>出单时间：{orderDetail.orderDate}</td>
+                        <td>保单起期：{orderDetail.insuranceDate}</td>
                     </tr>
                 );
                 detail_trs.push(
                     <tr key={2}>
-                        <td>客户：{orderDetail.customerName}</td>
+                        <td>投保人：{orderDetail.insurerName}</td>
+                        <td>被保险人：{orderDetail.insurancederName}</td>
+                        <td>受益人：{orderDetail.benefiterName}</td>
+                        <td>保险公司：{orderDetail.companyName}</td>
+                    </tr>
+                );
+                detail_trs.push(
+                    <tr key={3}>
                         <td>商业基准保费：{orderDetail.insuranceBusinessFee}</td>
                         <td>商业险折扣：{orderDetail.businessDiscount}</td>
                         <td>交强险基准保费：{orderDetail.insuranceCompulsoryFee}</td>
@@ -245,21 +253,11 @@ var CarOrder=React.createClass({
                     </tr>
                 );
                 detail_trs.push(
-                    <tr key={3}>
+                    <tr key={4}>
                         <td>车船税：{orderDetail.carTax}</td>
                         <td>签单保费：{orderDetail.contractFee}</td>
                         <td>佣金：{orderDetail.commission}</td>
                         <td>积分：{orderDetail.score}</td>
-                        <td>邮寄地址：{orderDetail.customerMailAddress}</td>
-                    </tr>
-                );
-                detail_trs.push(
-                    <tr key={4}>
-                        <td>邮编：{orderDetail.customerMailPostcode}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
                     </tr>
                 );
 
@@ -267,7 +265,6 @@ var CarOrder=React.createClass({
                     product.map(function (item, i) {
                         product_trs.push( //产品信息
                             <tr key={i}>
-                                <td>产品编号：{item.productNum}</td>
                                 <td>产品名称：{item.productName}</td>
                                 <td>保额：{item.insuranceType}</td>
                                 <td>保费：{item.insuranceFeeTotal}</td>
@@ -317,27 +314,32 @@ var CarOrder=React.createClass({
                     carInfo_trs.push( //行驶证信息
                         <tr key={0}>
                             <td>车牌号：{carInfo.carNum}</td>
-                            <td>车辆类型：{carInfo.carType}</td>
-                            <td>使用性质：{carInfo.useType}</td>
-                            <td>车辆状态：{carInfo.carState}</td>
                             <td>车主姓名：{carInfo.ownerName}</td>
+                            <td>车主身份证号：{carInfo.ownerIdCard}</td>
+                            <td>车主地址：{carInfo.ownerAddress}</td>
                         </tr>
                     );
                     carInfo_trs.push(
                         <tr key={1}>
-                            <td>车主身份证号：{carInfo.ownerIdCard}</td>
-                            <td>车主地址：{carInfo.ownerAddress}</td>
-                            <td>品牌型号：{carInfo.factoryNum}</td>
-                            <td>车辆识别代码：{carInfo.frameNum}</td>
-                            <td>发动机号码：{carInfo.engineNum}</td>
-                        </tr>
-                    );
-                    carInfo_trs.push(
-                        <tr key={2}>
                             <td>注册日期：{carInfo.firstRegisterDate}</td>
                             <td>发证日期：{carInfo.issueDate}</td>
                             <td>校验日期：{carInfo.validityDate}</td>
                             <td>保险起期：{carInfo.startInsuranceDate}</td>
+                        </tr>
+                    );
+                    carInfo_trs.push(
+                        <tr key={2}>
+                            <td>车辆类型：{carInfo.carType}</td>
+                            <td>使用性质：{carInfo.useType}</td>
+                            <td>车辆状态：{carInfo.carState}</td>
+                            <td>品牌型号：{carInfo.factoryNum}</td>
+                        </tr>
+                    );
+                    carInfo_trs.push(
+                        <tr key={3}>
+                            <td>车辆识别代码：{carInfo.frameNum}</td>
+                            <td>发动机号码：{carInfo.engineNum}</td>
+                            <td></td>
                             <td></td>
                         </tr>
                     );
@@ -376,7 +378,7 @@ var CarOrder=React.createClass({
                             <div className="slider" ref="slider" style={{width:'100%',position:'relative'}}>
                                 <div className="widget-container fluid-height">
                                     <div className="widget-content padded clearfix">
-                                        <table className="table table-striped invoice-table">
+                                        <table className="table table-striped invoice-table" style={{textAlign:'center'}}>
                                             <thead className="table-head">
                                             <tr>
                                                 <th width="300">订单编号</th>
@@ -384,7 +386,6 @@ var CarOrder=React.createClass({
                                                 <th width="300">产品名称</th>
                                                 <th width="300">订单时间</th>
                                                 <th width="300">订单状态</th>
-                                                <th width="300">保险公司</th>
                                                 <th width="300">保费</th>
                                             </tr>
                                             </thead>
@@ -393,7 +394,7 @@ var CarOrder=React.createClass({
                                             </tbody>
                                             <tfoot>
                                             <tr>
-                                                <td colSpan={7}>
+                                                <td colSpan={6}>
                                                     <PageNavigator
                                                         capacity={carOrderList.length}
                                                         pageIndex={this.state.pageIndex}
@@ -426,7 +427,6 @@ var CarOrder=React.createClass({
                                             <th width="300"></th>
                                             <th width="300"></th>
                                             <th width="300"></th>
-                                            <th width="300"></th>
                                         </tr>
                                         </thead>
 
@@ -440,7 +440,7 @@ var CarOrder=React.createClass({
                                         {carInfo_trs}
                                         </tbody>
 
-                                        <tbody><tr><td><h4 style={{marginTop:'15px'}}><strong>产品信息:</strong></h4></td></tr></tbody>
+                                        <tbody><tr><td colSpan={5}><h4 style={{marginTop:'15px'}}><strong>产品信息:</strong></h4></td></tr></tbody>
                                         <tbody>
                                         {product_trs}
                                         </tbody>

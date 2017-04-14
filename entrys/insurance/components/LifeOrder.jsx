@@ -128,16 +128,14 @@ var LifeOrder=React.createClass({
                         <td>订单号：{orderDetail.orderNum}</td>
                         <td>订单状态：{orderDetail.orderStateStr}</td>
                         <td>申请时间：{orderDetail.applyTime}</td>
-                        <td>订单时间：{orderDetail.orderDate}</td>
-                        <td>客户编号：{orderDetail.customerNum}</td>
+                        <td>出单时间：{orderDetail.orderDate}</td>
                     </tr>
                 );
                 detail_trs.push(
                     <tr key={1}>
+                        <td>客户编号：{orderDetail.customerNum}</td>
                         <td>客户姓名：{orderDetail.customerName}</td>
                         <td>客户电话：{orderDetail.customerPhone}</td>
-                        <td>邮寄地址：{orderDetail.customerMailAddress}</td>
-                        <td>邮编：{orderDetail.customerMailPostcode}</td>
                         <td>保障类型：{orderDetail.insuranceType}</td>
                     </tr>
                 );
@@ -146,8 +144,7 @@ var LifeOrder=React.createClass({
                         <td>是否有社保：{orderDetail.hasSocietyInsurance}</td>
                         <td>是否有商业保险：{orderDetail.hasCommerceInsurance}</td>
                         <td>计划保费：{orderDetail.planInsuranceFee}</td>
-                        <td></td>
-                        <td></td>
+                        <td>保费金额：{orderDetail.insuranceFeeTotal}</td>
                     </tr>
                 );
 
@@ -163,24 +160,21 @@ var LifeOrder=React.createClass({
                                 <td>签单日期：{item.feeDate}</td>
                                 <td>起保日期：{item.insuranceDate}</td>
                                 <td>申请时间：{item.applyTime}</td>
-                                <td>保额：{item.insuranceQuota}</td>
                             </tr>
                         );
                         plan_trs.push(
                             <tr key={j++}>
+                                <td>保额：{item.insuranceQuota}</td>
                                 <td>缴费年限类型：{item.feeYearType}</td>
                                 <td>保障期限类型：{item.insuranceDuringType}</td>
                                 <td>起保日期：{item.insuranceDate}</td>
-                                <td>保费金额：{item.insuranceFee}</td>
-                                <td>佣金：{item.commission}</td>
                             </tr>
                         );
                         plan_trs.push(
                             <tr key={j++}>
+                                <td>保费金额：{item.insuranceFee}</td>
+                                <td>佣金：{item.commission}</td>
                                 <td>积分：{item.score}</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
                                 <td></td>
                             </tr>
                         );
@@ -190,7 +184,6 @@ var LifeOrder=React.createClass({
                                 product_trs.push(
                                     <tr key={k++}>
                                         <td>保单号：{insuranceNum}</td>
-                                        <td>产品编号：{item.productNum}</td>
                                         <td>产品名称：{item.productName}</td>
                                         <td>保险公司：{item.companyName}</td>
                                         <td>保额：{item.insuranceQuota}</td>
@@ -207,7 +200,6 @@ var LifeOrder=React.createClass({
                             <td>姓名：{insurer.perName}</td>
                             <td>身份证号：{insurer.perIdCard}</td>
                             <td>地址：{insurer.perAddress}</td>
-                            <td></td>
                         </tr>
                     );
                 }
@@ -218,7 +210,6 @@ var LifeOrder=React.createClass({
                             <td>姓名：{insuranceder.perName}</td>
                             <td>身份证号：{insuranceder.perIdCard}</td>
                             <td>地址：{insuranceder.perAddress}</td>
-                            <td></td>
                         </tr>
                     );
                 }
@@ -229,7 +220,6 @@ var LifeOrder=React.createClass({
                             <td>姓名：{benefiter.perName}</td>
                             <td>身份证号：{benefiter.perIdCard}</td>
                             <td>地址：{benefiter.perAddress}</td>
-                            <td></td>
                         </tr>
                     );
                 }
@@ -242,14 +232,14 @@ var LifeOrder=React.createClass({
                             <div className="slider" ref="slider" style={{width:'100%',position:'relative'}}>
                                 <div className="widget-container fluid-height">
                                     <div className="widget-content padded clearfix">
-                                        <table className="table table-striped invoice-table">
+                                        <table className="table table-striped invoice-table" style={{textAlign:'center'}}>
                                             <thead className="table-head">
                                             <tr>
-                                                <th width="330">订单编号</th>
-                                                <th width="330">产品名称</th>
+                                                <th width="200">订单编号</th>
+                                                <th width="500">产品名称</th>
                                                 <th width="330">订单时间</th>
                                                 <th width="330">订单状态</th>
-                                                <th width="330">保费</th>
+                                                <th width="200">保费</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -286,7 +276,6 @@ var LifeOrder=React.createClass({
                                     <table className="table table-striped invoice-table">
                                         <thead className="table-head">
                                         <tr>
-                                            <th width="300"></th>
                                             <th width="300"></th>
                                             <th width="300"></th>
                                             <th width="300"></th>

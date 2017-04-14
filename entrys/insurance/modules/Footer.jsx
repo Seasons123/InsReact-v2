@@ -7,9 +7,9 @@ import {render} from 'react-dom';
 var Mpage=React.createClass({
 
     render:function(){
-``
         return(
             <div style={{marginTop:'40px'}}>
+
                 <div className="clear">
                 </div>
                 <div className="footer" style={{height: '35px'}}>

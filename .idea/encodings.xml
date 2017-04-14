@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/build/datetimepicker/js/bootstrap-datetimepicker.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/css/insurance/components/Business.css" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/css/insurance/components/personInfoBase.css" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/css/insurance/components/personInfoLayout.css" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/entrys/insurance/components/AboutUs.jsx" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/entrys/insurance/components/AddRelatedCarInfo.jsx" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/entrys/insurance/components/CarInsurance.jsx" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/entrys/insurance/components/CarOrder.jsx" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/entrys/insurance/components/LifeInsurance.jsx" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/entrys/insurance/components/LifeOrder.jsx" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/entrys/insurance/components/OrderCenterScore.jsx" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/entrys/insurance/components/PersonalCenter.jsx" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/entrys/insurance/components/RelatedCarInfo.jsx" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/entrys/insurance/components/RelatedPersonInfo.jsx" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/entrys/insurance/components/SelfBaseInfo.jsx" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/entrys/insurance/components/ServiceOrder.jsx" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/entrys/insurance/data/carData.json" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/entrys/insurance/modules/Login.jsx" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/entrys/insurance/modules/Page.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/entrys/insurance/modules/PageNavigator.jsx" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/entrys/insurance/modules/TopNav.jsx" charset="UTF-8" />
+  </component>
+</project>

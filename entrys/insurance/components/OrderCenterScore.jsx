@@ -242,22 +242,27 @@ var OrderCenterScore=React.createClass({
                                 <td>订单号：{orderDetail.orderNum}</td>
                                 <td>保单号：{orderDetail.insuranceNum}</td>
                                 <td>订单状态：{orderDetail.orderStateStr}</td>
-                                <td>申请时间：{orderDetail.applyTime}</td>
-                                <td>缴费时间：{orderDetail.feeDate}</td>
+                                <td>客户：{orderDetail.customerName}</td>
                             </tr>
                         );
                         detail_trs.push(
                             <tr key={1}>
-                                <td>订单时间：{orderDetail.orderDate}</td>
-                                <td>保险公司：{orderDetail.companyName}</td>
-                                <td>投保人perId：{orderDetail.insurerId}</td>
-                                <td>被保险人perId：{orderDetail.insurancederId}</td>
-                                <td>受益人perId：{orderDetail.benefiterId}</td>
+                                <td>申请时间：{orderDetail.applyTime}</td>
+                                <td>缴费时间：{orderDetail.feeDate}</td>
+                                <td>出单时间：{orderDetail.orderDate}</td>
+                                <td>保单起期：{orderDetail.insuranceDate}</td>
                             </tr>
                         );
                         detail_trs.push(
                             <tr key={2}>
-                                <td>客户：{orderDetail.customerName}</td>
+                                <td>投保人：{orderDetail.insurerName}</td>
+                                <td>被保险人：{orderDetail.insurancederName}</td>
+                                <td>受益人：{orderDetail.benefiterName}</td>
+                                <td>保险公司：{orderDetail.companyName}</td>
+                            </tr>
+                        );
+                        detail_trs.push(
+                            <tr key={3}>
                                 <td>商业基准保费：{orderDetail.insuranceBusinessFee}</td>
                                 <td>商业险折扣：{orderDetail.businessDiscount}</td>
                                 <td>交强险基准保费：{orderDetail.insuranceCompulsoryFee}</td>
@@ -265,21 +270,11 @@ var OrderCenterScore=React.createClass({
                             </tr>
                         );
                         detail_trs.push(
-                            <tr key={3}>
+                            <tr key={4}>
                                 <td>车船税：{orderDetail.carTax}</td>
                                 <td>签单保费：{orderDetail.contractFee}</td>
                                 <td>佣金：{orderDetail.commission}</td>
                                 <td>积分：{orderDetail.score}</td>
-                                <td>邮寄地址：{orderDetail.customerMailAddress}</td>
-                            </tr>
-                        );
-                        detail_trs.push(
-                            <tr key={4}>
-                                <td>邮编：{orderDetail.customerMailPostcode}</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
                             </tr>
                         );
                         break;
@@ -289,16 +284,14 @@ var OrderCenterScore=React.createClass({
                                 <td>订单号：{orderDetail.orderNum}</td>
                                 <td>订单状态：{orderDetail.orderStateStr}</td>
                                 <td>申请时间：{orderDetail.applyTime}</td>
-                                <td>订单时间：{orderDetail.orderDate}</td>
-                                <td>客户编号：{orderDetail.customerNum}</td>
+                                <td>出单时间：{orderDetail.orderDate}</td>
                             </tr>
                         );
                         detail_trs.push(
                             <tr key={1}>
+                                <td>客户编号：{orderDetail.customerNum}</td>
                                 <td>客户姓名：{orderDetail.customerName}</td>
                                 <td>客户电话：{orderDetail.customerPhone}</td>
-                                <td>邮寄地址：{orderDetail.customerMailAddress}</td>
-                                <td>邮编：{orderDetail.customerMailPostcode}</td>
                                 <td>保障类型：{orderDetail.insuranceType}</td>
                             </tr>
                         );
@@ -307,17 +300,7 @@ var OrderCenterScore=React.createClass({
                                 <td>是否有社保：{orderDetail.hasSocietyInsurance}</td>
                                 <td>是否有商业保险：{orderDetail.hasCommerceInsurance}</td>
                                 <td>计划保费：{orderDetail.planInsuranceFee}</td>
-                                <td>保单号：{orderDetail.insuranceNum}</td>
-                                <td>起保日期：{orderDetail.insuranceDate}</td>
-                            </tr>
-                        );
-                        detail_trs.push(
-                            <tr key={3}>
-                                <td>签单日期：{orderDetail.feeDate}</td>
-                                <td>积分：{orderDetail.score}</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td>保费金额：{orderDetail.insuranceFeeTotal}</td>
                             </tr>
                         );
                         break;
@@ -326,36 +309,40 @@ var OrderCenterScore=React.createClass({
                             <tr key={0}>
                                 <td>订单编号：{orderDetail.orderNum}</td>
                                 <td>订单状态：{orderDetail.orderStateStr}</td>
-                                <td>服务类型：{orderDetail.serviceType}</td>
-                                <td>服务项目：{orderDetail.subServiceTypeNames}</td>
                                 <td>预约时间：{orderDetail.estimateTime}</td>
+                                <td>申请时间：{orderDetail.applyTime}</td>
                             </tr>
                         );
                         detail_trs.push(
                             <tr key={1}>
+                                <td>车牌号：{orderDetail.carNum}</td>
+                                <td>服务类型：{orderDetail.serviceType}</td>
+                                <td>服务项目：{orderDetail.subServiceTypeNames}</td>
                                 <td>服务地点：{orderDetail.servicePlace}</td>
-                                <td>申请时间：{orderDetail.applyTime}</td>
-                                <td>接单时间：{orderDetail.takeOrderDate}</td>
-                                <td>服务人员编号：{orderDetail.servicePersonNum}</td>
-                                <td>服务人员姓名：{orderDetail.servicePersonName}</td>
                             </tr>
                         );
                         detail_trs.push(
                             <tr key={2}>
+                                <td>服务人员编号：{orderDetail.servicePersonNum}</td>
+                                <td>服务人员姓名：{orderDetail.servicePersonName}</td>
                                 <td>客户编号：{orderDetail.customerNum}</td>
                                 <td>客户姓名：{orderDetail.customerName}</td>
-                                <td>订单完成时间：{orderDetail.orderDate}</td>
-                                <td>积分：{orderDetail.fee}</td>
-                                <td>结算时间：{orderDetail.feeDate}</td>
                             </tr>
                         );
                         detail_trs.push(
                             <tr key={3}>
-                                <td>备注：{orderDetail.remark}</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td>接单时间：{orderDetail.takeOrderDate}</td>
+                                <td>完成时间：{orderDetail.orderFinishDate}</td>
+                                <td>结算时间：{orderDetail.feeDate}</td>
+                                <td>服务费用：{orderDetail.fee}</td>
+                            </tr>
+                        );
+                        detail_trs.push(
+                            <tr key={4}>
+                                <td>改派时间：{orderDetail.reassignDate}</td>
+                                <td>是否送车：{orderDetail.isAgent}</td>
+                                <td>评价等级：{orderDetail.evaluate}</td>
+                                <td>建议：{orderDetail.proposal}</td>
                             </tr>
                         );
                         break;
@@ -407,13 +394,13 @@ var OrderCenterScore=React.createClass({
                             <div className="slider" ref="slider" style={{width:'100%',marginTop:'20px',position:'relative'}}>
                                 <div className="widget-container fluid-height">
                                     <div className="widget-content padded clearfix">
-                                        <table className="table table-striped invoice-table">
+                                        <table className="table table-striped invoice-table" style={{textAlign:'center'}}>
                                             <thead className="table-head">
                                             <tr>
                                                 <th width="330">订单编号</th>
                                                 <th width="330">来源/用途</th>
                                                 <th width="330">积分变化</th>
-                                                <th width="330">订单时间</th>
+                                                <th width="330">出单时间</th>
                                                 <th width="330">订单状态</th>
                                             </tr>
                                             </thead>
@@ -453,7 +440,6 @@ var OrderCenterScore=React.createClass({
                                         <table className="table table-striped invoice-table">
                                             <thead className="table-head">
                                             <tr>
-                                                <th width="300"></th>
                                                 <th width="300"></th>
                                                 <th width="300"></th>
                                                 <th width="300"></th>

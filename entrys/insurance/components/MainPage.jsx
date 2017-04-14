@@ -119,6 +119,8 @@ var MainPage=React.createClass({
                         </div>
                     </div>
 
+                    <div className="clear">
+                    </div>
                     <div className="margin w1008">
                         <div className="product">
                             <div className="company mar_10">

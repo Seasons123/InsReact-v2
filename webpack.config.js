@@ -18,53 +18,53 @@ module.exports = {
 
 
     output: {
-        path: path.resolve(__dirname, 'build'),
-        filename: 'bundle.js'
-    },
-    resolve: {
-        extensions: ['', '.js', '.jsx']
-    },
-    devServer: {
-        contentBase: "./build",
-        stats:{colors: true},
-        historyApiFallback: true,
-        inline: true,
-        port:3000,
-        hot:true,
+            path: path.resolve(__dirname, 'build'),
+            filename: 'bundle.js'
+        },
+        resolve: {
+            extensions: ['', '.js', '.jsx']
+        },
+        devServer: {
+            contentBase: "./build",
+            stats:{colors: true},
+            historyApiFallback: true,
+            inline: true,
+            port:3000,
+            hot:true,
 
-        proxy:{
-            '/insurancems/*':{
-                target: 'http://localhost:8080/',
-                secure: false,
-                changeOrigin: true
+            proxy:{
+                '/insurancems/*':{
+                    target: 'http://localhost:8080/',
+                    secure: false,
+                    changeOrigin: true
+                }
             }
-        }
-    },
-    plugins: [
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.optimize.CommonsChunkPlugin('vendor',  'vendor.js'),
-        new webpack.DefinePlugin({
-            "process.env": {
-                'NODE_ENV': JSON.stringify("production")
-            }
-        }),
-        new webpack.optimize.UglifyJsPlugin({
-            mangle: {
-                except: ['$super', '$', 'exports', 'require']
-                //‰ª•‰∏äÂèòÈáè‚Äò$super‚Äô, ‚Äò$‚Äô, ‚Äòexports‚Äô or ‚Äòrequire‚ÄôÔºå‰∏ç‰ºöË¢´Ê∑∑Ê∑Ü
-            },
-            compress: {
-                warnings: false
-            },
-            output: {
-                comments: false,  // remove all comments
-            },
-        }),
+        },
+        plugins: [
+            new webpack.HotModuleReplacementPlugin(),
+            new webpack.optimize.CommonsChunkPlugin('vendor',  'vendor.js'),
+            new webpack.DefinePlugin({
+                "process.env": {
+                    'NODE_ENV': JSON.stringify("production")
+                }
+            }),
+            new webpack.optimize.UglifyJsPlugin({
+                mangle: {
+                    except: ['$super', '$', 'exports', 'require']
+                    //“‘…œ±‰¡ø°Æ$super°Ø, °Æ$°Ø, °Æexports°Ø or °Ærequire°Ø£¨≤ªª·±ªªÏœ˝
+                },
+                compress: {
+                    warnings: false
+                },
+                output: {
+                    comments: false,  // remove all comments
+                },
+            }),
 
 
-    ],
+        ],
 
-    module: {
+        module: {
         loaders: [
 
             { test: /\.js[x]?$/, include: path.resolve(__dirname, 'app'), exclude:/node_modules/,loader: 'babel-loader' },
