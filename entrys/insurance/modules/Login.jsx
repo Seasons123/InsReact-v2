@@ -507,7 +507,7 @@ var Login=React.createClass({
                             <div className="passport-third">
                                 <header className="hd">
                                     <div className="layout-inner">
-                                        <h3>汽车保险</h3>
+                                        <h3>捷惠保</h3>
                                     </div>
                                 </header>
                                 <div className="links">
@@ -588,7 +588,7 @@ var Login=React.createClass({
                             <div className="passport-third">
                                 <header className="hd">
                                     <div className="layout-inner">
-                                        <h3>汽车保险</h3>
+                                        <h3>捷惠保</h3>
                                     </div>
                                 </header>
                                 <div className="links">
@@ -662,7 +662,7 @@ var Login=React.createClass({
                             <div className="passport-third">
                                 <header className="hd">
                                     <div className="layout-inner">
-                                        <h3>汽车保险</h3>
+                                        <h3>捷惠保</h3>
                                     </div>
                                 </header>
                                 <div className="links">
@@ -678,7 +678,7 @@ var Login=React.createClass({
         return(
             <div className="passport-wrapper">
                 <header id="header" className="passport-header">
-                    <div id="logo"><a><img src={window.App.getResourceDeployPrefix()+"/images/loginLogo.png"} /></a></div>
+                    <div id="logo"><a><img src={window.App.getResourceDeployPrefix()+"/images/logo_02.png"} /></a></div>
                 </header>
                 <div id="container" ref='login-register-forget'>
                     <div className="passport-sign">
