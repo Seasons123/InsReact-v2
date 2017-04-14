@@ -4,7 +4,6 @@
 import React from 'react';
 import { render } from 'react-dom';
 import {Link} from 'react-router';
-import config from '../../../config.json';
 import '../../../css/insurance/components/passport.css';
 
 var ProxyQ = require('../../../components/proxy/ProxyQ');
