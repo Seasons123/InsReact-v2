@@ -28,7 +28,7 @@ var _loginName={};//登录名
 
 var _pageData={};//页面数据
 
-var _router={};//路由地址
+var _router="/mainPage";//路由地址
 
 var _result=false;//返回结果
 

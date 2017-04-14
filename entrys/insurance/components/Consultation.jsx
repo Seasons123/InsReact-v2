@@ -58,9 +58,14 @@ var Consultation = React.createClass({
             params,
             null,
             function(ob) {
-                this.setState({content:ob.data});
-                this.state.nav='consultationDetails';
-                this.initialData();
+                if(ob.data=="fail"){
+                    alert("该问题暂无解答！");
+                }else
+                {
+                    this.setState({content: ob.data});
+                    this.state.nav = 'consultationDetails';
+                    this.initialData();
+                }
             }.bind(this),
 
             function(xhr, status, err) {
