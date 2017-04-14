@@ -120,40 +120,40 @@ var MainPage=React.createClass({
                     </div>
 
                     <div className="margin w1008">
-                        <div className="company mar_10">
-                            <div className="company_B">
-                                关于我们
-                            </div>
-                            <Link to={window.App.getAppRoute() + "/aboutUs"}>
-                                <span className="about-more"><i href="javascript:void(0)">more&gt;&gt;</i></span>
-                            </Link>
-                            <div className="company_img">
-                                <img alt="" src={window.App.getResourceDeployPrefix()+"/images/company.jpg"}></img>
-                                捷惠保：立足于客户立场，深度发掘客户需求，客观分析，在众多保险产品中为客户选择适合的产品；
-                                与保险主体公司深度合作，依据已有客户需求研发更多，保障全，保费低的优质产品；
-                                为客户提供咨询，理赔，资料代管，车驾管服务等与保险相关的一站式服务。
-                            </div>
-                        </div>
-
-                        <div className="news mar_L">
-                            <div className="news_B">
-                                最新资讯
-                            </div>
-                            <Link to={window.App.getAppRoute() + "/news"}>
-                                <span className="news-more"><i href="javascript:void(0)">more&gt;&gt;</i></span>
-                            </Link>
-                            <div className="news_L">
-
-                                <div>
-                                    <NewsList
-                                        data={this.state.data}
-                                        clickCb={this.clickCb}
-                                        />
+                        <div className="product">
+                            <div className="company mar_10">
+                                <div className="company_B">
+                                    关于我们
                                 </div>
-
-
+                                <Link to={window.App.getAppRoute() + "/aboutUs"}>
+                                    <span className="about-more"><i href="javascript:void(0)">more&gt;&gt;</i></span>
+                                </Link>
+                                <div className="company_img">
+                                    <img alt=""
+                                         src={window.App.getResourceDeployPrefix() + "/images/company.jpg"}></img>
+                                    捷惠保：立足于客户立场，深度发掘客户需求，客观分析，在众多保险产品中为客户选择适合的产品；
+                                    与保险主体公司深度合作，依据已有客户需求研发更多，保障全，保费低的优质产品；
+                                    为客户提供咨询，理赔，资料代管，车驾管服务等与保险相关的一站式服务。
+                                </div>
                             </div>
-                        </div>
+
+                            <div className="news mar_L">
+                                <div className="news_B">
+                                    最新资讯
+                                </div>
+                                <Link to={window.App.getAppRoute() + "/news"}>
+                                    <span className="news-more"><i href="javascript:void(0)">more&gt;&gt;</i></span>
+                                </Link>
+                                <div className="news_L">
+
+                                    <div>
+                                        <NewsList
+                                            data={this.state.data}
+                                            clickCb={this.clickCb}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
 
                         <div className="service fr mar_10">
                             <div className="clear">
@@ -175,6 +175,7 @@ var MainPage=React.createClass({
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 </div>
                             </div>
+                        </div>
                         </div>
                     </div>
 

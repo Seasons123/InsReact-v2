@@ -430,7 +430,7 @@ var Login=React.createClass({
 
     repaintImage:function (){
         var img = $("#validateImage");
-        img.attr('src',"/insurancems/validatecode.jpg?rnd=" + Math.random());// 防止浏览器缓存的问题
+        img.attr('src',"/validatecode.jpg?rnd=" + Math.random());// 防止浏览器缓存的问题
     },
 
     render:function(){
@@ -468,7 +468,7 @@ var Login=React.createClass({
                                                     <tr >
                                                         <td><span className="info">验证码:  &nbsp;</span></td>
                                                         <td><input type="text" name="verify" id="verify" className="passport-txt xl w-full" /></td>
-                                                        <td><img style={{paddingLeft:'10px'}} id="validateImage" src="/insurancems/validatecode.jpg"/></td>
+                                                        <td><img style={{paddingLeft:'10px'}} id="validateImage" src="/validatecode.jpg"/></td>
                                                         <td><img style={{paddingLeft:'5px'}} onClick={this.repaintImage} src="../images/refresh1.png" ></img></td>
                                                         <td><span id="verifyMsg" className="errorMessage"></span></td>
                                                     </tr>

@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { render } from 'react-dom';
-import { Router, Route, browserHistory, IndexRoute } from 'react-router';
+import { Router, Route, browserHistory, IndexRoute,hashHistory } from 'react-router';
 import App from './modules/App.jsx';
 import MainPage from './components/MainPage.jsx';
 import HomePage from './components/HomePage.jsx';
@@ -13,7 +13,7 @@ import lifeInsuranceBuyPage from './components/LifeInsuranceBuyPage';
 import carInsuranceBuyPage from './components/CarInsuranceBuyPage';
 
 render((
-    <Router history={browserHistory}>
+    <Router history={hashHistory}>
         <Route path={window.App.getAppRoute()} component={App}>
             <IndexRoute component={HomePage}/>
             <Route path={window.App.getAppRoute()+"/"} component={HomePage}/>
