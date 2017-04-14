@@ -86,7 +86,7 @@ var TopNav=React.createClass({
             <div>
                 <div className="top w1008 margin"  onLoad={this.initValue()}>
                     <div className="logo">
-                        <a href="#">
+                        <a>
                             <img src={window.App.getResourceDeployPrefix()+"/images/logo_02.png"} style={{width:'432px', height:'110px'}}></img></a>
                     </div>
                     <div className="fr">

@@ -1215,6 +1215,7 @@ a:hover,.limitCnt p a:hover.loginLink,#footer a.ftsite:hover {
     width: 485px;
     margin: 9px;
     float: left;
+    cursor: pointer;
 }
 
 .product_img img {

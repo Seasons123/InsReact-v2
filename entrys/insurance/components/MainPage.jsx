@@ -92,68 +92,70 @@ var MainPage=React.createClass({
                             <div className="product_B">
                                 <a href="javascript:void(0)">产品介绍 </a>
                             </div>
-                            <div className="product_img">
-                                <img src={window.App.getResourceDeployPrefix()+"/images/uploads/project/201508041122115824_21534582.jpg"} style={{width:'485px', height:'129px'}}></img>
-                                <div className="product_bg">
+                            <Link to={window.App.getAppRoute() + "/lifeInsurance"}>
+                                <div className="product_img">
+                                    <img src={window.App.getResourceDeployPrefix()+"/images/uploads/project/201508041122115824_21534582.jpg"} style={{width:'485px', height:'129px'}}></img>
+                                    <div className="product_bg">
+                                    </div>
+                                    <div className="product_font">
+                                             <i style={{color: 'aliceblue'}}> 寿险产品</i>
+                                    </div>
+                                    <div className="clear">
+                                    </div>
                                 </div>
-                                <div className="product_font">
-                                    <a href="javascript:void(0)"> 寿险产品</a>
+                            </Link>
+                            <Link to={window.App.getAppRoute() + "/carInsurance"}>
+                                <div className="product_img">
+                                    <img src={window.App.getResourceDeployPrefix()+"/images/uploads/project/201508041122361838_09058640.jpg"} style={{width:'485px', height:'129px'}}></img>
+                                    <div className="product_bg">
+                                    </div>
+                                    <div className="product_font">
+                                            <i style={{color: 'aliceblue'}}> 车险产品</i>
+                                    </div>
+                                    <div className="clear">
+                                    </div>
                                 </div>
-                                <div className="clear">
-                                </div>
-
-                            </div>
-                            <div className="product_img">
-                                <img src={window.App.getResourceDeployPrefix()+"/images/uploads/project/201508041122361838_09058640.jpg"} style={{width:'485px', height:'129px'}}></img>
-                                <div className="product_bg">
-                                </div>
-                                <div className="product_font">
-                                    <a href="javascript:void(0)" id="585"> 车险产品</a>
-                                </div>
-                                <div className="clear">
-                                </div>
-
-                            </div>
+                            </Link>
                         </div>
                     </div>
 
                     <div className="clear">
                     </div>
                     <div className="margin w1008">
-                        <div className="company mar_10">
-                            <div className="company_B">
-                                关于我们
-                            </div>
-                            <Link to={window.App.getAppRoute() + "/aboutUs"}>
-                                <span className="about-more"><i href="javascript:void(0)">more&gt;&gt;</i></span>
-                            </Link>
-                            <div className="company_img">
-                                <img alt="" src={window.App.getResourceDeployPrefix()+"/images/company.jpg"}></img>
-                                捷惠保：立足于客户立场，深度发掘客户需求，客观分析，在众多保险产品中为客户选择适合的产品；
-                                与保险主体公司深度合作，依据已有客户需求研发更多，保障全，保费低的优质产品；
-                                为客户提供咨询，理赔，资料代管，车驾管服务等与保险相关的一站式服务。
-                            </div>
-                        </div>
-
-                        <div className="news mar_L">
-                            <div className="news_B">
-                                最新资讯
-                            </div>
-                            <Link to={window.App.getAppRoute() + "/news"}>
-                                <span className="news-more"><i href="javascript:void(0)">more&gt;&gt;</i></span>
-                            </Link>
-                            <div className="news_L">
-
-                                <div>
-                                    <NewsList
-                                        data={this.state.data}
-                                        clickCb={this.clickCb}
-                                        />
+                        <div className="product">
+                            <div className="company mar_10">
+                                <div className="company_B">
+                                    关于我们
                                 </div>
-
-
+                                <Link to={window.App.getAppRoute() + "/aboutUs"}>
+                                    <span className="about-more"><i href="javascript:void(0)">more&gt;&gt;</i></span>
+                                </Link>
+                                <div className="company_img">
+                                    <img alt=""
+                                         src={window.App.getResourceDeployPrefix() + "/images/company.jpg"}></img>
+                                    捷惠保：立足于客户立场，深度发掘客户需求，客观分析，在众多保险产品中为客户选择适合的产品；
+                                    与保险主体公司深度合作，依据已有客户需求研发更多，保障全，保费低的优质产品；
+                                    为客户提供咨询，理赔，资料代管，车驾管服务等与保险相关的一站式服务。
+                                </div>
                             </div>
-                        </div>
+
+                            <div className="news mar_L">
+                                <div className="news_B">
+                                    最新资讯
+                                </div>
+                                <Link to={window.App.getAppRoute() + "/news"}>
+                                    <span className="news-more"><i href="javascript:void(0)">more&gt;&gt;</i></span>
+                                </Link>
+                                <div className="news_L">
+
+                                    <div>
+                                        <NewsList
+                                            data={this.state.data}
+                                            clickCb={this.clickCb}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
 
                         <div className="service fr mar_10">
                             <div className="clear">
@@ -175,6 +177,7 @@ var MainPage=React.createClass({
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 </div>
                             </div>
+                        </div>
                         </div>
                     </div>
 

@@ -191,7 +191,7 @@ var Login=React.createClass({
         if(password==ackPassword){
             return;
         }else{
-            this.showTips("两次输入密码不一致！");
+            alert("两次输入密码不一致！");
         }
     },
 

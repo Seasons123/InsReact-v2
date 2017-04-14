@@ -1,12 +1,8 @@
 import React from 'react';
 import {render} from 'react-dom';
-import {Link} from 'react-router';
-import '../../../css/insurance/components/commonTopSupnuevo.css';
-import '../../../css/insurance/components/navcontent.css';
-import '../../../css/insurance/components/pagination.css';
-import '../../../css/insurance/components/productIntroduction.css';
-import '../../../css/insurance/components/Consultation.css';
+
 import '../../../css/insurance/components/ConsultationDetails.css';
+
 import Upload from '../../../entrys/insurance/components/Upload';
 var SyncStore = require('../../../components/flux/stores/SyncStore');
 var ProxyQ = require('../../../components/proxy/ProxyQ');
@@ -55,7 +51,9 @@ var ConsultationDetails = React.createClass({
         comments=this.props.comments;
         var img=null;
         img=this.props.img;
-        this.getNotes();
+        if(SyncStore.getNote()==true){
+            this.getNotes();
+        }
         return ({data: data,
             title:title,
             personId:personId,
