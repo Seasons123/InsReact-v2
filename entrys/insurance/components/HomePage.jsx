@@ -25,7 +25,7 @@ var HomePage=React.createClass({
                         <img src={window.App.getResourceDeployPrefix()+"/images/images-8.png"}/>
                     </div>
                     <div className="homePage_R" >
-                    <div style={{minHeight: '450px', paddingTop: '200px'}}>
+                    <div style={{minHeight: '400px', paddingTop: '30%'}}>
                             <ul style={{listStyle:'none'}}>
                                 <li style={{width: '250px',float:'left'}}>
                                     <span style={{display:'block',marginBottom:'20px'}}>
@@ -58,7 +58,7 @@ var HomePage=React.createClass({
                             </ul>
 
                     </div>
-                        <div style={{paddingTop: '200px'}}>
+                        <div style={{paddingTop: '20%'}}>
                             <Link style={{fontSize: 'x-large', paddingLeft: '195px'}}to={window.App.getAppRoute() + "/mainPage"}>
                             进入主页
                             </Link>
