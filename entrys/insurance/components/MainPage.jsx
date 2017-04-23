@@ -94,7 +94,7 @@ var MainPage=React.createClass({
                             </div>
                             <Link to={window.App.getAppRoute() + "/lifeInsurance"}>
                                 <div className="product_img">
-                                    <img src={window.App.getResourceDeployPrefix()+"/images/uploads/project/201508041122115824_21534582.jpg"} style={{width:'485px', height:'129px'}}></img>
+                                    <img src={window.App.getResourceDeployPrefix()+"/images/uploads/project/lifeInsurance.jpg"} style={{width:'485px', height:'180px'}}></img>
                                     <div className="product_bg">
                                     </div>
                                     <div className="product_font">
@@ -106,7 +106,7 @@ var MainPage=React.createClass({
                             </Link>
                             <Link to={window.App.getAppRoute() + "/carInsurance"}>
                                 <div className="product_img">
-                                    <img src={window.App.getResourceDeployPrefix()+"/images/uploads/project/201508041122361838_09058640.jpg"} style={{width:'485px', height:'129px'}}></img>
+                                    <img src={window.App.getResourceDeployPrefix()+"/images/uploads/project/carInsurance.jpg"} style={{width:'485px', height:'180px'}}></img>
                                     <div className="product_bg">
                                     </div>
                                     <div className="product_font">
